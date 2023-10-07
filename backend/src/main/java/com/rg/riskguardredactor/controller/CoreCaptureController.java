@@ -16,9 +16,9 @@ public class CoreCaptureController {
 	@Autowired
 	OT2CoreCaptureService capture;
 
-	@GetMapping("/version")
-	public ResponseEntity<Get200Response> getVersion() {
-		Get200Response versionData = capture.version();
+	@GetMapping("/rootGet")
+	public ResponseEntity<Get200Response> rootGet() {
+		Get200Response versionData = capture.rootGet();
 		if (versionData == null) {
 			return ResponseEntity.internalServerError().body(null);
 		}

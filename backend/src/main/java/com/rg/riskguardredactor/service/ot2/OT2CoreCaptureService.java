@@ -21,7 +21,7 @@ public class OT2CoreCaptureService implements Constant {
 	@Autowired
 	OT2AuthService authService;
 
-	public Get200Response version() {
+	public Get200Response rootGet() {
 
 		String bearerToken = authService.getBearerToken();
 		if (bearerToken == null) {
