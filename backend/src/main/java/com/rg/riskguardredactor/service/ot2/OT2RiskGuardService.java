@@ -1,5 +1,7 @@
 package com.rg.riskguardredactor.service.ot2;
 
+import java.io.File;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -10,6 +12,7 @@ import com.ot2.ApiException;
 import com.ot2.Configuration;
 import com.ot2.auth.HttpBearerAuth;
 import com.ot2.riskguard.ContentAnalyzerApi;
+import com.ot2.riskguard.ContentResponse;
 import com.ot2.riskguard.ProductVersion;
 import com.rg.riskguardredactor.util.Constant;
 
@@ -41,6 +44,28 @@ public class OT2RiskGuardService {
 
 		return null;
 
+	}
+
+	public ContentResponse process() {
+		ContentAnalyzerApi apiInstance = getClientApiInstance();
+		if (apiInstance == null) {
+			log.error("Could not retrieve apiClientInstance. Hence, could not invoke getVersion.");
+			return null;
+		}
+
+		try {
+			// TODO: File should come dynamically
+			File file = new File("C:/Users/anush/Downloads/lab-report-1pg.pdf");
+			ContentResponse result = apiInstance.processContent(file);
+			return result;
+		} catch (ApiException e) {
+			log.error("Exception when calling ContentAnalyzerApi#processContent");
+			log.error("Status code: {}", e.getCode());
+			log.error("Reason: {}", e.getResponseBody());
+			log.error("Response headers: {}", e.getResponseHeaders());
+			e.printStackTrace();
+		}
+		return null;
 	}
 
 	private ContentAnalyzerApi getClientApiInstance() {

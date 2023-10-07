@@ -6,6 +6,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.ot2.riskguard.ContentResponse;
 import com.ot2.riskguard.ProductVersion;
 import com.rg.riskguardredactor.service.ot2.OT2RiskGuardService;
 
@@ -23,6 +24,15 @@ public class RiskGuardController {
 			return ResponseEntity.internalServerError().body(null);
 		}
 		return ResponseEntity.ok(versionData);
+	}
+
+	@GetMapping("/processContent")
+	public ResponseEntity<ContentResponse> processContent() {
+		ContentResponse processedContentResponse = riskGuard.process();
+		if (processedContentResponse == null) {
+			return ResponseEntity.internalServerError().body(null);
+		}
+		return ResponseEntity.ok(processedContentResponse);
 	}
 
 }
