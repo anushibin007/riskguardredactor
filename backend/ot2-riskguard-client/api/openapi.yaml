@@ -1,0 +1,249 @@
+openapi: 3.0.1
+info:
+  description: "The Magellan Risk Guard REST service processes documents to help identify\
+    \ risks/threats. It is a completely stateless service that offers built-in accurate\
+    \ models. Leveraging the core components of Magellan Text Mining, the following\
+    \ information will be identified/extracted from documents  :\r\n- PII(Personally\
+    \ Identifiable Information)\r\n- Personal Secure Information (PSI)\r\n- Hate Speech\
+    \ Classification\r\n- Classification of images for threat/risk detection.\n\n\
+    # Authentication\n\n<!-- ReDoc-Inject: <security-definitions> -->"
+  title: Magellan Risk Guard
+  version: "1.0"
+externalDocs:
+  description: Terms of service
+  url: https://www.opentext.com/about/copyright-information
+servers:
+- description: Build & Test
+  url: https://na-1-dev.api.opentext.com/mtm-riskguard
+- description: NA Production
+  url: https://na-1.api.opentext.com/mtm-riskguard
+- description: EU Production
+  url: https://eu-1.api.opentext.com/mtm-riskguard
+- description: CA Production
+  url: https://ca.api.opentext.com/mtm-riskguard
+security:
+- Bearer: []
+paths:
+  /api/v1/process:
+    post:
+      description: This is the main end point of the service.  This takes the binary
+        document with multi-part form data.  The parameter name should be 'File' and
+        the binary content should be attached to it.
+      operationId: processContent
+      requestBody:
+        content:
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/processContent_request'
+        description: This should be of type multipart/form-data. This is the content
+          to be analyzed for Risk
+        required: true
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ContentResponse'
+          description: The content is analyzed successfully
+        "401":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/OT2ErrorMessage'
+          description: The authorization error occurred. The bearer token either expired
+            or invalid.  Please get the new bearer token from OTDS token URL.
+        "500":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/OT2ErrorMessage'
+          description: The internal processing error is occurred. Need to check the
+            logs when this error is occurred.
+      summary: "Process documents/images for extraction/identification of PII, PSI\
+        \ and threat/risk"
+      tags:
+      - content-analyzer
+      x-content-type: multipart/form-data
+      x-accepts: application/json
+  /api/v1/version:
+    get:
+      description: Get version of Risk Guard Service. This information includes service
+        major and minor version details
+      operationId: getProductVersion
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProductVersion'
+          description: The version is retreived correctly
+        "401":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/OT2ErrorMessage'
+          description: The authorization error occurred. The bearer token either expired
+            or invalid.  Please get the new bearer token from OTDS token URL.
+        "500":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/OT2ErrorMessage'
+          description: The internal processing error is occurred. Need to check the
+            logs when this error is occurred.
+      summary: Get version of Risk Guard Service
+      tags:
+      - content-analyzer
+      x-accepts: application/json
+components:
+  schemas:
+    ContentResponse:
+      example:
+        header:
+          documentId: documentId
+          status:
+            description: description
+            message: message
+        results:
+          stt:
+            result: "{}"
+            status:
+              description: description
+              message: message
+          ia:
+            result: "{}"
+            status:
+              description: description
+              message: message
+          va:
+            result: "{}"
+            status:
+              description: description
+              message: message
+          tme:
+            result: "{}"
+            status:
+              description: description
+              message: message
+      properties:
+        header:
+          $ref: '#/components/schemas/Header'
+        results:
+          $ref: '#/components/schemas/Results'
+      type: object
+    Header:
+      example:
+        documentId: documentId
+        status:
+          description: description
+          message: message
+      properties:
+        documentId:
+          type: string
+        status:
+          $ref: '#/components/schemas/Status'
+      type: object
+    Result:
+      example:
+        result: "{}"
+        status:
+          description: description
+          message: message
+      properties:
+        status:
+          $ref: '#/components/schemas/Status'
+        result:
+          type: object
+      type: object
+    Results:
+      example:
+        stt:
+          result: "{}"
+          status:
+            description: description
+            message: message
+        ia:
+          result: "{}"
+          status:
+            description: description
+            message: message
+        va:
+          result: "{}"
+          status:
+            description: description
+            message: message
+        tme:
+          result: "{}"
+          status:
+            description: description
+            message: message
+      properties:
+        tme:
+          $ref: '#/components/schemas/Result'
+        ia:
+          $ref: '#/components/schemas/Result'
+        va:
+          $ref: '#/components/schemas/Result'
+        stt:
+          $ref: '#/components/schemas/Result'
+      type: object
+    Status:
+      example:
+        description: description
+        message: message
+      properties:
+        message:
+          type: string
+        description:
+          type: string
+      type: object
+    OT2ErrorMessage:
+      properties:
+        status:
+          type: string
+        message:
+          type: string
+        moreInfo:
+          type: string
+        errorCode:
+          type: string
+      type: object
+    ProductVersion:
+      example:
+        patch: 1
+        major: 0
+        minor: 6
+        build: build
+        version: version
+        preRelease: preRelease
+      properties:
+        version:
+          type: string
+        major:
+          format: int32
+          type: integer
+        minor:
+          format: int32
+          type: integer
+        patch:
+          format: int32
+          type: integer
+        preRelease:
+          type: string
+        build:
+          type: string
+      type: object
+    processContent_request:
+      properties:
+        File:
+          format: binary
+          type: string
+      required:
+      - File
+      type: object
+  securitySchemes:
+    Bearer:
+      bearerFormat: jwt
+      scheme: bearer
+      type: http
+

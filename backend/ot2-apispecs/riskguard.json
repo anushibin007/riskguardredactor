@@ -1,0 +1,258 @@
+{
+  "openapi": "3.0.1",
+  "info": {
+    "title": "Magellan Risk Guard",
+    "version": "1.0",
+    "description": "The Magellan Risk Guard REST service processes documents to help identify risks/threats. It is a completely stateless service that offers built-in accurate models. Leveraging the core components of Magellan Text Mining, the following information will be identified/extracted from documents  :\r\n- PII(Personally Identifiable Information)\r\n- Personal Secure Information (PSI)\r\n- Hate Speech Classification\r\n- Classification of images for threat/risk detection.\n\n# Authentication\n\n<!-- ReDoc-Inject: <security-definitions> -->"
+  },
+  "externalDocs": {
+    "description": "Terms of service",
+    "url": "https://www.opentext.com/about/copyright-information"
+  },
+  "servers": [
+    {
+      "url": "https://na-1-dev.api.opentext.com/mtm-riskguard",
+      "description": "Build & Test"
+    },
+    {
+      "url": "https://na-1.api.opentext.com/mtm-riskguard",
+      "description": "NA Production",
+      "variables": {}
+    },
+    {
+      "url": "https://eu-1.api.opentext.com/mtm-riskguard",
+      "description": "EU Production",
+      "variables": {}
+    },
+    {
+      "url": "https://ca.api.opentext.com/mtm-riskguard",
+      "description": "CA Production"
+    }
+  ],
+  "security": [
+    {
+      "Bearer": []
+    }
+  ],
+  "paths": {
+    "/api/v1/process": {
+      "post": {
+        "tags": [
+          "content-analyzer"
+        ],
+        "summary": "Process documents/images for extraction/identification of PII, PSI and threat/risk",
+        "description": "This is the main end point of the service.  This takes the binary document with multi-part form data.  The parameter name should be 'File' and the binary content should be attached to it.",
+        "operationId": "processContent",
+        "requestBody": {
+          "description": "This should be of type multipart/form-data. This is the content to be analyzed for Risk",
+          "content": {
+            "multipart/form-data": {
+              "schema": {
+                "required": [
+                  "File"
+                ],
+                "type": "object",
+                "properties": {
+                  "File": {
+                    "type": "string",
+                    "format": "binary"
+                  }
+                }
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "The content is analyzed successfully",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ContentResponse"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "The authorization error occurred. The bearer token either expired or invalid.  Please get the new bearer token from OTDS token URL.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/OT2ErrorMessage"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "The internal processing error is occurred. Need to check the logs when this error is occurred.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/OT2ErrorMessage"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/version": {
+      "get": {
+        "tags": [
+          "content-analyzer"
+        ],
+        "summary": "Get version of Risk Guard Service",
+        "description": "Get version of Risk Guard Service. This information includes service major and minor version details",
+        "operationId": "getProductVersion",
+        "responses": {
+          "200": {
+            "description": "The version is retreived correctly",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProductVersion"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "The authorization error occurred. The bearer token either expired or invalid.  Please get the new bearer token from OTDS token URL.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/OT2ErrorMessage"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "The internal processing error is occurred. Need to check the logs when this error is occurred.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/OT2ErrorMessage"
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  "components": {
+    "schemas": {
+      "ContentResponse": {
+        "type": "object",
+        "properties": {
+          "header": {
+            "$ref": "#/components/schemas/Header"
+          },
+          "results": {
+            "$ref": "#/components/schemas/Results"
+          }
+        }
+      },
+      "Header": {
+        "type": "object",
+        "properties": {
+          "documentId": {
+            "type": "string"
+          },
+          "status": {
+            "$ref": "#/components/schemas/Status"
+          }
+        }
+      },
+      "Result": {
+        "type": "object",
+        "properties": {
+          "status": {
+            "$ref": "#/components/schemas/Status"
+          },
+          "result": {
+            "type": "object"
+          }
+        }
+      },
+      "Results": {
+        "type": "object",
+        "properties": {
+          "tme": {
+            "$ref": "#/components/schemas/Result"
+          },
+          "ia": {
+            "$ref": "#/components/schemas/Result"
+          },
+          "va": {
+            "$ref": "#/components/schemas/Result"
+          },
+          "stt": {
+            "$ref": "#/components/schemas/Result"
+          }
+        }
+      },
+      "Status": {
+        "type": "object",
+        "properties": {
+          "message": {
+            "type": "string"
+          },
+          "description": {
+            "type": "string"
+          }
+        }
+      },
+      "OT2ErrorMessage": {
+        "type": "object",
+        "properties": {
+          "status": {
+            "type": "string"
+          },
+          "message": {
+            "type": "string"
+          },
+          "moreInfo": {
+            "type": "string"
+          },
+          "errorCode": {
+            "type": "string"
+          }
+        }
+      },
+      "ProductVersion": {
+        "type": "object",
+        "properties": {
+          "version": {
+            "type": "string"
+          },
+          "major": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "minor": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "patch": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "preRelease": {
+            "type": "string"
+          },
+          "build": {
+            "type": "string"
+          }
+        }
+      }
+    },
+    "securitySchemes": {
+      "Bearer": {
+        "type": "http",
+        "scheme": "bearer",
+        "bearerFormat": "jwt"
+      }
+    }
+  }
+}
