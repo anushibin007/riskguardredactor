@@ -14,7 +14,8 @@ public interface Constant {
 
 	// URLs
 	public static final String OT2_BASE_URL = "https://na-1-dev.api.opentext.com";
-	public static final String OT2_RISKGUARD_BASE_URL = OT2_BASE_URL + "/mtm-riskguard";
 	public static final String OT2_AUTH_URL = OT2_BASE_URL + "/tenants/" + OT2_APP_ID + "/oauth2/token";
+	public static final String OT2_RISKGUARD_BASE_URL = OT2_BASE_URL + "/mtm-riskguard";
+	public static final String OT2_CORECAPTURE_BASE_URL = OT2_BASE_URL + "/capture/cp-rest/v2";
 
 }
