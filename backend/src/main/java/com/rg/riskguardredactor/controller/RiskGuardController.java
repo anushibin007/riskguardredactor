@@ -1,5 +1,7 @@
 package com.rg.riskguardredactor.controller;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -29,6 +31,15 @@ public class RiskGuardController {
 	@GetMapping("/processContent")
 	public ResponseEntity<ContentResponse> processContent() {
 		ContentResponse processedContentResponse = riskGuard.process();
+		if (processedContentResponse == null) {
+			return ResponseEntity.internalServerError().body(null);
+		}
+		return ResponseEntity.ok(processedContentResponse);
+	}
+
+	@GetMapping("/processContentArrayResponse")
+	public ResponseEntity<List<String>> processContentArrayResponse() {
+		List<String> processedContentResponse = riskGuard.processAndGetResults();
 		if (processedContentResponse == null) {
 			return ResponseEntity.internalServerError().body(null);
 		}

@@ -1,12 +1,16 @@
 package com.rg.riskguardredactor.service.ot2;
 
 import java.io.File;
+import java.util.ArrayList;
+import java.util.List;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.JsonNode;
 import com.ot2.ApiClient;
 import com.ot2.ApiException;
 import com.ot2.Configuration;
@@ -15,6 +19,7 @@ import com.ot2.riskguard.ContentAnalyzerApi;
 import com.ot2.riskguard.ContentResponse;
 import com.ot2.riskguard.ProductVersion;
 import com.rg.riskguardredactor.util.Constant;
+import com.rg.riskguardredactor.util.JSONTools;
 
 @Service
 public class OT2RiskGuardService {
@@ -44,6 +49,44 @@ public class OT2RiskGuardService {
 
 		return null;
 
+	}
+
+	public List<String> processAndGetResults() {
+		ContentResponse processResults = process();
+		return processAndGetResults(processResults);
+	}
+
+	public List<String> processAndGetResults(ContentResponse processResults) {
+
+		if (processResults == null) {
+			log.error("Could not retrieve processResults. Hence, could not process the data further.");
+			return null;
+		}
+		// TODO: Check processResults.getResults().getTme().getStatus() first before
+		// obtaining the results
+		String tmeString = processResults.getResults().getTme().toJson();
+
+		try {
+			JsonNode tmeRoot = JSONTools.getObjectMapper().readTree(tmeString);
+			JsonNode extractedTermRoot = tmeRoot.findValue("ExtractedTerm");
+			if (extractedTermRoot.isArray()) {
+				List<String> extractedTerms = new ArrayList<>();
+				for (JsonNode anExtractedTermNode : extractedTermRoot) {
+					JsonNode subtermsNode = anExtractedTermNode.path("Subterms");
+					JsonNode subtermNode = subtermsNode.path("Subterm");
+					String anExtractedTerm = subtermNode.get(0).path("value").asText();
+					extractedTerms.add(anExtractedTerm);
+				}
+				return extractedTerms;
+			} else {
+				log.warn("extractedTermRoot was not an array");
+			}
+		} catch (JsonProcessingException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+
+		return null;
 	}
 
 	public ContentResponse process() {
