@@ -34,14 +34,14 @@
 			<scope>test</scope>
 		</dependency>
 		<dependency>
-			<groupId>com.ot2</groupId>
-			<artifactId>riskguard</artifactId>
+			<groupId>com.ot2.riskguard</groupId>
+			<artifactId>ot2-riskguard-client</artifactId>
 			<version>1.0</version>
 			<scope>compile</scope>
 		</dependency>
 		<dependency>
-			<groupId>com.ot2</groupId>
-			<artifactId>corecapture</artifactId>
+			<groupId>com.ot2.corecapture</groupId>
+			<artifactId>ot2-corecapture-client</artifactId>
 			<version>23.3</version>
 			<scope>compile</scope>
 		</dependency>

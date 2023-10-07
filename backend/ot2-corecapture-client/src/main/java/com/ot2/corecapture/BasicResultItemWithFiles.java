@@ -52,7 +52,7 @@ import com.ot2.JSON;
 /**
  * BasicResultItemWithFiles
  */
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", date = "2023-10-08T02:12:33.841201300+05:30[Asia/Calcutta]")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", date = "2023-10-08T02:36:37.231944200+05:30[Asia/Calcutta]")
 public class BasicResultItemWithFiles {
   public static final String SERIALIZED_NAME_NODE_ID = "nodeId";
   @SerializedName(SERIALIZED_NAME_NODE_ID)

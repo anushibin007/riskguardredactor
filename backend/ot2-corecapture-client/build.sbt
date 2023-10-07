@@ -1,7 +1,7 @@
 lazy val root = (project in file(".")).
   settings(
-    organization := "com.ot2",
-    name := "corecapture",
+    organization := "com.ot2.corecapture",
+    name := "ot2-corecapture-client",
     version := "23.3",
     scalaVersion := "2.11.4",
     scalacOptions ++= Seq("-feature"),

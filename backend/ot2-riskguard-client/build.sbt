@@ -1,7 +1,7 @@
 lazy val root = (project in file(".")).
   settings(
-    organization := "com.ot2",
-    name := "riskguard",
+    organization := "com.ot2.riskguard",
+    name := "ot2-riskguard-client",
     version := "1.0",
     scalaVersion := "2.11.4",
     scalacOptions ++= Seq("-feature"),

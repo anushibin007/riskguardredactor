@@ -1,8 +1,8 @@
-# corecapture
+# ot2-corecapture-client
 
 Core Capture Services
 - API version: 23.3
-  - Build date: 2023-10-08T02:12:33.841201300+05:30[Asia/Calcutta]
+  - Build date: 2023-10-08T02:36:37.231944200+05:30[Asia/Calcutta]
 
 OpenText Core Capture Services are a set of RESTful web service interfaces that provides capture functionality. Being developed in a purely RESTful style, Core Capture Services are easier to consume for the purposes of writing custom clients.
 
@@ -42,8 +42,8 @@ Add this dependency to your project's POM:
 
 ```xml
 <dependency>
-  <groupId>com.ot2</groupId>
-  <artifactId>corecapture</artifactId>
+  <groupId>com.ot2.corecapture</groupId>
+  <artifactId>ot2-corecapture-client</artifactId>
   <version>23.3</version>
   <scope>compile</scope>
 </dependency>
@@ -55,12 +55,12 @@ Add this dependency to your project's build file:
 
 ```groovy
   repositories {
-    mavenCentral()     // Needed if the 'corecapture' jar has been published to maven central.
-    mavenLocal()       // Needed if the 'corecapture' jar has been published to the local maven repo.
+    mavenCentral()     // Needed if the 'ot2-corecapture-client' jar has been published to maven central.
+    mavenLocal()       // Needed if the 'ot2-corecapture-client' jar has been published to the local maven repo.
   }
 
   dependencies {
-     implementation "com.ot2:corecapture:23.3"
+     implementation "com.ot2.corecapture:ot2-corecapture-client:23.3"
   }
 ```
 
@@ -74,7 +74,7 @@ mvn clean package
 
 Then manually install the following JARs:
 
-* `target/corecapture-23.3.jar`
+* `target/ot2-corecapture-client-23.3.jar`
 * `target/lib/*.jar`
 
 ## Getting Started

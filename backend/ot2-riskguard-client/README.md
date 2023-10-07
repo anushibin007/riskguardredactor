@@ -1,8 +1,8 @@
-# riskguard
+# ot2-riskguard-client
 
 Magellan Risk Guard
 - API version: 1.0
-  - Build date: 2023-10-07T20:24:18.715623600+05:30[Asia/Calcutta]
+  - Build date: 2023-10-08T02:36:31.690881500+05:30[Asia/Calcutta]
 
 The Magellan Risk Guard REST service processes documents to help identify risks/threats. It is a completely stateless service that offers built-in accurate models. Leveraging the core components of Magellan Text Mining, the following information will be identified/extracted from documents  :
 - PII(Personally Identifiable Information)
@@ -46,8 +46,8 @@ Add this dependency to your project's POM:
 
 ```xml
 <dependency>
-  <groupId>com.ot2</groupId>
-  <artifactId>riskguard</artifactId>
+  <groupId>com.ot2.riskguard</groupId>
+  <artifactId>ot2-riskguard-client</artifactId>
   <version>1.0</version>
   <scope>compile</scope>
 </dependency>
@@ -59,12 +59,12 @@ Add this dependency to your project's build file:
 
 ```groovy
   repositories {
-    mavenCentral()     // Needed if the 'riskguard' jar has been published to maven central.
-    mavenLocal()       // Needed if the 'riskguard' jar has been published to the local maven repo.
+    mavenCentral()     // Needed if the 'ot2-riskguard-client' jar has been published to maven central.
+    mavenLocal()       // Needed if the 'ot2-riskguard-client' jar has been published to the local maven repo.
   }
 
   dependencies {
-     implementation "com.ot2:riskguard:1.0"
+     implementation "com.ot2.riskguard:ot2-riskguard-client:1.0"
   }
 ```
 
@@ -78,7 +78,7 @@ mvn clean package
 
 Then manually install the following JARs:
 
-* `target/riskguard-1.0.jar`
+* `target/ot2-riskguard-client-1.0.jar`
 * `target/lib/*.jar`
 
 ## Getting Started

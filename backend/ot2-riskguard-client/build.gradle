@@ -3,7 +3,7 @@ apply plugin: 'eclipse'
 apply plugin: 'java'
 apply plugin: 'com.diffplug.spotless'
 
-group = 'com.ot2'
+group = 'com.ot2.riskguard'
 version = '1.0'
 
 buildscript {
@@ -89,7 +89,7 @@ if(hasProperty('target') && target == 'android') {
     publishing {
         publications {
             maven(MavenPublication) {
-               artifactId = 'riskguard'
+               artifactId = 'ot2-riskguard-client'
                from components.java
             }
         }
