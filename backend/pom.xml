@@ -39,6 +39,12 @@
 			<version>1.0</version>
 			<scope>compile</scope>
 		</dependency>
+		<dependency>
+			<groupId>com.ot2</groupId>
+			<artifactId>corecapture</artifactId>
+			<version>23.3</version>
+			<scope>compile</scope>
+		</dependency>
 	</dependencies>
 
 	<build>
