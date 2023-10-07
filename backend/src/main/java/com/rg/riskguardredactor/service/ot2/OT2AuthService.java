@@ -10,16 +10,14 @@ import org.springframework.web.client.RestTemplate;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonNode;
-import com.fasterxml.jackson.databind.ObjectMapper;
 import com.google.gson.JsonObject;
 import com.rg.riskguardredactor.util.Constant;
+import com.rg.riskguardredactor.util.JSONTools;
 
 @Service
 public class OT2AuthService implements Constant {
 
 	private static Logger log = LoggerFactory.getLogger(OT2AuthService.class);
-
-	private final ObjectMapper objectMapper = new ObjectMapper();
 
 	// TODO: Don't create a new token every time. Create one only if the current
 	// token expires
@@ -55,7 +53,7 @@ public class OT2AuthService implements Constant {
 //		return response.getBody();
 
 		try {
-			JsonNode root = objectMapper.readTree(responseAsString);
+			JsonNode root = JSONTools.getObjectMapper().readTree(responseAsString);
 			String authToken = root.path("access_token").asText();
 			log.debug("authToken = {}", authToken);
 			return authToken;
