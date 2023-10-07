@@ -22,7 +22,7 @@ import com.rg.riskguardredactor.util.Constant;
 import com.rg.riskguardredactor.util.JSONTools;
 
 @Service
-public class OT2RiskGuardService {
+public class OT2RiskGuardService implements Constant {
 
 	private static Logger log = LoggerFactory.getLogger(OT2RiskGuardService.class);
 
@@ -120,7 +120,7 @@ public class OT2RiskGuardService {
 		}
 
 		ApiClient defaultClient = Configuration.getDefaultApiClient();
-		defaultClient.setBasePath(Constant.OT2_RISKGUARD_BASE_URL);
+		defaultClient.setBasePath(OT2_RISKGUARD_BASE_URL);
 
 		HttpBearerAuth bearer = (HttpBearerAuth) defaultClient.getAuthentication("Bearer");
 		bearer.setBearerToken(bearerToken);
