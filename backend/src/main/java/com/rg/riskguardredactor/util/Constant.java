@@ -4,6 +4,9 @@ public interface Constant {
 
 	// TODO: Move all of the below constants to a properties file
 
+	// Should change when the environment changes
+	public static final String LOCAL_SAMPLE_SEARCHABLE_PDF_FILE_PATH = "C:/Users/anush/Downloads/lab-report-1pg.pdf";
+
 	// Credentials
 	public static final String OT2_APP_ID = "1d429e1e-cf21-43c7-adb3-6c3838ae3e69";
 	public static final String OT2_CLIENT_ID = "wNmm573Y4Ju6Ln7EMPw8ja22aOEo3NQI";

@@ -98,7 +98,7 @@ public class OT2RiskGuardService {
 
 		try {
 			// TODO: File should come dynamically
-			File file = new File("C:/Users/anush/Downloads/lab-report-1pg.pdf");
+			File file = new File(LOCAL_SAMPLE_SEARCHABLE_PDF_FILE_PATH);
 			ContentResponse result = apiInstance.processContent(file);
 			return result;
 		} catch (ApiException e) {
