@@ -22,14 +22,12 @@ public class OT2RiskGuardService {
 	OT2AuthService authService;
 
 	public ProductVersion getVersion() {
-
-		ApiClient apiClient = getClient();
-		if (apiClient == null) {
-			log.error("Could not retrieve apiClient. Hence, could not invoke getVersion.");
+		ContentAnalyzerApi apiInstance = getClientApiInstance();
+		if (apiInstance == null) {
+			log.error("Could not retrieve apiClientInstance. Hence, could not invoke getVersion.");
 			return null;
 		}
 
-		ContentAnalyzerApi apiInstance = new ContentAnalyzerApi(apiClient);
 		try {
 			ProductVersion result = apiInstance.getProductVersion();
 			return result;
@@ -45,7 +43,7 @@ public class OT2RiskGuardService {
 
 	}
 
-	private ApiClient getClient() {
+	private ContentAnalyzerApi getClientApiInstance() {
 
 		String bearerToken = authService.getBearerToken();
 		if (bearerToken == null) {
@@ -58,6 +56,8 @@ public class OT2RiskGuardService {
 
 		HttpBearerAuth bearer = (HttpBearerAuth) defaultClient.getAuthentication("Bearer");
 		bearer.setBearerToken(bearerToken);
-		return defaultClient;
+
+		ContentAnalyzerApi apiInstance = new ContentAnalyzerApi(defaultClient);
+		return apiInstance;
 	}
 }
