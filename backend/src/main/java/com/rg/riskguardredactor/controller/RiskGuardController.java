@@ -18,6 +18,11 @@ public class RiskGuardController {
 
 	@GetMapping("/version")
 	public ResponseEntity<ProductVersion> getVersion() {
-		return ResponseEntity.ok(riskGuard.getVersion(null));
+		ProductVersion versionData = riskGuard.getVersion();
+		if (versionData == null) {
+			return ResponseEntity.internalServerError().body(null);
+		}
+		return ResponseEntity.ok(versionData);
 	}
+
 }
