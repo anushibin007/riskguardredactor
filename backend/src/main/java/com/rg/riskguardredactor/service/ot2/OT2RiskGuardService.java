@@ -1,30 +1,30 @@
 package com.rg.riskguardredactor.service.ot2;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.ot2.ApiClient;
 import com.ot2.ApiException;
 import com.ot2.Configuration;
-import com.ot2.auth.HttpBasicAuth;
+import com.ot2.auth.HttpBearerAuth;
 import com.ot2.riskguard.ContentAnalyzerApi;
 import com.ot2.riskguard.ProductVersion;
 import com.rg.riskguardredactor.util.Constant;
 
 @Service
 public class OT2RiskGuardService {
+
+	@Autowired
+	OT2AuthService authService;
+
 	public ProductVersion getVersion(String[] args) {
 		ApiClient defaultClient = Configuration.getDefaultApiClient();
 		defaultClient.setBasePath(Constant.OT2_RISKGUARD_BASE_URL);
-		defaultClient.setUsername(Constant.OT2_USERNAME);
-		defaultClient.setPassword(Constant.OT2_PASSWORD);
+//		defaultClient.addDefaultHeader("Authorization", "bGVoYXhvYjgwMEB2aWljYXJkLmNvbTpFYyMjMTQ5TUpy");
 
 		// Configure HTTP bearer authorization: Bearer
-//		HttpBearerAuth bearer = (HttpBearerAuth) defaultClient.getAuthentication("Bearer");
-//		bearer.setBearerToken("BEARER TOKEN");
-
-		HttpBasicAuth basicAuth = (HttpBasicAuth) defaultClient.getAuthentication("Basic");
-		basicAuth.setUsername(Constant.OT2_USERNAME);
-		basicAuth.setPassword(Constant.OT2_PASSWORD);
+		HttpBearerAuth bearer = (HttpBearerAuth) defaultClient.getAuthentication("Bearer");
+		bearer.setBearerToken(authService.getBearerToken());
 
 		ContentAnalyzerApi apiInstance = new ContentAnalyzerApi(defaultClient);
 		try {

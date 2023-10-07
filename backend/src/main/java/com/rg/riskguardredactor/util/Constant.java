@@ -1,7 +1,20 @@
 package com.rg.riskguardredactor.util;
 
-public class Constant {
+public interface Constant {
+
+	// TODO: Move all of the below constants to a properties file
+
+	// Credentials
+	public static final String OT2_APP_ID = "1d429e1e-cf21-43c7-adb3-6c3838ae3e69";
+	public static final String OT2_CLIENT_ID = "wNmm573Y4Ju6Ln7EMPw8ja22aOEo3NQI";
+	public static final String OT2_CLIENT_SECRET = "a18fBeP1J66X1SPl";
+	public static final String OT2_GRANT_TYPE = "password";
 	public static final String OT2_USERNAME = "lehaxob800@viicard.com";
 	public static final String OT2_PASSWORD = "Ec##149MJr";
-	public static final String OT2_RISKGUARD_BASE_URL = "https://na-1-dev.api.opentext.com/mtm-riskguard";
+
+	// URLs
+	public static final String OT2_BASE_URL = "https://na-1-dev.api.opentext.com";
+	public static final String OT2_RISKGUARD_BASE_URL = OT2_BASE_URL + "/mtm-riskguard";
+	public static final String OT2_AUTH_URL = OT2_BASE_URL + "/tenants/" + OT2_APP_ID + "/oauth2/token";
+
 }
