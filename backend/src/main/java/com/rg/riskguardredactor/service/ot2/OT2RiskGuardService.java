@@ -32,10 +32,10 @@ public class OT2RiskGuardService {
 			ProductVersion result = apiInstance.getProductVersion();
 			return result;
 		} catch (ApiException e) {
-			System.err.println("Exception when calling ContentAnalyzerApi#getProductVersion");
-			System.err.println("Status code: " + e.getCode());
-			System.err.println("Reason: " + e.getResponseBody());
-			System.err.println("Response headers: " + e.getResponseHeaders());
+			log.error("Exception when calling ContentAnalyzerApi#getProductVersion");
+			log.error("Status code: {}", e.getCode());
+			log.error("Reason: {}", e.getResponseBody());
+			log.error("Response headers: {}", e.getResponseHeaders());
 			e.printStackTrace();
 		}
 
