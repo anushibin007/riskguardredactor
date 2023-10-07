@@ -22,12 +22,12 @@ This call deletes all stage files in the session including those returned by ser
 ### Example
 ```java
 // Import classes:
-import com.ot2.ApiClient;
-import com.ot2.ApiException;
-import com.ot2.Configuration;
-import com.ot2.auth.*;
-import com.ot2.models.*;
-import com.ot2.corecapture.FilesApi;
+import com.ot2.corecapture.invoker.ApiClient;
+import com.ot2.corecapture.invoker.ApiException;
+import com.ot2.corecapture.invoker.Configuration;
+import com.ot2.corecapture.invoker.auth.*;
+import com.ot2.corecapture.invoker.models.*;
+import com.ot2.corecapture.api.FilesApi;
 
 public class Example {
   public static void main(String[] args) {
@@ -102,12 +102,12 @@ An individual file can be deleted. Once deleted, the file can no longer be acces
 ### Example
 ```java
 // Import classes:
-import com.ot2.ApiClient;
-import com.ot2.ApiException;
-import com.ot2.Configuration;
-import com.ot2.auth.*;
-import com.ot2.models.*;
-import com.ot2.corecapture.FilesApi;
+import com.ot2.corecapture.invoker.ApiClient;
+import com.ot2.corecapture.invoker.ApiException;
+import com.ot2.corecapture.invoker.Configuration;
+import com.ot2.corecapture.invoker.auth.*;
+import com.ot2.corecapture.invoker.models.*;
+import com.ot2.corecapture.api.FilesApi;
 
 public class Example {
   public static void main(String[] args) {
@@ -182,12 +182,12 @@ Retrieving an actual file that was previously POSTed is simply performed by exec
 ### Example
 ```java
 // Import classes:
-import com.ot2.ApiClient;
-import com.ot2.ApiException;
-import com.ot2.Configuration;
-import com.ot2.auth.*;
-import com.ot2.models.*;
-import com.ot2.corecapture.FilesApi;
+import com.ot2.corecapture.invoker.ApiClient;
+import com.ot2.corecapture.invoker.ApiException;
+import com.ot2.corecapture.invoker.Configuration;
+import com.ot2.corecapture.invoker.auth.*;
+import com.ot2.corecapture.invoker.models.*;
+import com.ot2.corecapture.api.FilesApi;
 
 public class Example {
   public static void main(String[] args) {
@@ -262,12 +262,12 @@ Chunking a file in pieces to the server requires that the POST be made to the UR
 ### Example
 ```java
 // Import classes:
-import com.ot2.ApiClient;
-import com.ot2.ApiException;
-import com.ot2.Configuration;
-import com.ot2.auth.*;
-import com.ot2.models.*;
-import com.ot2.corecapture.FilesApi;
+import com.ot2.corecapture.invoker.ApiClient;
+import com.ot2.corecapture.invoker.ApiException;
+import com.ot2.corecapture.invoker.Configuration;
+import com.ot2.corecapture.invoker.auth.*;
+import com.ot2.corecapture.invoker.models.*;
+import com.ot2.corecapture.api.FilesApi;
 
 public class Example {
   public static void main(String[] args) {
@@ -349,12 +349,12 @@ You can only create one stage file at a time. Upon the first POST a unique fileI
 ### Example
 ```java
 // Import classes:
-import com.ot2.ApiClient;
-import com.ot2.ApiException;
-import com.ot2.Configuration;
-import com.ot2.auth.*;
-import com.ot2.models.*;
-import com.ot2.corecapture.FilesApi;
+import com.ot2.corecapture.invoker.ApiClient;
+import com.ot2.corecapture.invoker.ApiException;
+import com.ot2.corecapture.invoker.Configuration;
+import com.ot2.corecapture.invoker.auth.*;
+import com.ot2.corecapture.invoker.models.*;
+import com.ot2.corecapture.api.FilesApi;
 
 public class Example {
   public static void main(String[] args) {

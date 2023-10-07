@@ -11,8 +11,8 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
-import com.ot2.JSON;
-import com.ot2.riskguard.ContentResponse;
+import com.ot2.riskguard.invoker.JSON;
+import com.ot2.riskguard.model.ContentResponse;
 
 @SpringBootTest
 public class TestOT2RiskGuardService {

@@ -11,13 +11,13 @@ import org.springframework.stereotype.Service;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonNode;
-import com.ot2.ApiClient;
-import com.ot2.ApiException;
-import com.ot2.Configuration;
-import com.ot2.auth.HttpBearerAuth;
-import com.ot2.riskguard.ContentAnalyzerApi;
-import com.ot2.riskguard.ContentResponse;
-import com.ot2.riskguard.ProductVersion;
+import com.ot2.riskguard.api.ContentAnalyzerApi;
+import com.ot2.riskguard.invoker.ApiClient;
+import com.ot2.riskguard.invoker.ApiException;
+import com.ot2.riskguard.invoker.Configuration;
+import com.ot2.riskguard.invoker.auth.HttpBearerAuth;
+import com.ot2.riskguard.model.ContentResponse;
+import com.ot2.riskguard.model.ProductVersion;
 import com.rg.riskguardredactor.util.Constant;
 import com.rg.riskguardredactor.util.JSONTools;
 

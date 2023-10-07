@@ -19,12 +19,12 @@ This resource retrieves a specific Document Type. A Document Type is created usi
 ### Example
 ```java
 // Import classes:
-import com.ot2.ApiClient;
-import com.ot2.ApiException;
-import com.ot2.Configuration;
-import com.ot2.auth.*;
-import com.ot2.models.*;
-import com.ot2.corecapture.DocumentTypesApi;
+import com.ot2.corecapture.invoker.ApiClient;
+import com.ot2.corecapture.invoker.ApiException;
+import com.ot2.corecapture.invoker.Configuration;
+import com.ot2.corecapture.invoker.auth.*;
+import com.ot2.corecapture.invoker.models.*;
+import com.ot2.corecapture.api.DocumentTypesApi;
 
 public class Example {
   public static void main(String[] args) {
@@ -102,12 +102,12 @@ This operation returns a feed listing all of the Document Types. Document Types 
 ### Example
 ```java
 // Import classes:
-import com.ot2.ApiClient;
-import com.ot2.ApiException;
-import com.ot2.Configuration;
-import com.ot2.auth.*;
-import com.ot2.models.*;
-import com.ot2.corecapture.DocumentTypesApi;
+import com.ot2.corecapture.invoker.ApiClient;
+import com.ot2.corecapture.invoker.ApiException;
+import com.ot2.corecapture.invoker.Configuration;
+import com.ot2.corecapture.invoker.auth.*;
+import com.ot2.corecapture.invoker.models.*;
+import com.ot2.corecapture.api.DocumentTypesApi;
 
 public class Example {
   public static void main(String[] args) {

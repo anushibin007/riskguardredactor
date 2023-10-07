@@ -19,12 +19,12 @@ The server maintains different tables that provide information about key pieces 
 ### Example
 ```java
 // Import classes:
-import com.ot2.ApiClient;
-import com.ot2.ApiException;
-import com.ot2.Configuration;
-import com.ot2.auth.*;
-import com.ot2.models.*;
-import com.ot2.corecapture.TablesApi;
+import com.ot2.corecapture.invoker.ApiClient;
+import com.ot2.corecapture.invoker.ApiException;
+import com.ot2.corecapture.invoker.Configuration;
+import com.ot2.corecapture.invoker.auth.*;
+import com.ot2.corecapture.invoker.models.*;
+import com.ot2.corecapture.api.TablesApi;
 
 public class Example {
   public static void main(String[] args) {
@@ -100,12 +100,12 @@ The Table Resource pertains to a specific table from the set of available tables
 ### Example
 ```java
 // Import classes:
-import com.ot2.ApiClient;
-import com.ot2.ApiException;
-import com.ot2.Configuration;
-import com.ot2.auth.*;
-import com.ot2.models.*;
-import com.ot2.corecapture.TablesApi;
+import com.ot2.corecapture.invoker.ApiClient;
+import com.ot2.corecapture.invoker.ApiException;
+import com.ot2.corecapture.invoker.Configuration;
+import com.ot2.corecapture.invoker.auth.*;
+import com.ot2.corecapture.invoker.models.*;
+import com.ot2.corecapture.api.TablesApi;
 
 public class Example {
   public static void main(String[] args) {

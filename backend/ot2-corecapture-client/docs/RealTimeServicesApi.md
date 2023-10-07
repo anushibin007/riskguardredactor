@@ -30,12 +30,12 @@ The Classify Service will perform Classification on the images submitted and ret
 ### Example
 ```java
 // Import classes:
-import com.ot2.ApiClient;
-import com.ot2.ApiException;
-import com.ot2.Configuration;
-import com.ot2.auth.*;
-import com.ot2.models.*;
-import com.ot2.corecapture.RealTimeServicesApi;
+import com.ot2.corecapture.invoker.ApiClient;
+import com.ot2.corecapture.invoker.ApiException;
+import com.ot2.corecapture.invoker.Configuration;
+import com.ot2.corecapture.invoker.auth.*;
+import com.ot2.corecapture.invoker.models.*;
+import com.ot2.corecapture.api.RealTimeServicesApi;
 
 public class Example {
   public static void main(String[] args) {
@@ -109,12 +109,12 @@ The Classify Extract Document Service will perform classification and extraction
 ### Example
 ```java
 // Import classes:
-import com.ot2.ApiClient;
-import com.ot2.ApiException;
-import com.ot2.Configuration;
-import com.ot2.auth.*;
-import com.ot2.models.*;
-import com.ot2.corecapture.RealTimeServicesApi;
+import com.ot2.corecapture.invoker.ApiClient;
+import com.ot2.corecapture.invoker.ApiException;
+import com.ot2.corecapture.invoker.Configuration;
+import com.ot2.corecapture.invoker.auth.*;
+import com.ot2.corecapture.invoker.models.*;
+import com.ot2.corecapture.api.RealTimeServicesApi;
 
 public class Example {
   public static void main(String[] args) {
@@ -188,12 +188,12 @@ The Classify Extract Page Service will perform classification and extraction on 
 ### Example
 ```java
 // Import classes:
-import com.ot2.ApiClient;
-import com.ot2.ApiException;
-import com.ot2.Configuration;
-import com.ot2.auth.*;
-import com.ot2.models.*;
-import com.ot2.corecapture.RealTimeServicesApi;
+import com.ot2.corecapture.invoker.ApiClient;
+import com.ot2.corecapture.invoker.ApiException;
+import com.ot2.corecapture.invoker.Configuration;
+import com.ot2.corecapture.invoker.auth.*;
+import com.ot2.corecapture.invoker.models.*;
+import com.ot2.corecapture.api.RealTimeServicesApi;
 
 public class Example {
   public static void main(String[] args) {
@@ -267,12 +267,12 @@ The Convert Images Real-Time Service provides image conversion capability as def
 ### Example
 ```java
 // Import classes:
-import com.ot2.ApiClient;
-import com.ot2.ApiException;
-import com.ot2.Configuration;
-import com.ot2.auth.*;
-import com.ot2.models.*;
-import com.ot2.corecapture.RealTimeServicesApi;
+import com.ot2.corecapture.invoker.ApiClient;
+import com.ot2.corecapture.invoker.ApiException;
+import com.ot2.corecapture.invoker.Configuration;
+import com.ot2.corecapture.invoker.auth.*;
+import com.ot2.corecapture.invoker.models.*;
+import com.ot2.corecapture.api.RealTimeServicesApi;
 
 public class Example {
   public static void main(String[] args) {
@@ -346,12 +346,12 @@ The Extract Document Service will perform extraction on each item submitted and 
 ### Example
 ```java
 // Import classes:
-import com.ot2.ApiClient;
-import com.ot2.ApiException;
-import com.ot2.Configuration;
-import com.ot2.auth.*;
-import com.ot2.models.*;
-import com.ot2.corecapture.RealTimeServicesApi;
+import com.ot2.corecapture.invoker.ApiClient;
+import com.ot2.corecapture.invoker.ApiException;
+import com.ot2.corecapture.invoker.Configuration;
+import com.ot2.corecapture.invoker.auth.*;
+import com.ot2.corecapture.invoker.models.*;
+import com.ot2.corecapture.api.RealTimeServicesApi;
 
 public class Example {
   public static void main(String[] args) {
@@ -425,12 +425,12 @@ The Extract Page Service will perform extraction on each item submitted and retu
 ### Example
 ```java
 // Import classes:
-import com.ot2.ApiClient;
-import com.ot2.ApiException;
-import com.ot2.Configuration;
-import com.ot2.auth.*;
-import com.ot2.models.*;
-import com.ot2.corecapture.RealTimeServicesApi;
+import com.ot2.corecapture.invoker.ApiClient;
+import com.ot2.corecapture.invoker.ApiException;
+import com.ot2.corecapture.invoker.Configuration;
+import com.ot2.corecapture.invoker.auth.*;
+import com.ot2.corecapture.invoker.models.*;
+import com.ot2.corecapture.api.RealTimeServicesApi;
 
 public class Example {
   public static void main(String[] args) {
@@ -504,12 +504,12 @@ The Full Page OCR Real-Time Service will provide full page OCR processing on sub
 ### Example
 ```java
 // Import classes:
-import com.ot2.ApiClient;
-import com.ot2.ApiException;
-import com.ot2.Configuration;
-import com.ot2.auth.*;
-import com.ot2.models.*;
-import com.ot2.corecapture.RealTimeServicesApi;
+import com.ot2.corecapture.invoker.ApiClient;
+import com.ot2.corecapture.invoker.ApiException;
+import com.ot2.corecapture.invoker.Configuration;
+import com.ot2.corecapture.invoker.auth.*;
+import com.ot2.corecapture.invoker.models.*;
+import com.ot2.corecapture.api.RealTimeServicesApi;
 
 public class Example {
   public static void main(String[] args) {
@@ -583,12 +583,12 @@ This operation returns a feed listing all of the Real-Time Services.
 ### Example
 ```java
 // Import classes:
-import com.ot2.ApiClient;
-import com.ot2.ApiException;
-import com.ot2.Configuration;
-import com.ot2.auth.*;
-import com.ot2.models.*;
-import com.ot2.corecapture.RealTimeServicesApi;
+import com.ot2.corecapture.invoker.ApiClient;
+import com.ot2.corecapture.invoker.ApiException;
+import com.ot2.corecapture.invoker.Configuration;
+import com.ot2.corecapture.invoker.auth.*;
+import com.ot2.corecapture.invoker.models.*;
+import com.ot2.corecapture.api.RealTimeServicesApi;
 
 public class Example {
   public static void main(String[] args) {
@@ -661,12 +661,12 @@ The Learning service is used to learn to classify and/or extract a document usin
 ### Example
 ```java
 // Import classes:
-import com.ot2.ApiClient;
-import com.ot2.ApiException;
-import com.ot2.Configuration;
-import com.ot2.auth.*;
-import com.ot2.models.*;
-import com.ot2.corecapture.RealTimeServicesApi;
+import com.ot2.corecapture.invoker.ApiClient;
+import com.ot2.corecapture.invoker.ApiException;
+import com.ot2.corecapture.invoker.Configuration;
+import com.ot2.corecapture.invoker.auth.*;
+import com.ot2.corecapture.invoker.models.*;
+import com.ot2.corecapture.api.RealTimeServicesApi;
 
 public class Example {
   public static void main(String[] args) {
@@ -740,12 +740,12 @@ The Process Image Real-Time Service provides image processing capability as defi
 ### Example
 ```java
 // Import classes:
-import com.ot2.ApiClient;
-import com.ot2.ApiException;
-import com.ot2.Configuration;
-import com.ot2.auth.*;
-import com.ot2.models.*;
-import com.ot2.corecapture.RealTimeServicesApi;
+import com.ot2.corecapture.invoker.ApiClient;
+import com.ot2.corecapture.invoker.ApiException;
+import com.ot2.corecapture.invoker.Configuration;
+import com.ot2.corecapture.invoker.auth.*;
+import com.ot2.corecapture.invoker.models.*;
+import com.ot2.corecapture.api.RealTimeServicesApi;
 
 public class Example {
   public static void main(String[] args) {
@@ -819,12 +819,12 @@ The Process Image Pipeline Real-Time services executes a series of image service
 ### Example
 ```java
 // Import classes:
-import com.ot2.ApiClient;
-import com.ot2.ApiException;
-import com.ot2.Configuration;
-import com.ot2.auth.*;
-import com.ot2.models.*;
-import com.ot2.corecapture.RealTimeServicesApi;
+import com.ot2.corecapture.invoker.ApiClient;
+import com.ot2.corecapture.invoker.ApiException;
+import com.ot2.corecapture.invoker.Configuration;
+import com.ot2.corecapture.invoker.auth.*;
+import com.ot2.corecapture.invoker.models.*;
+import com.ot2.corecapture.api.RealTimeServicesApi;
 
 public class Example {
   public static void main(String[] args) {
@@ -898,12 +898,12 @@ The Read BarCodes Real-Time Service will provide barcode extraction processing. 
 ### Example
 ```java
 // Import classes:
-import com.ot2.ApiClient;
-import com.ot2.ApiException;
-import com.ot2.Configuration;
-import com.ot2.auth.*;
-import com.ot2.models.*;
-import com.ot2.corecapture.RealTimeServicesApi;
+import com.ot2.corecapture.invoker.ApiClient;
+import com.ot2.corecapture.invoker.ApiException;
+import com.ot2.corecapture.invoker.Configuration;
+import com.ot2.corecapture.invoker.auth.*;
+import com.ot2.corecapture.invoker.models.*;
+import com.ot2.corecapture.api.RealTimeServicesApi;
 
 public class Example {
   public static void main(String[] args) {
@@ -977,12 +977,12 @@ The UimData Real-Time Service will provide either UIM (Unified Indexing Model) d
 ### Example
 ```java
 // Import classes:
-import com.ot2.ApiClient;
-import com.ot2.ApiException;
-import com.ot2.Configuration;
-import com.ot2.auth.*;
-import com.ot2.models.*;
-import com.ot2.corecapture.RealTimeServicesApi;
+import com.ot2.corecapture.invoker.ApiClient;
+import com.ot2.corecapture.invoker.ApiException;
+import com.ot2.corecapture.invoker.Configuration;
+import com.ot2.corecapture.invoker.auth.*;
+import com.ot2.corecapture.invoker.models.*;
+import com.ot2.corecapture.api.RealTimeServicesApi;
 
 public class Example {
   public static void main(String[] args) {

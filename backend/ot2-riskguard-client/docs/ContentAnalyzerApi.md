@@ -19,12 +19,12 @@ Get version of Risk Guard Service. This information includes service major and m
 ### Example
 ```java
 // Import classes:
-import com.ot2.ApiClient;
-import com.ot2.ApiException;
-import com.ot2.Configuration;
-import com.ot2.auth.*;
-import com.ot2.models.*;
-import com.ot2.riskguard.ContentAnalyzerApi;
+import com.ot2.riskguard.invoker.ApiClient;
+import com.ot2.riskguard.invoker.ApiException;
+import com.ot2.riskguard.invoker.Configuration;
+import com.ot2.riskguard.invoker.auth.*;
+import com.ot2.riskguard.invoker.models.*;
+import com.ot2.riskguard.api.ContentAnalyzerApi;
 
 public class Example {
   public static void main(String[] args) {
@@ -84,12 +84,12 @@ This is the main end point of the service.  This takes the binary document with 
 ### Example
 ```java
 // Import classes:
-import com.ot2.ApiClient;
-import com.ot2.ApiException;
-import com.ot2.Configuration;
-import com.ot2.auth.*;
-import com.ot2.models.*;
-import com.ot2.riskguard.ContentAnalyzerApi;
+import com.ot2.riskguard.invoker.ApiClient;
+import com.ot2.riskguard.invoker.ApiException;
+import com.ot2.riskguard.invoker.Configuration;
+import com.ot2.riskguard.invoker.auth.*;
+import com.ot2.riskguard.invoker.models.*;
+import com.ot2.riskguard.api.ContentAnalyzerApi;
 
 public class Example {
   public static void main(String[] args) {

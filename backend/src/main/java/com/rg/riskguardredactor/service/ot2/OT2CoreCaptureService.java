@@ -5,12 +5,12 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.ot2.ApiClient;
-import com.ot2.ApiException;
-import com.ot2.Configuration;
-import com.ot2.auth.OAuth;
-import com.ot2.corecapture.Get200Response;
-import com.ot2.corecapture.HomeApi;
+import com.ot2.corecapture.api.HomeApi;
+import com.ot2.corecapture.invoker.ApiClient;
+import com.ot2.corecapture.invoker.ApiException;
+import com.ot2.corecapture.invoker.Configuration;
+import com.ot2.corecapture.invoker.auth.OAuth;
+import com.ot2.corecapture.model.Get200Response;
 import com.rg.riskguardredactor.util.Constant;
 
 @Service

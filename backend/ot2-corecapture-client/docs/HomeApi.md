@@ -19,12 +19,12 @@ This resource provides product information about the Services installation to au
 ### Example
 ```java
 // Import classes:
-import com.ot2.ApiClient;
-import com.ot2.ApiException;
-import com.ot2.Configuration;
-import com.ot2.auth.*;
-import com.ot2.models.*;
-import com.ot2.corecapture.HomeApi;
+import com.ot2.corecapture.invoker.ApiClient;
+import com.ot2.corecapture.invoker.ApiException;
+import com.ot2.corecapture.invoker.Configuration;
+import com.ot2.corecapture.invoker.auth.*;
+import com.ot2.corecapture.invoker.models.*;
+import com.ot2.corecapture.api.HomeApi;
 
 public class Example {
   public static void main(String[] args) {
@@ -98,11 +98,11 @@ The Home Document is an entry point to the Core Capture Services. It is availabl
 ### Example
 ```java
 // Import classes:
-import com.ot2.ApiClient;
-import com.ot2.ApiException;
-import com.ot2.Configuration;
-import com.ot2.models.*;
-import com.ot2.corecapture.HomeApi;
+import com.ot2.corecapture.invoker.ApiClient;
+import com.ot2.corecapture.invoker.ApiException;
+import com.ot2.corecapture.invoker.Configuration;
+import com.ot2.corecapture.invoker.models.*;
+import com.ot2.corecapture.api.HomeApi;
 
 public class Example {
   public static void main(String[] args) {

@@ -2,7 +2,7 @@
 
 Magellan Risk Guard
 - API version: 1.0
-  - Build date: 2023-10-08T02:36:31.690881500+05:30[Asia/Calcutta]
+  - Build date: 2023-10-08T02:52:58.656712200+05:30[Asia/Calcutta]
 
 The Magellan Risk Guard REST service processes documents to help identify risks/threats. It is a completely stateless service that offers built-in accurate models. Leveraging the core components of Magellan Text Mining, the following information will be identified/extracted from documents  :
 - PII(Personally Identifiable Information)
@@ -88,12 +88,12 @@ Please follow the [installation](#installation) instruction and execute the foll
 ```java
 
 // Import classes:
-import com.ot2.ApiClient;
-import com.ot2.ApiException;
-import com.ot2.Configuration;
-import com.ot2.auth.*;
-import com.ot2.models.*;
-import com.ot2.riskguard.ContentAnalyzerApi;
+import com.ot2.riskguard.invoker.ApiClient;
+import com.ot2.riskguard.invoker.ApiException;
+import com.ot2.riskguard.invoker.Configuration;
+import com.ot2.riskguard.invoker.auth.*;
+import com.ot2.riskguard.invoker.models.*;
+import com.ot2.riskguard.api.ContentAnalyzerApi;
 
 public class Example {
   public static void main(String[] args) {

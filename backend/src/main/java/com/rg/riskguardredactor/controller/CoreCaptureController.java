@@ -6,7 +6,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.ot2.corecapture.Get200Response;
+import com.ot2.corecapture.model.Get200Response;
 import com.rg.riskguardredactor.service.ot2.OT2CoreCaptureService;
 
 @RestController

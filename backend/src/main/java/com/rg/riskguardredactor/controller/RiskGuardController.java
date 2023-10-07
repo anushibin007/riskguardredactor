@@ -8,8 +8,8 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.ot2.riskguard.ContentResponse;
-import com.ot2.riskguard.ProductVersion;
+import com.ot2.riskguard.model.ContentResponse;
+import com.ot2.riskguard.model.ProductVersion;
 import com.rg.riskguardredactor.service.ot2.OT2RiskGuardService;
 
 @RestController

@@ -2,7 +2,7 @@
 
 Core Capture Services
 - API version: 23.3
-  - Build date: 2023-10-08T02:36:37.231944200+05:30[Asia/Calcutta]
+  - Build date: 2023-10-08T02:53:00.970636+05:30[Asia/Calcutta]
 
 OpenText Core Capture Services are a set of RESTful web service interfaces that provides capture functionality. Being developed in a purely RESTful style, Core Capture Services are easier to consume for the purposes of writing custom clients.
 
@@ -84,12 +84,12 @@ Please follow the [installation](#installation) instruction and execute the foll
 ```java
 
 // Import classes:
-import com.ot2.ApiClient;
-import com.ot2.ApiException;
-import com.ot2.Configuration;
-import com.ot2.auth.*;
-import com.ot2.models.*;
-import com.ot2.corecapture.BatchApi;
+import com.ot2.corecapture.invoker.ApiClient;
+import com.ot2.corecapture.invoker.ApiException;
+import com.ot2.corecapture.invoker.Configuration;
+import com.ot2.corecapture.invoker.auth.*;
+import com.ot2.corecapture.invoker.models.*;
+import com.ot2.corecapture.api.BatchApi;
 
 public class Example {
   public static void main(String[] args) {
