@@ -20,6 +20,7 @@ import com.google.gson.annotations.SerializedName;
 import com.google.gson.stream.JsonReader;
 import com.google.gson.stream.JsonWriter;
 import com.ot2.corecapture.model.ResultItemFilesFilesInner;
+import com.ot2.corecapture.model.ServicesRequestBodyServicePropsInner;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -52,7 +53,7 @@ import com.ot2.corecapture.invoker.JSON;
 /**
  * BasicResultItemWithFiles
  */
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", date = "2023-10-08T16:42:46.583230500+05:30[Asia/Calcutta]")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", date = "2023-10-09T00:42:16.144688700+05:30[Asia/Calcutta]")
 public class BasicResultItemWithFiles {
   public static final String SERIALIZED_NAME_NODE_ID = "nodeId";
   @SerializedName(SERIALIZED_NAME_NODE_ID)
@@ -65,6 +66,10 @@ public class BasicResultItemWithFiles {
   public static final String SERIALIZED_NAME_ERROR_MESSAGE = "errorMessage";
   @SerializedName(SERIALIZED_NAME_ERROR_MESSAGE)
   private String errorMessage;
+
+  public static final String SERIALIZED_NAME_VALUES = "values";
+  @SerializedName(SERIALIZED_NAME_VALUES)
+  private List<ServicesRequestBodyServicePropsInner> values;
 
   public static final String SERIALIZED_NAME_FILES = "files";
   @SerializedName(SERIALIZED_NAME_FILES)
@@ -136,6 +141,35 @@ public class BasicResultItemWithFiles {
   }
 
 
+  public BasicResultItemWithFiles values(List<ServicesRequestBodyServicePropsInner> values) {
+    
+    this.values = values;
+    return this;
+  }
+
+  public BasicResultItemWithFiles addValuesItem(ServicesRequestBodyServicePropsInner valuesItem) {
+    if (this.values == null) {
+      this.values = new ArrayList<>();
+    }
+    this.values.add(valuesItem);
+    return this;
+  }
+
+   /**
+   * Get values
+   * @return values
+  **/
+  @javax.annotation.Nullable
+  public List<ServicesRequestBodyServicePropsInner> getValues() {
+    return values;
+  }
+
+
+  public void setValues(List<ServicesRequestBodyServicePropsInner> values) {
+    this.values = values;
+  }
+
+
   public BasicResultItemWithFiles files(List<ResultItemFilesFilesInner> files) {
     
     this.files = files;
@@ -178,12 +212,13 @@ public class BasicResultItemWithFiles {
     return Objects.equals(this.nodeId, basicResultItemWithFiles.nodeId) &&
         Objects.equals(this.errorCode, basicResultItemWithFiles.errorCode) &&
         Objects.equals(this.errorMessage, basicResultItemWithFiles.errorMessage) &&
+        Objects.equals(this.values, basicResultItemWithFiles.values) &&
         Objects.equals(this.files, basicResultItemWithFiles.files);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(nodeId, errorCode, errorMessage, files);
+    return Objects.hash(nodeId, errorCode, errorMessage, values, files);
   }
 
   @Override
@@ -193,6 +228,7 @@ public class BasicResultItemWithFiles {
     sb.append("    nodeId: ").append(toIndentedString(nodeId)).append("\n");
     sb.append("    errorCode: ").append(toIndentedString(errorCode)).append("\n");
     sb.append("    errorMessage: ").append(toIndentedString(errorMessage)).append("\n");
+    sb.append("    values: ").append(toIndentedString(values)).append("\n");
     sb.append("    files: ").append(toIndentedString(files)).append("\n");
     sb.append("}");
     return sb.toString();
@@ -219,6 +255,7 @@ public class BasicResultItemWithFiles {
     openapiFields.add("nodeId");
     openapiFields.add("errorCode");
     openapiFields.add("errorMessage");
+    openapiFields.add("values");
     openapiFields.add("files");
 
     // a set of required properties/fields (JSON key names)
@@ -251,6 +288,20 @@ public class BasicResultItemWithFiles {
       }
       if ((jsonObj.get("errorMessage") != null && !jsonObj.get("errorMessage").isJsonNull()) && !jsonObj.get("errorMessage").isJsonPrimitive()) {
         throw new IllegalArgumentException(String.format("Expected the field `errorMessage` to be a primitive type in the JSON string but got `%s`", jsonObj.get("errorMessage").toString()));
+      }
+      if (jsonObj.get("values") != null && !jsonObj.get("values").isJsonNull()) {
+        JsonArray jsonArrayvalues = jsonObj.getAsJsonArray("values");
+        if (jsonArrayvalues != null) {
+          // ensure the json data is an array
+          if (!jsonObj.get("values").isJsonArray()) {
+            throw new IllegalArgumentException(String.format("Expected the field `values` to be an array in the JSON string but got `%s`", jsonObj.get("values").toString()));
+          }
+
+          // validate the optional field `values` (array)
+          for (int i = 0; i < jsonArrayvalues.size(); i++) {
+            ServicesRequestBodyServicePropsInner.validateJsonElement(jsonArrayvalues.get(i));
+          };
+        }
       }
       if (jsonObj.get("files") != null && !jsonObj.get("files").isJsonNull()) {
         JsonArray jsonArrayfiles = jsonObj.getAsJsonArray("files");

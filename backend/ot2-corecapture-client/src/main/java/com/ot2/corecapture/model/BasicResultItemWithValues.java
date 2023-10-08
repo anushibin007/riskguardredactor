@@ -52,7 +52,7 @@ import com.ot2.corecapture.invoker.JSON;
 /**
  * BasicResultItemWithValues
  */
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", date = "2023-10-08T16:42:46.583230500+05:30[Asia/Calcutta]")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", date = "2023-10-09T00:42:16.144688700+05:30[Asia/Calcutta]")
 public class BasicResultItemWithValues {
   public static final String SERIALIZED_NAME_NODE_ID = "nodeId";
   @SerializedName(SERIALIZED_NAME_NODE_ID)
