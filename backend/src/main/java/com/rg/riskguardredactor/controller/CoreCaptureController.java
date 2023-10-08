@@ -6,10 +6,12 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.ot2.corecapture.model.Get200Response;
 import com.ot2.corecapture.model.SessionFilesPost201Response;
+import com.ot2.corecapture.model.SessionServicesFullpageocrPost200Response;
 import com.rg.riskguardredactor.controller.model.CoreCaptureSessionFilesPostModel;
 import com.rg.riskguardredactor.service.ot2.OT2CoreCaptureService;
 
@@ -38,6 +40,18 @@ public class CoreCaptureController {
 			return ResponseEntity.internalServerError().body(null);
 		}
 		return ResponseEntity.ok(postResponse);
+	}
+
+	@GetMapping("/sessionServicesFullpageocrPost")
+	public ResponseEntity<SessionServicesFullpageocrPost200Response> sessionServicesFullpageocrPost(
+			@RequestParam("name") String name, @RequestParam("value") String value,
+			@RequestParam("contentType") String contentType) {
+		SessionServicesFullpageocrPost200Response versionData = capture.sessionServicesFullpageocrPost(name, value,
+				contentType);
+		if (versionData == null) {
+			return ResponseEntity.internalServerError().body(null);
+		}
+		return ResponseEntity.ok(versionData);
 	}
 
 }

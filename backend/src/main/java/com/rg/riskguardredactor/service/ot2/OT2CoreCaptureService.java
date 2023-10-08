@@ -1,5 +1,9 @@
 package com.rg.riskguardredactor.service.ot2;
 
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -7,6 +11,7 @@ import org.springframework.stereotype.Service;
 
 import com.ot2.corecapture.api.FilesApi;
 import com.ot2.corecapture.api.HomeApi;
+import com.ot2.corecapture.api.RealTimeServicesApi;
 import com.ot2.corecapture.invoker.ApiClient;
 import com.ot2.corecapture.invoker.ApiException;
 import com.ot2.corecapture.invoker.Configuration;
@@ -14,7 +19,13 @@ import com.ot2.corecapture.invoker.auth.HttpBearerAuth;
 import com.ot2.corecapture.model.Get200Response;
 import com.ot2.corecapture.model.InlineFileRequestBody;
 import com.ot2.corecapture.model.InlineFileRequestBody.ContentTypeEnum;
+import com.ot2.corecapture.model.ServicesRequestBody;
+import com.ot2.corecapture.model.ServicesRequestBodyRequestItemsInner;
+import com.ot2.corecapture.model.ServicesRequestBodyRequestItemsInnerFilesInner;
+import com.ot2.corecapture.model.ServicesRequestBodyServicePropsInner;
+import com.ot2.corecapture.model.ServicesRequestBodyServicePropsInnerValue;
 import com.ot2.corecapture.model.SessionFilesPost201Response;
+import com.ot2.corecapture.model.SessionServicesFullpageocrPost200Response;
 import com.rg.riskguardredactor.util.Constant;
 
 @Service
@@ -60,7 +71,7 @@ public class OT2CoreCaptureService implements Constant {
 					inlineFileRequestBody);
 			return result;
 		} catch (ApiException e) {
-			log.error("Exception when calling BatchApi#sessionBatchesPost");
+			log.error("Exception when calling FilesApi#sessionFilesPost");
 			log.error("Status code: {}", e.getCode());
 			log.error("Reason: {}", e.getResponseBody());
 			log.error("Response headers: {}", e.getResponseHeaders());
@@ -68,6 +79,91 @@ public class OT2CoreCaptureService implements Constant {
 		}
 
 		return null;
+	}
+
+	public SessionServicesFullpageocrPost200Response sessionServicesFullpageocrPost(String name, String value,
+			String contentType) {
+
+		ApiClient defaultClient = getApiClient();
+		RealTimeServicesApi apiInstance = new RealTimeServicesApi(defaultClient);
+
+		try {
+			ServicesRequestBody servicesRequestBody = getServiceRequestBodyForOCRRequest(name, value, contentType);
+
+			SessionServicesFullpageocrPost200Response result = apiInstance
+					.sessionServicesFullpageocrPost(servicesRequestBody);
+			return result;
+		} catch (ApiException e) {
+			log.error("Exception when calling RealTimeServicesApi#sessionServicesFullpageocrPost");
+			log.error("Status code: {}", e.getCode());
+			log.error("Reason: {}", e.getResponseBody());
+			log.error("Response headers: {}", e.getResponseHeaders());
+			e.printStackTrace();
+		}
+
+		return null;
+	}
+
+	private ServicesRequestBody getServiceRequestBodyForOCRRequest(String name, String value, String contentType) {
+
+		List<ServicesRequestBodyRequestItemsInner> requestItems = getRequestItems(name, value, contentType);
+		List<ServicesRequestBodyServicePropsInner> serviceProps = getServiceProps();
+
+		ServicesRequestBody servicesRequestBody = new ServicesRequestBody();
+		servicesRequestBody.setRequestItems(requestItems);
+		servicesRequestBody.setServiceProps(serviceProps);
+		return servicesRequestBody;
+	}
+
+	private List<ServicesRequestBodyRequestItemsInner> getRequestItems(String name, String value, String contentType) {
+		ServicesRequestBodyRequestItemsInnerFilesInner filesInner = new ServicesRequestBodyRequestItemsInnerFilesInner();
+		filesInner.setName(name);
+		filesInner.setValue(value);
+		filesInner.setContentType(contentType);
+		// TODO: Set file type dynamically
+		filesInner.setFileType("pdf");
+		List<ServicesRequestBodyRequestItemsInnerFilesInner> files = Arrays.asList(filesInner);
+
+		ServicesRequestBodyRequestItemsInner itemsInner = new ServicesRequestBodyRequestItemsInner();
+		itemsInner.setFiles(files);
+
+		// TODO: Should we change this?
+		itemsInner.setNodeId(1);
+		itemsInner.setValues(getServicePropsForRequestItems());
+
+		List<ServicesRequestBodyRequestItemsInner> requestItems = Arrays.asList(itemsInner);
+		return requestItems;
+	}
+
+	private List<ServicesRequestBodyServicePropsInner> getServiceProps() {
+
+		List<ServicesRequestBodyServicePropsInner> serviceProps = new ArrayList<>();
+		serviceProps.add(buildServicesRequestBodyServicePropsInner("Env", "D"));
+		serviceProps.add(buildServicesRequestBodyServicePropsInner("OcrEngineName", "Advanced"));
+		serviceProps.add(buildServicesRequestBodyServicePropsInner("AutoRotate", "False"));
+		// TODO: Country matters?
+		serviceProps.add(buildServicesRequestBodyServicePropsInner("Country", "USA"));
+		serviceProps.add(buildServicesRequestBodyServicePropsInner("ProcessingMode", "VoteOcrAndEText"));
+
+		return serviceProps;
+	}
+
+	private List<ServicesRequestBodyServicePropsInner> getServicePropsForRequestItems() {
+
+		List<ServicesRequestBodyServicePropsInner> serviceProps = new ArrayList<>();
+		serviceProps.add(buildServicesRequestBodyServicePropsInner("OutputType", "Pdf"));
+		serviceProps.add(buildServicesRequestBodyServicePropsInner("Version", "Pdf"));
+		serviceProps.add(buildServicesRequestBodyServicePropsInner("Compression", "None"));
+		serviceProps.add(buildServicesRequestBodyServicePropsInner("ImageSelection", "OriginalImage"));
+
+		return serviceProps;
+	}
+
+	private ServicesRequestBodyServicePropsInner buildServicesRequestBodyServicePropsInner(String name, String value) {
+		ServicesRequestBodyServicePropsInner aPropsInner = new ServicesRequestBodyServicePropsInner();
+		aPropsInner.setName(name);
+		aPropsInner.setValue(new ServicesRequestBodyServicePropsInnerValue(value));
+		return aPropsInner;
 	}
 
 //	private ApiClient getApiClient() {
