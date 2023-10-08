@@ -234,19 +234,7 @@
         "description": "This resource provides product information about the Services installation to authenticated users.",
         "security": [
           {
-            "capture.ot2.opentext.com": []
-          },
-          {
-            "capture.ot2.opentext.eu": []
-          },
-          {
             "na-1-dev.api.opentext.com": []
-          },
-          {
-            "na-1.api.opentext.com": []
-          },
-          {
-            "eu-1.api.opentext.com": []
           }
         ],
         "parameters": [
@@ -457,19 +445,7 @@
         "description": "As long as the session is still active, deleting your session will return HTTP status code 200. If the session has expired, then a 401 Unauthorized response is sent by the server.",
         "security": [
           {
-            "capture.ot2.opentext.com": []
-          },
-          {
-            "capture.ot2.opentext.eu": []
-          },
-          {
             "na-1-dev.api.opentext.com": []
-          },
-          {
-            "na-1.api.opentext.com": []
-          },
-          {
-            "eu-1.api.opentext.com": []
           }
         ],
         "parameters": [
@@ -512,19 +488,7 @@
         "description": "The server maintains different tables that provide information about key pieces of data to authenticated users.",
         "security": [
           {
-            "capture.ot2.opentext.com": []
-          },
-          {
-            "capture.ot2.opentext.eu": []
-          },
-          {
             "na-1-dev.api.opentext.com": []
-          },
-          {
-            "na-1.api.opentext.com": []
-          },
-          {
-            "eu-1.api.opentext.com": []
           }
         ],
         "parameters": [
@@ -657,19 +621,7 @@
         "description": "The Table Resource pertains to a specific table from the set of available tables on the server.",
         "security": [
           {
-            "capture.ot2.opentext.com": []
-          },
-          {
-            "capture.ot2.opentext.eu": []
-          },
-          {
             "na-1-dev.api.opentext.com": []
-          },
-          {
-            "na-1.api.opentext.com": []
-          },
-          {
-            "eu-1.api.opentext.com": []
           }
         ],
         "parameters": [
@@ -824,19 +776,7 @@
         "description": "This operation returns a feed listing all of the Document Types. Document Types are created using the Designer.",
         "security": [
           {
-            "capture.ot2.opentext.com": []
-          },
-          {
-            "capture.ot2.opentext.eu": []
-          },
-          {
             "na-1-dev.api.opentext.com": []
-          },
-          {
-            "na-1.api.opentext.com": []
-          },
-          {
-            "eu-1.api.opentext.com": []
           }
         ],
         "parameters": [
@@ -962,19 +902,7 @@
         "description": "This resource retrieves a specific Document Type. A Document Type is created using the Designer.",
         "security": [
           {
-            "capture.ot2.opentext.com": []
-          },
-          {
-            "capture.ot2.opentext.eu": []
-          },
-          {
             "na-1-dev.api.opentext.com": []
-          },
-          {
-            "na-1.api.opentext.com": []
-          },
-          {
-            "eu-1.api.opentext.com": []
           }
         ],
         "parameters": [
@@ -1124,19 +1052,7 @@
         "description": "You can only create one stage file at a time. Upon the first POST a unique fileId will be created by the server. File data can be posted either in base64 encoding as a JSON post or as a binary to the server.\n\nIf you need to chunk this in pieces to the server, then subsequent requests must be made to the URI represented by the src property or the URI provided by the Location header returned from the first chunk. Additional chunks append to the file and you can always retry/re-post the last chunk. The chunks need to be posted without gaps in order to be successful.\n\nThere are two ways to create a stage file:\n\n- Create the stage file using a JSON post with base64 encoding.\n\n- Post the file as binary using the appropriate Content-Type.",
         "security": [
           {
-            "capture.ot2.opentext.com": []
-          },
-          {
-            "capture.ot2.opentext.eu": []
-          },
-          {
             "na-1-dev.api.opentext.com": []
-          },
-          {
-            "na-1.api.opentext.com": []
-          },
-          {
-            "eu-1.api.opentext.com": []
           }
         ],
         "parameters": [
@@ -1230,19 +1146,7 @@
         "description": "This call deletes all stage files in the session including those returned by service calls. Once called, the deleted files will no longer be available.\n\nDeleting files accepts a query string parameter, filter, as shown below. Currently, the only value this parameter supports is *, which means all files. This is the only filter value currently supported by the Services and provides for the deletion of all the files in the session.",
         "security": [
           {
-            "capture.ot2.opentext.com": []
-          },
-          {
-            "capture.ot2.opentext.eu": []
-          },
-          {
             "na-1-dev.api.opentext.com": []
-          },
-          {
-            "na-1.api.opentext.com": []
-          },
-          {
-            "eu-1.api.opentext.com": []
           }
         ],
         "parameters": [
@@ -1292,19 +1196,7 @@
         "description": "Retrieving an actual file that was previously POSTed is simply performed by executing a GET on the files URI with the fileId as shown below. This will return the actual file data.",
         "security": [
           {
-            "capture.ot2.opentext.com": []
-          },
-          {
-            "capture.ot2.opentext.eu": []
-          },
-          {
             "na-1-dev.api.opentext.com": []
-          },
-          {
-            "na-1.api.opentext.com": []
-          },
-          {
-            "eu-1.api.opentext.com": []
           }
         ],
         "parameters": [
@@ -1356,19 +1248,7 @@
         "description": "Chunking a file in pieces to the server requires that the POST be made to the URI represented by the src property or the URI provided by the Location header returned from the first chunk. Additional chunks append to the file and you can always retry/re-post the last chunk. Chunking requires the data for the file to be sent in base64 or binary encoding. The chunks need to be posted without gaps in order to be successful.",
         "security": [
           {
-            "capture.ot2.opentext.com": []
-          },
-          {
-            "capture.ot2.opentext.eu": []
-          },
-          {
             "na-1-dev.api.opentext.com": []
-          },
-          {
-            "na-1.api.opentext.com": []
-          },
-          {
-            "eu-1.api.opentext.com": []
           }
         ],
         "parameters": [
@@ -1497,19 +1377,7 @@
         "description": "An individual file can be deleted. Once deleted, the file can no longer be accessed.",
         "security": [
           {
-            "capture.ot2.opentext.com": []
-          },
-          {
-            "capture.ot2.opentext.eu": []
-          },
-          {
             "na-1-dev.api.opentext.com": []
-          },
-          {
-            "na-1.api.opentext.com": []
-          },
-          {
-            "eu-1.api.opentext.com": []
           }
         ],
         "parameters": [
@@ -1560,19 +1428,7 @@
         "description": "The Create and Export Batch operation is the last call required to create a batch and submit it to your backend server. First submit all image files to server, then you can use the returned file reference ids to reference files in the Batch nodal information. You can also use the same file reference ids returned by Real-Time service calls.\n\nThe batch name that you use to create a batch has to be unique when being imported into your backend server. To help you accomplish creating unique names you can supply for the \"batchName\" JSON property any Capture Services Format Expression function (see the Designer Documentation). There are also two additional format tokens you can use for providing unique names - {NextIndex} and {NextId}\n\n**{NextIndex}** - This will provide a 64 bit integer number that is unique. Example: \"batchName\":\"MyBatch_{NextIndex}\" produces on the server MyBatch_1026000000002\n\n**{NextId}** - This will provide a valid Batch name string that is unique. Example: \"batchName\":\"MyBatch_{NextId}\" produces on the server MyBatch_324_1\n\nAny supported static function in the Capture Services Expression Language (see the Designer Documentation). [<any text>]{[<Format Specification>|]<Expression>}[<any text>] - Using the expression language functions can allow the user of a GUID or unique time string to be a part of the Batch Name. Example: \"batchName\":\"MyBatch_{Tddhhmmss|Now()}_{NextIndex}\" produces on the server, MyBatch_09064934_1026000000003. Or \"batchName\":\"MyBatch_{S|CreateGuid(0)}\" produces on the server, MyBatch_82fcd238-2fb7-44ac-9acc-a13ce406241d\n\n**Document type and UimData values in batch:**\n\nFor composing export profile and exporting UimData values, Document type and UimData values must at batch level mentioned below with given names as below.\n\n**Batch – Level 7:**\n\nvalueName = \"Profile \"\n\nvalueType = \"string\"\n\nvalue = // Name of the profile.\n\n**Document – Level 1:**\n\nvalueName = \"UimDocumentType\"\n\nvalueType = \"string\"\n\nvalue = // This should be a string specifying the document type name.\n\nvalueName = \"UimData\"\n\nvalueType = \"uimdata\"\n\nvalue = // This should be a UIM Data JSON Object\n\nvalueName = \"OutputFile \"\n\nvalueType = \" file\"\n\nvalue = // File id for the original PDF to be available for export.\n\n**Page – Level 0:**\n\nvalueName = \"OutputImage\"\n\nvalueType = \"file\"\n\nvalue = // file id for the image to be exported\n\nvalueName = \"Backside\"\n\nvalueType = \"int\"\n\nvalue = // 0 (front) or 1 (back) to indicate whether the image is a backside image.",
         "security": [
           {
-            "capture.ot2.opentext.com": []
-          },
-          {
-            "capture.ot2.opentext.eu": []
-          },
-          {
             "na-1-dev.api.opentext.com": []
-          },
-          {
-            "na-1.api.opentext.com": []
-          },
-          {
-            "eu-1.api.opentext.com": []
           }
         ],
         "parameters": [
@@ -2367,19 +2223,7 @@
         "description": "This operation returns a feed listing all of the Real-Time Services.",
         "security": [
           {
-            "capture.ot2.opentext.com": []
-          },
-          {
-            "capture.ot2.opentext.eu": []
-          },
-          {
             "na-1-dev.api.opentext.com": []
-          },
-          {
-            "na-1.api.opentext.com": []
-          },
-          {
-            "eu-1.api.opentext.com": []
           }
         ],
         "parameters": [
@@ -2474,19 +2318,7 @@
         "description": "The Convert Images Real-Time Service provides image conversion capability as defined by an image conversion profile.\n\nCapture Services currently only supports using system provided image conversion profiles named:\n\n- SplitPDFProfile,\n- SplitPDFtoPDFs,\n- ConvertToJPEG and\n- CombineSearchablePDFs. \"SplitPDFProfile\" profile supports splitting PDF documents including colored documents resulting into tiff images of 300 DPI resolution. \"SplitPDFtoPDFs\" profile supports splitting multipage PDF document into single page PDF documents. \"ConvertToJPEG\" profile supports converting and splitting any type of document including colored document into multiple single page JPEG images. “CombineSearchablePDFs” profile supports merging multipage PDF documents into a single mutltipage PDF document. \"SplitPDFtoPDFsCompress\" and \"CombineSearchablePDFsCompress\" provide same functionality as \"SplitPDFtoPDFs\" and \"CombineSearchablePDFs\" respectively but with optimized (Compressed) output PDFs.\n\n**Service Properties**\n\n- **Env** - Metadata environment identifier. Value must be \"S\" since these profiles are system provided profile.\n\n- **Profile** - Required String. The Image conversion profile name to use for the conversion. Currently only system provided profiles name are “SplitPDFProfile”, “SplitPDFtoPDFs”, “CombineSearchablePDFs”, \"SplitPDFtoPDFsCompress\" and “CombineSearchablePDFsCompress”.\n\n- **ReturnFileDataInline** - Boolean. If true, then the resulting file is returned inline in the result item as a base64 encoded file. If omitted or false, then the resulting file is returned as a fileId and can be retrieved through the Files resource. File ID referncing the resulting file is returned as part of URI in \"src\" property of File object of Result Item.\n\n**Number of Request Items**\n\nThis Real-Time Service supports one or more items.\n\n**Values Per Request Item**\n\nNo values are necessary or used.\n\n**Files Per Request Item**\n\nEach item can have one or more files. It can either be an embedded file or a reference to a file ID previously posted to the Files Resource.\n\nThis service supports JPEG, PNG, TIFF, and PDF files. The File Type property for the file must specify the file extension for the file, such as \"tif\", \"png\", \"jpg\", \"pdf\". This is used by the Convert Images Real-Time Service for further typing of the file.",
         "security": [
           {
-            "capture.ot2.opentext.com": []
-          },
-          {
-            "capture.ot2.opentext.eu": []
-          },
-          {
             "na-1-dev.api.opentext.com": []
-          },
-          {
-            "na-1.api.opentext.com": []
-          },
-          {
-            "eu-1.api.opentext.com": []
           }
         ],
         "requestBody": {
@@ -2666,19 +2498,7 @@
         "description": "The Process Image Real-Time Service provides image processing capability as defined by an image processor profile defined in the Designer.\n\n**Service Properties**\n\n- **Env** - Metadata environment identifier. Value is one of \"D\", \"T\" or \"P\". Default value is \"P\".\n\n- **Profile** - Required String. The Image processor profile name to use.\n\n- **ReturnFileDataInline** - Boolean. If true, then the resulting file is returned inline in the result item as a base64 encoded file. If omitted or false, then the resulting file is returned as a fileId and can be retrieved through the Files resource. File ID referncing the resulting file is returned as part of URI in \"src\" property of File object of Result Item.\n\n- **Redact** - Boolean. Image will be redacted using “Rectangles” property passed in Request Item. Redaction will be done before profile filter processing if profile name is passed in. “Profile” property is optional when “Redact” property is “True”.\n\n**Number of Request Items**\n\nThis Real-Time Service supports one or more items.\n\n**Values Per Request Item**\n\n- **Rectangles** - **Optional** Object. Array of rectangles marking areas on image to be redacted. This parameter is used only when service property “Redact” is set to true.\nRectangle identified by values in the order of Left, Top, Width, and Height. All values are Pixels with a resolution of 96 dpi in both X and Y direction.\n{\n  \"left\":<integer>,\n  \"top\":<integer>,\n  \"width\":<integer>,\n  \"height\":<integer>\n}\n\n**Files Per Request Item**\n\nThis service supports JPEG, PNG, and TIFF files. There can only be one file per request item object. It can either be an embedded file or a reference to a file ID previously posted to the Files Resource. The File Type property for the file is ignored for this service.",
         "security": [
           {
-            "capture.ot2.opentext.com": []
-          },
-          {
-            "capture.ot2.opentext.eu": []
-          },
-          {
             "na-1-dev.api.opentext.com": []
-          },
-          {
-            "na-1.api.opentext.com": []
-          },
-          {
-            "eu-1.api.opentext.com": []
           }
         ],
         "requestBody": {
@@ -2819,19 +2639,7 @@
         "description": "The Full Page OCR Real-Time Service will provide full page OCR processing on submitted images or PDF documents and return the OCR content in the specified output type.\n\n**Service Properties**\n\n- **Env** - Metadata environment identifier. Value is one of \"D\", \"T\" or \"P\". Default value is \"P\".\n\n- **OcrEngineName** - String. This specifies the OCR engine name to use. Currently supported engine is “Advanced”. \"Advanced” OCR engine is currently assigned to the “OpenText Capture Recognition Engine” for this release. The default OCR engine is “Advanced”.\n\n- **AutoRotate** - Boolean. This is an optional value specifying whether auto rotation should be enabled for the engine. The default is true.\n\n- **Country** - String. This optional value specifies the country for the engine. The default is \"USA\". When passing mutiple values in comma separated list, values must be within countries/languages groups given below:\n  - **Greek**: Greece, Greek\n  - **Latin and Cyrillic languages**: Afrikaans, Albanian, Andorra, Argentina, Australia, Austria, AzerbaijaniCyrillic, AzerbaijaniLatin, AzerbaijanCyrillic, AzerbaijanLatin, Baltic, Basque, Belarus, Belarusian, Belgium, BosnianLatin, BosniaLatin, Brazil, Bulgaria, Bulgarian, Canada, Catalan, CentralAmerica, CentralEurope, Chile, Colombia, Croatia, Croatian, Cyrillic, Czech, CzechLanguage, Danish, Denmark, Dutch, English, Estonia, Estonian, Faroese, Finland, Finnish, France, French, Frisian, German, Germany, GreatBritain, Greece, Greek, Guarani, Hani, Hungarian, Hungary, Iceland, Icelandic, Indonesian, Ireland, Irish, Italian, Italy, JapanLatin, KazakhCyrillic, KazakhLatin, KirghizCyrillic, Kirundi, Latin, Latvia, Latvian, Liechtenstein, Lithuania, Lithuanian, Luxembourg, Luxembourgish, Macedonian, Malay, Mexico, Netherlands, NewZealand, Norway, Norwegian, Poland, Polish, Portugal, Portuguese, Quechua, RhaetoRomanic, Romania, Romanian, Russia, Russian, Rwanda, Scandinavia, SerbianCyrillic, SerbianLatin, SerbiaCyrillic, SerbiaLatin, Shona, Slovak, Slovakia, Slovenia, Slovenian, Somali, Sorbian, SouthAfrica, SouthAmerica, SouthAmericaSpanish, Spain, Spanish, Swahili, Sweden, Swedish, Switzerland, TajikCyrillic, Turkey, Turkish, TurkmenCyrillic, TurkmenLatin, Ukraine, Ukrainian, USA, UzbekCyrillic, UzbekLatin, Venezuela, WesternEurope, Wolof, Xhosa, Zulu\n  - **Chinese**: ChineseSimplified, ChineseTraditional\n  - **Chinese Hong Kong**: ChineseTraditionalHongKong\n  - **Japanese**: Japan, Japanese (cannot both be selected.)\n  - **Korean**: Korean\n  - **Thai**: Thai, Thailand (English can be added explicitly)\n- **ProcessingMode** - String. This optional value specifies proessing mode value for the engine. The default is \"VoteOcrAndEText\". This can be one of the following values:\n  - **VoteOcrAndEText** - Select this option if your input documents contain mixed content. The data from file is extracted by running the full page OCR reading. Where possible, electronic text is also extracted and the results are used to refine the OCR results.\n  - **OcrFromImage** - Select this option if your input documents are images / contain images only. The data from file is extracted by running the full page OCR reading\n  - **ExtractFromEText** - Select this option if your input files are PDF files that contain textual data only. Electronic text is extracted natively, as is\n\n**Number of Request Items**\n\nThis Real-Time Service supports one or more items.\n\n**Values Per Request Item**\n\n- **OutputType** - **Required** String. This setting specifies the OCR output type for the request item. It can be one of these values \"Pdf\", \"Text\". The additional values you can make on the request item are based on what is assigned to the OutputType.\n\n  - **Values for OutputType \"Pdf\"**\n\n    - **Version** - String. Can be one of these optional values \"Pdf\", \"Pdf14\", \"Pdf15\", \"Pdf16\", \"Pdf17\", \"PdfA1A\", \"PdfA1B\", \"PdfA2A\", \"PdfA2B\", \"PdfA2U\". If not provided, the default value is \"Pdf\". Mapping to Acrobat version:\"Pdf\" -> PDF 1.7, \"Pdf14\" -> PDF 1.4, \"Pdf15\" -> PDF 1.5, \"Pdf16\" -> PDF 1.6, \"Pdf17\" -> PDF 1.7, \"PdfA1A\" -> PDF/A-1a, \"PdfA1B\" -> PDF/A-1b, \"PdfA2A\" -> PDF/A-2a and \"PdfA2B\" - > PDF/A-2b, \"PdfA2U\" -> PDF/A-2u\n    - **Compression** - String. Sets the compression level to apply to the text in the output PDF file.\n    Can be one of these optional values “None”, “Low, “Medium”, “High”. If not provided, the default value is “Medium”.\n\n    - **ImageSelection** - String. Can be one of these optional values. If not provided, the default value is “OriginalImage”.\n      - **NoImage** - Only extracted text will be included into the output file.\n      - **OriginalImage** - Extracted text will be included and the source image will be set as a background for the page in the output file.\n      - **ResultImage** - Extracted text will be included and the processed image will be set as a background for the page in the output file.\n    - **ImageResolutionLimit** - Number. Limits resolution of images (color, grey, binary) to provided value in DPI. If image resolution is lower than specified by this parameter, then image remains unchanged, otherwise it is scaled to this specified value.\n    Valid values are from 0 to 300. Default value is 150. When value is out of range (value outside 0 to 300), default is used.\n    - **JpegCompressionLevel** - Number. Controls the compression rate of the JPEG. Higher compression rates produce smaller files with lower image quality. The current version supports compression rates from 10, 15, 20, 25 an so on in increments of 5 until 90. Values other than 10, 15, 20, 25 etc in the range 10 to 90 are rounded to nearest valid value. E.g. 13 is rounded to 15.\n    The default value is 80. Default value is used when this parameter value is out of 10 to 90 range.\n    - **BinaryImage** - Boolean. Specifies whether to convert pdf file images to the binary format. When value is ‘true’ then pdf images are converted to the binary format. The default value is ‘false’.\n\n  - **Values for OutputType \"Text\"**\n\n    - None for output type “Text”. Encoding is “Unicode”.\n\n**Files Per Request Item**\n\nThis service supports JPEG, PNG, TIFF, and PDF files. Each item can have one or more files. It can either be an embedded file or a reference to a file ID previously posted to the Files Resource. The supported file input types for color and grayscale images are JPEG and PNG. The supported file input type for binary images is TIFF G4.",
         "security": [
           {
-            "capture.ot2.opentext.com": []
-          },
-          {
-            "capture.ot2.opentext.eu": []
-          },
-          {
             "na-1-dev.api.opentext.com": []
-          },
-          {
-            "na-1.api.opentext.com": []
-          },
-          {
-            "eu-1.api.opentext.com": []
           }
         ],
         "requestBody": {
@@ -2949,19 +2757,7 @@
         "description": "The Read BarCodes Real-Time Service will provide barcode extraction processing.\n\n**Service Properties**\n\n- **Env** - Metadata environment identifier. Value is one of \"D\", \"T\" or \"P\". Default value is \"P\".\n\n- **BarcodeTypes** - Required String. Comma separated list of available barcodes. List of barcodes types:\n  - Addon2, Addon5, AustralianPost, BCDMATRIX, Codabar, Code25_Datalogic, Code25_IATA, Code25_Industrial, Code25_Interleaved, Code25_Invert, Code25_Matrix, Code32, Code39, Code93, DataMatrix, EAN13, EAN8,IntelligentMail, PDF417, Postnet, QRCode, RoyalPost, Type128, UCC128, UPC_A, UPC_E\n\n- **Characters** - Number. Exact number of characters to search for in the barcode text. Valid values range from 0 to 100.\n\n- **Decode** - Boolean. If true, then it decodes the results into readable strings; otherwise, if false (the default), then it will not decode into readable strings.\n\n- **MinHeight** - Number. Minimum height of barcode. Valid values range from 0 (default) to 1000.\n\n- **Mode** - String. Barcode detection modes let you switch between normal and enhanced detection types. If omitted, defaults to **Normal**. Valid values:\n  - **Enhanced** - Provides better results by performing additional image preprocessing, but takes longer to complete,\n  - **Normal** - Enables quick barcodes detection.\n\n- **Orientation** - String. Specifies the orientation of the barcodes detection. If omitted, then it **defaults** to **HorizontalVertical**. Valid values are:\n  - Horizontal,\n  - HorizontalVertical,\n  - HorizontalVerticalDiagonal,\n  - Vertical.\n\n- **ScanDistance** - Number. Specifies the scan distance (in pixels) between line sweeps. Useful when searching for 1D type barcodes. Reducing the value improves detection of barcodes which are short relative to their height. Valid values are 1 to 10. If omitted, **defaults to 5**.\n\n- **UseChecksum** - Boolean. A value that is an indication of whether the checksums are used. If omitted, then it **defaults to false**.\n\n- **UseRegion** - String. A region to select for barcode detection in order to improve the barcode detection process. It **defaults to empty (not used)**.\n\n**Number of Request Items**\n\nThis Real-Time Service supports one or more items.\n\n**Values Per Request Item**\n\nNo values are necessary or used.\n\n**Files Per Request Item**\n\nThis service supports JPEG, PNG, and TIFF files. There can only be one file per request item object. It can either be an embedded file or a reference to a file ID previously posted to the Files Resource. The File Type property for the file is ignored for this service.",
         "security": [
           {
-            "capture.ot2.opentext.com": []
-          },
-          {
-            "capture.ot2.opentext.eu": []
-          },
-          {
             "na-1-dev.api.opentext.com": []
-          },
-          {
-            "na-1.api.opentext.com": []
-          },
-          {
-            "eu-1.api.opentext.com": []
           }
         ],
         "requestBody": {
@@ -3174,19 +2970,7 @@
         "description": "The Classify Service will perform Classification on the images submitted and return available Document Type and Template information if successful. In addition to template information, fields extracted as part of pre-index extraction will be retuned as fields in UimData.\n\n**Service Properties**\n\n- **Env** - Metadata environment identifier. Value is one of \"D\", \"T\" or \"P\". Default value is \"P\".\n\n- **Project** - Optional string. The recognition project to use to classify the document. Valid values are \"Default\" for the Advanced Recognition and \"InformationExtraction\" for the Information Extraction. If omitted, \"Default\" is used.\n\n**Number of Request Items**\n\nThis Real-Time Service supports one or more items.\n\n**Values Per Request Item**\n\n- **OcrLocale** - Optional string. The locale that is used for reading text from the image when the request uses the \"InformationExtraction\" project. If omitted, text is read using the project's classification locale.\n\n**Files Per Request Item**\n\nThis service supports JPEG, PNG, and TIFF files. There can only be one file per request item object. It can either be an embedded file or a reference to a file ID previously posted to the Files Resource. The File Type property for the file is ignored for this service.",
         "security": [
           {
-            "capture.ot2.opentext.com": []
-          },
-          {
-            "capture.ot2.opentext.eu": []
-          },
-          {
             "na-1-dev.api.opentext.com": []
-          },
-          {
-            "na-1.api.opentext.com": []
-          },
-          {
-            "eu-1.api.opentext.com": []
           }
         ],
         "requestBody": {
@@ -3385,19 +3169,7 @@
         "description": "The Classify Extract Page Service will perform classification and extraction on each item submitted and return a UIM object containing information from the result of classification and extraction.\n\n**Service Properties**\n\n- **Env** - Metadata environment identifier. Value is one of \"D\", \"T\" or \"P\". Default value is \"P\".\n\n- **IncludeOcrData** - Boolean. If true then the returned UIM data object will contain extracted characters information. Otherwise by default, it won't.\n\n- **Project** - Optional string. The recognition project to use to classify the document. Valid values are \"Default\" for the Advanced Recognition and \"InformationExtraction\" for the Information Extraction. If omitted, \"Default\" is used.\n\n**Number of Request Items**\n\nThis Real-Time Service supports one or more items.\n\n**Values Per Request Item**\n\n- **OcrLocale** - Optional string. The locale that is used for reading text from the image when the request uses the \"InformationExtraction\" project. If omitted, text is read using the project's classification locale.\n\n**Files Per Request Item**\n\nThis service supports JPEG, PNG, and TIFF files. There can only be one file per request item object. It can either be an embedded file or a reference to a file ID previously posted to the Files Resource. The File Type property for the file is ignored for this service.",
         "security": [
           {
-            "capture.ot2.opentext.com": []
-          },
-          {
-            "capture.ot2.opentext.eu": []
-          },
-          {
             "na-1-dev.api.opentext.com": []
-          },
-          {
-            "na-1.api.opentext.com": []
-          },
-          {
-            "eu-1.api.opentext.com": []
           }
         ],
         "requestBody": {
@@ -3570,19 +3342,7 @@
         "description": "The Classify Extract Document Service will perform classification and extraction on each item submitted and return an UIM object containing information from the result of classification and extraction. Optionally, the service will perform document separation as configured in the recognition project.\n\n**Service Properties**\n\n- **Env** - Metadata environment identifier. Value is one of \"D\", \"T\" or \"P\". Default value is \"P\".\n\n- **IncludeOcrData** - Boolean. If true then the returned UIM data object will contain extracted characters information. Otherwise it won't.\n\n- **EnableDocumentSeparation** - Optional string. Whether to perform auto document separation as per Dpp project folder management settings. Default value is “false”.\n\n- **Project** - Optional string. The recognition project to use to classify the document. Valid values are \"Default\" for the Advanced Recognition and \"InformationExtraction\" for the Information Extraction. If omitted, \"Default\" is used.\n\n**Number of Request Items**\n\nThis Real-Time Service supports one or more items.\n\n**Values Per Request Item**\n\n- **OcrLocale** - Optional string. The locale that is used for reading text from the image when the request uses the \"InformationExtraction\" project. If omitted, text is read using the project's classification locale.\n\n**Files Per Request Item**\n\nThis service supports JPEG, PNG, and TIFF files. Each item can have one or more files. It can either be an embedded file or a reference to a file ID previously posted to the Files Resource. The File Type property for the file is ignored for this service.\n\nIf the request item contains more than one image, then the document type associated with the first classified page is used for the document. The extraction results for all pages belonging to the document type are merged into a single document. If a given field has conflicting values from different pages, then the value is set according to the \"Extract Page\" visual property for that field in the document type definition.",
         "security": [
           {
-            "capture.ot2.opentext.com": []
-          },
-          {
-            "capture.ot2.opentext.eu": []
-          },
-          {
             "na-1-dev.api.opentext.com": []
-          },
-          {
-            "na-1.api.opentext.com": []
-          },
-          {
-            "eu-1.api.opentext.com": []
           }
         ],
         "requestBody": {
@@ -3761,19 +3521,7 @@
         "description": "The Extract Page Service will perform extraction on each item submitted and return a UIM object containing information from the result.\n\n**Service Properties**\n\n- **Env** - Metadata environment identifier. Value is one of \"D\", \"T\" or \"P\". Default value is \"P\".\n\n- **IncludeOcrData** - Boolean. If true then the returned UIM data object will contain extracted characters information. Otherwise it won't.\n\n- **Project** - Optional string. The recognition project to use to classify the document. Valid values are \"Default\" for the Advanced Recognition and \"InformationExtraction\" for the Information Extraction. If omitted, \"Default\" is used.\n\n**Values Per Request Item**\n\n- **DocumentTypeName** - String. The Document Type name to be used for extraction. This is optional if the TemplateId property is passed. This value is case sensitive when the request uses the \"InformationExtraction\" project.\n\n- **PageIndex** - Number. The zero-based page index within Document Type. If omitted, then it defaults to 0. This is optional if the TemplateId property is passed. Unused if the project is \"InformationExtraction\".\n\n- **TemplateId** - String. The image template ID assigned in the recognition project that should be used for extraction. If not supplied, then the DocumentTypeName should be specified. Unused if the project is \"InformationExtraction\".\n\n- **OcrLocale** - Optional string. The locale that is used for reading text from the image when the request uses the \"InformationExtraction\" project. If omitted, text is read using the extraction profile's locale.\n\n**Files Per Request Item**\n\nThis service supports JPEG, PNG, and TIFF files. There can only be one file per request item object. It can either be an embedded file or a reference to a file ID previously posted to the Files Resource. The File Type property for the file is ignored for this service.\n\nIf the DocumentTypeName and PageIndex are specified, then the data will be extracted based on the index of the template in the order of the template names (not IDs) in the specified document type. If the PageIndex is greater than the number of templates in the document type, then the image is not processed for data extraction.",
         "security": [
           {
-            "capture.ot2.opentext.com": []
-          },
-          {
-            "capture.ot2.opentext.eu": []
-          },
-          {
             "na-1-dev.api.opentext.com": []
-          },
-          {
-            "na-1.api.opentext.com": []
-          },
-          {
-            "eu-1.api.opentext.com": []
           }
         ],
         "requestBody": {
@@ -3947,19 +3695,7 @@
         "description": "The Extract Document Service will perform extraction on each item submitted and return a UIM object containing information from the result.\n\n**Service Properties**\n\n- **Env** - Metadata environment identifier. Value is one of \"D\", \"T\" or \"P\". Default value is \"P\".\n\n- **IncludeOcrData** - Boolean. If true then the returned UIM data object will contain extracted characters information. Otherwise it won't.\n\n- **Project** - Optional string. The recognition project to use to classify the document. Valid values are \"Default\" for the Advanced Recognition and \"InformationExtraction\" for the Information Extraction. If omitted, \"Default\" is used.\n\n**Values Per Request Item**\n\n- **DocumentTypeName** String. The Document Type name to be used for extraction. This is ignored if the TemplateIds property is passed. This value is case sensitive when the request uses the \"InformationExtraction\" project.\n\n- **TemplateIds** - Array of Strings. The image template IDs assigned in the recognition project that are used for extraction. If not supplied, then the DocumentTypeName must be specified. Unused if the project is \"InformationExtraction\". To skip a extraction from a page, set the template ID for that page to \"-2\".\n\n- **RepeatLastTemplate** - Boolean. If true and if the TemplateIds array has fewer entries than the request item has files, the last template ID is applied to the remaining files in the request item.\n\n- **OcrLocale** - Optional string. The locale that is used for reading text from the image when the request uses the \"InformationExtraction\" project. If omitted, text is read using the extraction profile's locale.\n\n**Files Per Request Item**\n\nThis service supports JPEG, PNG, and TIFF files. Each item can have one or more files. It can either be an embedded file or a reference to a file ID previously posted to the Files Resource. The File Type property for the file is ignored for this service.\n\nIf the TemplateIds property is not included in the request, more than one image is sent, and the DocumentTypeName is specified, then the images are processed as follows. First, the templates in the specified document type are ordered by name (not ID). Then, the first template in the list is used for the first file in the request item, the second template in the list is used for the second file in the request item, and so forth. If the request item contains more images than there are templates in the document type, then the extra images are not processed for data extraction.",
         "security": [
           {
-            "capture.ot2.opentext.com": []
-          },
-          {
-            "capture.ot2.opentext.eu": []
-          },
-          {
             "na-1-dev.api.opentext.com": []
-          },
-          {
-            "na-1.api.opentext.com": []
-          },
-          {
-            "eu-1.api.opentext.com": []
           }
         ],
         "requestBody": {
@@ -4153,19 +3889,7 @@
         "description": "The UimData Real-Time Service will provide either UIM (Unified Indexing Model) data population or validation or both population and validation. The population and validation rules referenced below are developed in the Designer when constructing a Document Type. Please see the Designer documentation for more information about rules and Document Types.\n\n**Service Properties**\n\n- **Env** - Metadata environment identifier. Value is one of \"D\", \"T\" or \"P\". Default value is \"P\".\n\n**Number of Request Items**\n\nThis Real-Time Service supports one or more items.\n\n**Values Per Request Item**\n\n- **Command** - String. Valid values:\n  - **Validate** - UimData is validated as per validation rules,\n  - **Populate** - UimData fields are populated using population rules, or\n  - **PopulateAndValidate** - UimData fields are populated using population rules and then the data is validated per data validation rules.\n\n- **TriggerReference** - String. Name of the field that is used as a population trigger or population target. Used only for Populate or PopulateAndValidate commands. If this is empty or not provided, then the service will run all the rules on the supplied UimData. If it is populated, then it will only run rules that are not one-time rules.\n\n- **TriggerKind** - String. One of the following values. Used only for Populate or PopulateAndValidate commands.\n  - **Calculate** - The first expression population rule where TriggerReference is used as the target field is run. This can also be an array field name with a valid row index specified in PopulateTriggerRow,\n  - **Lookup** - All population rules of type DatabaseLookup are run in the specified order, where the TriggerReference is one of the trigger fields. This can also be an array field name with a valid row index specified in PopulateTriggerRow, or\n  - **PopulateOptions** - The first DatebaseLookup rule is run where TriggerReference is one of the trigger fields and the Choice values are populated by the first two columns of the result set. This can also be an array field name with a valid row index specified in PopulateTriggerRow.\n\n- **PopulateTriggerRow** - Integer. This is a zero based row index for array field based population. This property is ignored if no field name was supplied in the \"triggerReference\" property or if the field name supplied is not an array field. The operation will also fail if the index supplied for this property is invalid for the supplied array field name.\n\n- **UimData** - Object. This is a UIM data information object that you want the service to use for performing the command.\n\n**Files Per Request Item**\n\nNo files are necessary or used.",
         "security": [
           {
-            "capture.ot2.opentext.com": []
-          },
-          {
-            "capture.ot2.opentext.eu": []
-          },
-          {
             "na-1-dev.api.opentext.com": []
-          },
-          {
-            "na-1.api.opentext.com": []
-          },
-          {
-            "eu-1.api.opentext.com": []
           }
         ],
         "requestBody": {
@@ -4377,19 +4101,7 @@
         "description": "The Process Image Pipeline Real-Time services executes a series of image services on a single image based on service properties. The order of services execution is as follows::\n  - Image Enhancement\n  - Classify\n  - Extract\n\nOutputs of all executed services are combined and returned in the response.\n\n**Service Properties**\n\n- **Env** - Metadata environment identifier. Value is one of \"D\", \"T\" or \"P\". Default value is \"P\".\n\n- **ImageProfile** - If non empty, the incoming image is enhanced.\n\n- **ReturnFileDataInline** - Boolean. If true, then the resulting file is returned inline in the result item as a base64 encoded file. If false, then the resulting file is returned as a fileId and can be retrieved through the Files resource. Default value is true. Applicable only if image enhancement is done. File ID referncing the resulting file is returned as part of URI in \"src\" property of File object of Result Item.\n\n- **Classify** - Boolean. Classify the image.\n\n- **Extract** - Boolean. Extract the image. If this is set then ClassifyAndExtract is performed on the image and “Classify” flag is ignored.\n\n- **IncludeOcrData** - Boolean. If true then the returned UIM data object will contain extracted characters information. Otherwise it won't.\n\n- **Project** - Optional string. The recognition project to use to classify the document. Valid values are \"Default\" for the Advanced Recognition and \"InformationExtraction\" for the Information Extraction. If omitted, \"Default\" is used.\n\n- **OcrLocale** - Optional string. The locale that is used for reading text from the image when the request uses the \"InformationExtraction\" project. If omitted, text is read using the project's classification locale.\n\n**Number of Request Items**\n\nThis Real-Time Service supports one or more items.\n\n**Values Per Request Item**\n\nNo values are necessary or used.\n\n**Files Per Request Item**\n\nThis service supports JPEG, PNG, and TIFF files. There can only be one file in request item object. It can either be an embedded file or a reference to a file ID previously posted to the Files Resource.",
         "security": [
           {
-            "capture.ot2.opentext.com": []
-          },
-          {
-            "capture.ot2.opentext.eu": []
-          },
-          {
             "na-1-dev.api.opentext.com": []
-          },
-          {
-            "na-1.api.opentext.com": []
-          },
-          {
-            "eu-1.api.opentext.com": []
           }
         ],
         "requestBody": {
@@ -4592,19 +4304,7 @@
         "description": "The Learning service is used to learn to classify and/or extract a document using the Information Extraction recognition project. The document must previously have been processed with one of the services that classify and/or extract the document in order to generate the needed server-side data for learning. Extraction IDs (extractionId) returned by the following services cannot be used for learning: Classify, ClassifyExtractPage, and ExtractPage. However, extraction IDs that are returned from the following services can be used: ClassifyExtractDocument, and ExtractDocument. In other words, only extraction IDs coming from document level classify or extract services are valid. Now, there are two situations where learning IDs will be invalid. First, if you change the structure of the batch such as rearranging pages, deleting pages, or adding new pages after you have called those APIs for classification and extraction, then you will need to clear the Extraction IDs (extractionId) in the UIMData as they will be invalid for learning. Second, if you modify a page such as rotating or cropping it, supply null for that page's classification ID instead of the ID returned by the classification APIs as the change to the image invalidates its classification.\n\nFor more efficient processing, if a document classified or extracted with the Information Extraction project will not be learned, the learning service should still be called with the learning mode set to \"None\". This will delete any temporary server-side data that would otherwise be used for learning.\n\n**Service Properties**\n\n- **Env** - Metadata environment identifier. Value is one of \"D\", \"T\" or \"P\". Default value is \"P\".\n\n- **Project** - String. Must be set to \"InformationExtraction\" for the Information Extraction project.\n\n**Number of Request Items**\n\nThis Real-Time Service supports one or more items.\n\n**Values Per Request Item**\n\n- **Mode** - String. Valid values:\n  - **Classify** - Learn to classify the supplied document.\n  - **Extract** - Learn to extract the supplied document.\n  - **ClassifyExtract** - Learn to both classify and extract the supplied document.\n  - **None** - Do not learn, but remove any temporary server-side data used for learning the supplied document.\n\n- **UimData** - Object. This is a UIM data information object to be used for learning to extract. Learning works best if the field values have location rectangles. The page IDs for the field values are 0-based page numbers in this call.\n\n- **DocumentType** String. The Document Type name to be used for learning to classify.\n\n- **ClassificationPageIds** - Array of strings. The array of server-generated IDs, one per page, returned by classification functions. The service will use these values to learn to classify. If the entire document was extracted, this is the \"ClassificationPageIds\" returned by the extraction call. If the document was extracted page-by-page, it is an array of the per-page classification IDs. The values in the list must have the same order as the pages in the document.\n\n**Files Per Request Item**\n\nThis service supports JPEG, PNG, and TIFF files. Each item can have one or more files. It can either be an embedded file or a reference to a file ID previously posted to the Files Resource. The File Type property for the file is ignored for this service.",
         "security": [
           {
-            "capture.ot2.opentext.com": []
-          },
-          {
-            "capture.ot2.opentext.eu": []
-          },
-          {
             "na-1-dev.api.opentext.com": []
-          },
-          {
-            "na-1.api.opentext.com": []
-          },
-          {
-            "eu-1.api.opentext.com": []
           }
         ],
         "requestBody": {
@@ -4787,6 +4487,9 @@
         "description": "Returned only if user is authenticated.",
         "properties": {
           "status": {
+            "type": "integer"
+          },
+		  "substatus": {
             "type": "integer"
           },
           "code": {
@@ -5823,10 +5526,6 @@
           }
         }
       },
-      "na-1-dev.api.opentext.com": {
-        "type": "openIdConnect",
-        "openIdConnectUrl": "https://na-1-dev.api.opentext.com/tenants/$tenantId/.well-known/openid-configuration/"
-      },
       "na-1.api.opentext.com": {
         "type": "openIdConnect",
         "openIdConnectUrl": "https://na-1.api.opentext.com/tenants/$tenantId/.well-known/openid-configuration/"
@@ -5834,6 +5533,11 @@
       "eu-1.api.opentext.com": {
         "type": "openIdConnect",
         "openIdConnectUrl": "https://eu-1.api.opentext.com/tenants/$tenantId/.well-known/openid-configuration/"
+      },
+	  "na-1-dev.api.opentext.com": {
+        "type": "http",
+        "scheme": "bearer",
+        "bearerFormat": "jwt"
       }
     }
   }

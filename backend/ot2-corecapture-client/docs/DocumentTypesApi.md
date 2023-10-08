@@ -31,16 +31,9 @@ public class Example {
     ApiClient defaultClient = Configuration.getDefaultApiClient();
     defaultClient.setBasePath("https://capture.ot2.opentext.com/cp-rest/v2");
     
-
-    // Configure OAuth2 access token for authorization: capture.ot2.opentext.eu
-    OAuth capture.ot2.opentext.eu = (OAuth) defaultClient.getAuthentication("capture.ot2.opentext.eu");
-    capture.ot2.opentext.eu.setAccessToken("YOUR ACCESS TOKEN");
-
-
-    // Configure OAuth2 access token for authorization: capture.ot2.opentext.com
-    OAuth capture.ot2.opentext.com = (OAuth) defaultClient.getAuthentication("capture.ot2.opentext.com");
-    capture.ot2.opentext.com.setAccessToken("YOUR ACCESS TOKEN");
-
+    // Configure HTTP bearer authorization: na-1-dev.api.opentext.com
+    HttpBearerAuth na-1-dev.api.opentext.com = (HttpBearerAuth) defaultClient.getAuthentication("na-1-dev.api.opentext.com");
+    na-1-dev.api.opentext.com.setBearerToken("BEARER TOKEN");
 
     DocumentTypesApi apiInstance = new DocumentTypesApi(defaultClient);
     String docType = "docType_example"; // String | 
@@ -74,7 +67,7 @@ public class Example {
 
 ### Authorization
 
-[na-1-dev.api.opentext.com](../README.md#na-1-dev.api.opentext.com), [capture.ot2.opentext.eu](../README.md#capture.ot2.opentext.eu), [eu-1.api.opentext.com](../README.md#eu-1.api.opentext.com), [capture.ot2.opentext.com](../README.md#capture.ot2.opentext.com), [na-1.api.opentext.com](../README.md#na-1.api.opentext.com)
+[na-1-dev.api.opentext.com](../README.md#na-1-dev.api.opentext.com)
 
 ### HTTP request headers
 
@@ -114,16 +107,9 @@ public class Example {
     ApiClient defaultClient = Configuration.getDefaultApiClient();
     defaultClient.setBasePath("https://capture.ot2.opentext.com/cp-rest/v2");
     
-
-    // Configure OAuth2 access token for authorization: capture.ot2.opentext.eu
-    OAuth capture.ot2.opentext.eu = (OAuth) defaultClient.getAuthentication("capture.ot2.opentext.eu");
-    capture.ot2.opentext.eu.setAccessToken("YOUR ACCESS TOKEN");
-
-
-    // Configure OAuth2 access token for authorization: capture.ot2.opentext.com
-    OAuth capture.ot2.opentext.com = (OAuth) defaultClient.getAuthentication("capture.ot2.opentext.com");
-    capture.ot2.opentext.com.setAccessToken("YOUR ACCESS TOKEN");
-
+    // Configure HTTP bearer authorization: na-1-dev.api.opentext.com
+    HttpBearerAuth na-1-dev.api.opentext.com = (HttpBearerAuth) defaultClient.getAuthentication("na-1-dev.api.opentext.com");
+    na-1-dev.api.opentext.com.setBearerToken("BEARER TOKEN");
 
     DocumentTypesApi apiInstance = new DocumentTypesApi(defaultClient);
     Env env = Env.fromValue("D"); // Env | 
@@ -155,7 +141,7 @@ public class Example {
 
 ### Authorization
 
-[na-1-dev.api.opentext.com](../README.md#na-1-dev.api.opentext.com), [capture.ot2.opentext.eu](../README.md#capture.ot2.opentext.eu), [eu-1.api.opentext.com](../README.md#eu-1.api.opentext.com), [capture.ot2.opentext.com](../README.md#capture.ot2.opentext.com), [na-1.api.opentext.com](../README.md#na-1.api.opentext.com)
+[na-1-dev.api.opentext.com](../README.md#na-1-dev.api.opentext.com)
 
 ### HTTP request headers
 

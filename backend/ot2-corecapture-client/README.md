@@ -2,7 +2,7 @@
 
 Core Capture Services
 - API version: 23.3
-  - Build date: 2023-10-08T02:53:00.970636+05:30[Asia/Calcutta]
+  - Build date: 2023-10-08T16:42:46.583230500+05:30[Asia/Calcutta]
 
 OpenText Core Capture Services are a set of RESTful web service interfaces that provides capture functionality. Being developed in a purely RESTful style, Core Capture Services are easier to consume for the purposes of writing custom clients.
 
@@ -96,16 +96,9 @@ public class Example {
     ApiClient defaultClient = Configuration.getDefaultApiClient();
     defaultClient.setBasePath("https://capture.ot2.opentext.com/cp-rest/v2");
     
-
-    // Configure OAuth2 access token for authorization: capture.ot2.opentext.eu
-    OAuth capture.ot2.opentext.eu = (OAuth) defaultClient.getAuthentication("capture.ot2.opentext.eu");
-    capture.ot2.opentext.eu.setAccessToken("YOUR ACCESS TOKEN");
-
-
-    // Configure OAuth2 access token for authorization: capture.ot2.opentext.com
-    OAuth capture.ot2.opentext.com = (OAuth) defaultClient.getAuthentication("capture.ot2.opentext.com");
-    capture.ot2.opentext.com.setAccessToken("YOUR ACCESS TOKEN");
-
+    // Configure HTTP bearer authorization: na-1-dev.api.opentext.com
+    HttpBearerAuth na-1-dev.api.opentext.com = (HttpBearerAuth) defaultClient.getAuthentication("na-1-dev.api.opentext.com");
+    na-1-dev.api.opentext.com.setBearerToken("BEARER TOKEN");
 
     BatchApi apiInstance = new BatchApi(defaultClient);
     SessionBatchesPostRequest sessionBatchesPostRequest = new SessionBatchesPostRequest(); // SessionBatchesPostRequest | 
@@ -268,10 +261,6 @@ Authentication schemes defined for the API:
 - **Authorization URL**: 
 - **Scopes**: N/A
 
-<a id="na-1-dev.api.opentext.com"></a>
-### na-1-dev.api.opentext.com
-
-
 <a id="na-1.api.opentext.com"></a>
 ### na-1.api.opentext.com
 
@@ -279,6 +268,11 @@ Authentication schemes defined for the API:
 <a id="eu-1.api.opentext.com"></a>
 ### eu-1.api.opentext.com
 
+
+<a id="na-1-dev.api.opentext.com"></a>
+### na-1-dev.api.opentext.com
+
+- **Type**: HTTP Bearer Token authentication (jwt)
 
 
 ## Recommendation
