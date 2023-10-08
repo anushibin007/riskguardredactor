@@ -59,4 +59,4 @@ def redact_keywords():
     return send_file(io.BytesIO(pdf_bytes), as_attachment=True, download_name='redacted.pdf', mimetype='application/pdf')
 
 if __name__ == '__main__':
-    app.run(debug=True)
+    app.run(host="0.0.0.0", debug=True)
