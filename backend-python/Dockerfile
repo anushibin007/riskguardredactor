@@ -1,3 +1,6 @@
+# docker build -t riskguard-redactor-python-backend .
+# docker run -itd -p5000:5000 --name riskguard-redactor-python-backend riskguard-redactor-python-backend
+
 # Use the official Python image as a base image
 FROM python:3.8-slim
 
