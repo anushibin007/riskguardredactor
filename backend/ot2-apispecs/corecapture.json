@@ -4841,7 +4841,7 @@
       "basicResultItemWithFiles": {
         "allOf": [
           {
-            "$ref": "#/components/schemas/basicResultItem"
+            "$ref": "#/components/schemas/basicResultItemWithValues"
           },
           {
             "$ref": "#/components/schemas/resultItemFiles"
