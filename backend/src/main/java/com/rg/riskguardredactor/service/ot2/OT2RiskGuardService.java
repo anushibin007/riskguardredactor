@@ -112,6 +112,11 @@ public class OT2RiskGuardService implements Constant {
 	}
 
 	private ContentAnalyzerApi getClientApiInstance() {
+		ContentAnalyzerApi apiInstance = new ContentAnalyzerApi(getApiClient());
+		return apiInstance;
+	}
+
+	private ApiClient getApiClient() {
 
 		String bearerToken = authService.getBearerToken();
 		if (bearerToken == null) {
@@ -125,7 +130,7 @@ public class OT2RiskGuardService implements Constant {
 		HttpBearerAuth bearer = (HttpBearerAuth) defaultClient.getAuthentication("Bearer");
 		bearer.setBearerToken(bearerToken);
 
-		ContentAnalyzerApi apiInstance = new ContentAnalyzerApi(defaultClient);
-		return apiInstance;
+		return defaultClient;
+
 	}
 }
