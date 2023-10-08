@@ -131,7 +131,7 @@ public class SessionApi {
             localVarHeaderParams.put("Content-Type", localVarContentType);
         }
 
-        String[] localVarAuthNames = new String[] { "na-1-dev.api.opentext.com", "capture.ot2.opentext.eu", "eu-1.api.opentext.com", "capture.ot2.opentext.com", "na-1.api.opentext.com" };
+        String[] localVarAuthNames = new String[] { "na-1-dev.api.opentext.com" };
         return localVarApiClient.buildCall(basePath, localVarPath, "DELETE", localVarQueryParams, localVarCollectionQueryParams, localVarPostBody, localVarHeaderParams, localVarCookieParams, localVarFormParams, localVarAuthNames, _callback);
     }
 

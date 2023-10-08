@@ -1,6 +1,5 @@
 .github/workflows/maven.yml
 .gitignore
-.openapi-generator-ignore
 .travis.yml
 README.md
 api/openapi.yaml
@@ -49,11 +48,3 @@ src/main/java/com/ot2/riskguard/model/ProductVersion.java
 src/main/java/com/ot2/riskguard/model/Result.java
 src/main/java/com/ot2/riskguard/model/Results.java
 src/main/java/com/ot2/riskguard/model/Status.java
-src/test/java/com/ot2/riskguard/api/ContentAnalyzerApiTest.java
-src/test/java/com/ot2/riskguard/model/ContentResponseTest.java
-src/test/java/com/ot2/riskguard/model/HeaderTest.java
-src/test/java/com/ot2/riskguard/model/OT2ErrorMessageTest.java
-src/test/java/com/ot2/riskguard/model/ProductVersionTest.java
-src/test/java/com/ot2/riskguard/model/ResultTest.java
-src/test/java/com/ot2/riskguard/model/ResultsTest.java
-src/test/java/com/ot2/riskguard/model/StatusTest.java

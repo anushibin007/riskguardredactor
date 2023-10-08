@@ -49,7 +49,7 @@ import com.ot2.riskguard.invoker.JSON;
 /**
  * ProductVersion
  */
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", date = "2023-10-08T02:52:58.656712200+05:30[Asia/Calcutta]")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", date = "2023-10-08T16:42:42.420700+05:30[Asia/Calcutta]")
 public class ProductVersion {
   public static final String SERIALIZED_NAME_VERSION = "version";
   @SerializedName(SERIALIZED_NAME_VERSION)

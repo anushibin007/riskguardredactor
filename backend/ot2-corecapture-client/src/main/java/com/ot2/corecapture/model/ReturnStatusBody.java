@@ -49,11 +49,15 @@ import com.ot2.corecapture.invoker.JSON;
 /**
  * Returned only if user is authenticated.
  */
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", date = "2023-10-08T02:53:00.970636+05:30[Asia/Calcutta]")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", date = "2023-10-08T16:42:46.583230500+05:30[Asia/Calcutta]")
 public class ReturnStatusBody {
   public static final String SERIALIZED_NAME_STATUS = "status";
   @SerializedName(SERIALIZED_NAME_STATUS)
   private Integer status;
+
+  public static final String SERIALIZED_NAME_SUBSTATUS = "substatus";
+  @SerializedName(SERIALIZED_NAME_SUBSTATUS)
+  private Integer substatus;
 
   public static final String SERIALIZED_NAME_CODE = "code";
   @SerializedName(SERIALIZED_NAME_CODE)
@@ -88,6 +92,27 @@ public class ReturnStatusBody {
 
   public void setStatus(Integer status) {
     this.status = status;
+  }
+
+
+  public ReturnStatusBody substatus(Integer substatus) {
+    
+    this.substatus = substatus;
+    return this;
+  }
+
+   /**
+   * Get substatus
+   * @return substatus
+  **/
+  @javax.annotation.Nullable
+  public Integer getSubstatus() {
+    return substatus;
+  }
+
+
+  public void setSubstatus(Integer substatus) {
+    this.substatus = substatus;
   }
 
 
@@ -165,6 +190,7 @@ public class ReturnStatusBody {
     }
     ReturnStatusBody returnStatusBody = (ReturnStatusBody) o;
     return Objects.equals(this.status, returnStatusBody.status) &&
+        Objects.equals(this.substatus, returnStatusBody.substatus) &&
         Objects.equals(this.code, returnStatusBody.code) &&
         Objects.equals(this.message, returnStatusBody.message) &&
         Objects.equals(this.server, returnStatusBody.server);
@@ -172,7 +198,7 @@ public class ReturnStatusBody {
 
   @Override
   public int hashCode() {
-    return Objects.hash(status, code, message, server);
+    return Objects.hash(status, substatus, code, message, server);
   }
 
   @Override
@@ -180,6 +206,7 @@ public class ReturnStatusBody {
     StringBuilder sb = new StringBuilder();
     sb.append("class ReturnStatusBody {\n");
     sb.append("    status: ").append(toIndentedString(status)).append("\n");
+    sb.append("    substatus: ").append(toIndentedString(substatus)).append("\n");
     sb.append("    code: ").append(toIndentedString(code)).append("\n");
     sb.append("    message: ").append(toIndentedString(message)).append("\n");
     sb.append("    server: ").append(toIndentedString(server)).append("\n");
@@ -206,6 +233,7 @@ public class ReturnStatusBody {
     // a set of all properties/fields (JSON key names)
     openapiFields = new HashSet<String>();
     openapiFields.add("status");
+    openapiFields.add("substatus");
     openapiFields.add("code");
     openapiFields.add("message");
     openapiFields.add("server");

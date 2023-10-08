@@ -9,6 +9,7 @@ Returned only if user is authenticated.
 | Name | Type | Description | Notes |
 |------------ | ------------- | ------------- | -------------|
 |**status** | **Integer** |  |  [optional] |
+|**substatus** | **Integer** |  |  [optional] |
 |**code** | **String** |  |  [optional] |
 |**message** | **String** |  |  [optional] |
 |**server** | **String** |  |  [optional] |
