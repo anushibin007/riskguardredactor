@@ -8,6 +8,7 @@ import java.net.URLConnection;
 import org.apache.commons.io.FileUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartFile;
 
 import com.rg.riskguardredactor.service.ot2.OT2AuthService;
 
@@ -58,6 +59,15 @@ public class FIleUrlHelperService {
 
 	public byte[] fileToByteArray(File file) throws IOException {
 		return FileUtils.readFileToByteArray(file);
+	}
+
+	public File multiPartToFile(MultipartFile multipartFile) throws IllegalStateException, IOException {
+
+		String fileName = multipartFile.getOriginalFilename();
+		File tempFile = getRandomTempFile(fileName);
+		multipartFile.transferTo(tempFile);
+
+		return tempFile;
 	}
 
 	private long getRandomNumber() {

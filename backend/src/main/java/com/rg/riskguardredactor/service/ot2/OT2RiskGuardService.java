@@ -51,8 +51,8 @@ public class OT2RiskGuardService implements Constant {
 
 	}
 
-	public List<String> processAndGetResults() {
-		ContentResponse processResults = process();
+	public List<String> processAndGetResults(File file) {
+		ContentResponse processResults = process(file);
 		return processAndGetResults(processResults);
 	}
 
@@ -89,7 +89,7 @@ public class OT2RiskGuardService implements Constant {
 		return null;
 	}
 
-	public ContentResponse process() {
+	public ContentResponse process(File file) {
 		ContentAnalyzerApi apiInstance = getClientApiInstance();
 		if (apiInstance == null) {
 			log.error("Could not retrieve apiClientInstance. Hence, could not invoke getVersion.");
@@ -97,8 +97,6 @@ public class OT2RiskGuardService implements Constant {
 		}
 
 		try {
-			// TODO: File should come dynamically
-			File file = new File(LOCAL_SAMPLE_SEARCHABLE_PDF_FILE_PATH);
 			ContentResponse result = apiInstance.processContent(file);
 			return result;
 		} catch (ApiException e) {
