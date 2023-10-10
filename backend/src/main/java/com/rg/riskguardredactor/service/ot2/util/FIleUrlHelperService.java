@@ -38,7 +38,7 @@ public class FIleUrlHelperService {
 		urlConnection.setRequestProperty("Authorization", "Bearer " + authService.getBearerToken());
 
 		// Stage a temp file
-		File destinationFile = getRandomTempFile(null);
+		File destinationFile = getRandomTempFile(suffix);
 
 		// Download
 		FileUtils.copyToFile(urlConnection.getInputStream(), destinationFile);
@@ -52,8 +52,8 @@ public class FIleUrlHelperService {
 	public String getRandomTempFileName(String suffix) {
 		String tempDir = System.getProperty("java.io.tmpdir");
 		long randomNumber = getRandomNumber();
-		String finalSuffix = "-" + (suffix == null ? "file.pdf" : suffix);
-		return tempDir + "/" + randomNumber + finalSuffix;
+		suffix = "-" + (suffix == null ? "file.pdf" : suffix);
+		return tempDir + "/" + randomNumber + suffix;
 	}
 
 	public byte[] fileToByteArray(File file) throws IOException {
