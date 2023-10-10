@@ -3,20 +3,41 @@ package com.rg.riskguardredactor.service.ot2.util;
 import java.io.File;
 import java.io.IOException;
 import java.net.URL;
+import java.net.URLConnection;
 
 import org.apache.commons.io.FileUtils;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import com.rg.riskguardredactor.service.ot2.OT2AuthService;
 
 @Service
 public class FIleUrlHelperService {
+
+	@Autowired
+	OT2AuthService authService;
+
+	public File urlToTempFile(String sourceUrl) throws IOException {
+		URL sourceUrlAsUrl = new URL(sourceUrl);
+		return urlToTempFile(sourceUrlAsUrl);
+	}
 
 	public File urlToTempFile(URL sourceUrl) throws IOException {
 		return urlToTempFile(sourceUrl, null);
 	}
 
+	public File urlToTempFile(String sourceUrl, String suffix) throws IOException {
+		URL sourceUrlAsUrl = new URL(sourceUrl);
+		return urlToTempFile(sourceUrlAsUrl, suffix);
+	}
+
 	public File urlToTempFile(URL sourceUrl, String suffix) throws IOException {
+
+		URLConnection urlConnection = sourceUrl.openConnection();
+		urlConnection.setRequestProperty("Authorization", "Bearer " + authService.getBearerToken());
+
 		File destinationFile = getRandomTempFile(null);
-		FileUtils.copyURLToFile(sourceUrl, destinationFile);
+		FileUtils.copyToFile(urlConnection.getInputStream(), destinationFile);
 		return destinationFile;
 	}
 
