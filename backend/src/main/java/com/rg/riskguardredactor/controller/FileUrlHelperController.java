@@ -2,7 +2,6 @@ package com.rg.riskguardredactor.controller;
 
 import java.io.File;
 import java.io.IOException;
-import java.net.URL;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
@@ -26,8 +25,7 @@ public class FileUrlHelperController {
 	@ResponseBody
 	public ResponseEntity<byte[]> urlToTempFile(@RequestParam("url") String urlAsString,
 			@RequestParam("fileName") String fileName) throws IOException {
-		URL url = new URL(urlAsString);
-		File file = fileUrlService.urlToTempFile(url, fileName);
+		File file = fileUrlService.urlToTempFile(urlAsString, fileName);
 		// TODO: Dynamically find contentType
 		return ResponseEntity.ok().contentType(MediaType.APPLICATION_PDF).body(fileUrlService.fileToByteArray(file));
 	}
