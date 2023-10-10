@@ -81,6 +81,17 @@ public class OT2CoreCaptureService implements Constant {
 		return null;
 	}
 
+	/**
+	 * Trigger OCR processing on the cloud
+	 * 
+	 * @param name        name of the file. This could be anything. Like
+	 *                    "lab-report.pdf"
+	 * @param value       The ID of the file that looks like
+	 *                    "F_a9c80d03fb62455b84b774cb2e991cfcPDF"
+	 * @param contentType the mime type of the file that looks like
+	 *                    "application/pdf"
+	 * @return
+	 */
 	public SessionServicesFullpageocrPost200Response sessionServicesFullpageocrPost(String name, String value,
 			String contentType) {
 
