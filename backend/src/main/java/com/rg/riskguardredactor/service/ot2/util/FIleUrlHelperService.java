@@ -33,10 +33,14 @@ public class FIleUrlHelperService {
 
 	public File urlToTempFile(URL sourceUrl, String suffix) throws IOException {
 
+		// Authenticate
 		URLConnection urlConnection = sourceUrl.openConnection();
 		urlConnection.setRequestProperty("Authorization", "Bearer " + authService.getBearerToken());
 
+		// Stage a temp file
 		File destinationFile = getRandomTempFile(null);
+
+		// Download
 		FileUtils.copyToFile(urlConnection.getInputStream(), destinationFile);
 		return destinationFile;
 	}
