@@ -1,0 +1,1183 @@
+{
+  "openapi": "3.0.3",
+  "info": {
+    "title": "Content Storage Service API",
+    "description": "Content Storage Service provides storage and indexing for content and documents, which includes encryption/decryption of the content, anti-virus and authorization checks on upload and download. It is used by Content Metadata Service (CMS) when storing document objects, CMS will provide authorization management.\n\n# Authentication\n\n<!-- ReDoc-Inject: <security-definitions> -->",
+    "version": "1.0.0"
+  },
+  "tags": [
+    {
+      "name": "Content",
+      "description": "Content transfer APIs"
+    },
+    {
+      "name": "Sharable Links",
+      "description": "APIs to create and manage links that could be shared with non platform users"
+    },
+    {
+      "name": "Content Usage",
+      "description": "Tenant usage metrics (Deprecated), use ETS for the information instead."
+    }
+  ],
+  "servers": [
+    {
+      "url": "https://css.na-1-dev.api.opentext.com",
+      "description": "Build & Test"
+    },
+    {
+      "url": "https://css.na-1.api.opentext.com",
+      "description": "North America region"
+    },
+    {
+      "url": "https://css.eu-1.api.opentext.com",
+      "description": "European region"
+    },
+    {
+      "url": "https://css.ca.api.opentext.com",
+      "description": "CA Production"
+    }
+  ],
+  "security": [
+    {
+      "tenant": []
+    }
+  ],
+  "paths": {
+    "/v2/content": {
+      "post": {
+        "tags": [
+          "Content"
+        ],
+        "summary": "Tenant user upload content",
+        "description": "Tenant user upload content",
+        "operationId": "uploadContent",
+        "requestBody": {
+          "$ref": "#/components/requestBodies/UploadContent"
+        },
+        "responses": {
+          "201": {
+            "description": "Content uploaded successfully",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/content"
+                },
+                "examples": {
+                  "contentUploadedExample": {
+                    "$ref": "#/components/examples/contentUploadedExample"
+                  }
+                }
+              }
+            }
+          },
+          "401": {
+            "$ref": "#/components/responses/Unauthorized"
+          },
+          "default": {
+            "description": "Request failed",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HttpProblem"
+                },
+                "examples": {
+                  "BadRequest": {
+                    "$ref": "#/components/examples/BadRequest"
+                  },
+                  "NotFound": {
+                    "$ref": "#/components/examples/NotFound"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/v2/tenant/{tenantId}/content": {
+      "post": {
+        "tags": [
+          "Content"
+        ],
+        "summary": "Upload content for a tenant",
+        "description": "Upload content for a tenant",
+        "operationId": "uploadContentTenant",
+        "parameters": [
+          {
+            "name": "tenantId",
+            "in": "path",
+            "description": "ID of tenant",
+            "required": true,
+            "style": "simple",
+            "explode": false,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "avs-scan",
+            "in": "query",
+            "description": "Flag indicating whether or not to perform a virus scan. Reserved for trusted clients, set false to skip avs (default is true)",
+            "required": false,
+            "style": "form",
+            "explode": true,
+            "schema": {
+              "type": "boolean"
+            }
+          }
+        ],
+        "requestBody": {
+          "$ref": "#/components/requestBodies/UploadContent"
+        },
+        "responses": {
+          "201": {
+            "description": "Content uploaded successfully",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/content"
+                },
+                "examples": {
+                  "contentUploadedExample": {
+                    "$ref": "#/components/examples/contentUploadedExample"
+                  }
+                }
+              }
+            }
+          },
+          "401": {
+            "$ref": "#/components/responses/Unauthorized"
+          },
+          "default": {
+            "description": "Request failed",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HttpProblem"
+                },
+                "examples": {
+                  "BadRequest": {
+                    "$ref": "#/components/examples/BadRequest"
+                  },
+                  "NotFound": {
+                    "$ref": "#/components/examples/NotFound"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/v2/upload/{id}/content": {
+      "post": {
+        "tags": [
+          "Content"
+        ],
+        "summary": "Upload content with upload URL",
+        "description": "Upload content with upload URL",
+        "operationId": "uploadContentURL",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "ID of upload",
+            "required": true,
+            "style": "simple",
+            "explode": false,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "avs-scan",
+            "in": "query",
+            "description": "Flag indicating whether or not to perform a virus scan. Reserved for trusted clients, set false to skip avs (default is true)",
+            "required": false,
+            "style": "form",
+            "explode": true,
+            "schema": {
+              "type": "boolean"
+            }
+          }
+        ],
+        "requestBody": {
+          "$ref": "#/components/requestBodies/UploadContent"
+        },
+        "responses": {
+          "201": {
+            "description": "Content uploaded successfully",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/content"
+                },
+                "examples": {
+                  "contentUploadedExample": {
+                    "$ref": "#/components/examples/contentUploadedExample"
+                  }
+                }
+              }
+            }
+          },
+          "401": {
+            "$ref": "#/components/responses/Unauthorized"
+          },
+          "default": {
+            "description": "Request failed",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HttpProblem"
+                },
+                "examples": {
+                  "BadRequest": {
+                    "$ref": "#/components/examples/BadRequest"
+                  },
+                  "NotFound": {
+                    "$ref": "#/components/examples/NotFound"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/v2/content/{id}": {
+      "get": {
+        "tags": [
+          "Content"
+        ],
+        "summary": "Get content metadata for the content",
+        "description": "Get details of a specific content",
+        "operationId": "getContent",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "ID of the content",
+            "required": true,
+            "style": "simple",
+            "explode": false,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Content downloaded",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/content"
+                }
+              }
+            }
+          },
+          "401": {
+            "$ref": "#/components/responses/Unauthorized"
+          },
+          "default": {
+            "description": "Request failed",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HttpProblem"
+                },
+                "examples": {
+                  "BadRequest": {
+                    "$ref": "#/components/examples/BadRequest"
+                  },
+                  "NotFound": {
+                    "$ref": "#/components/examples/NotFound"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/v2/content/{id}/download": {
+      "get": {
+        "tags": [
+          "Content"
+        ],
+        "summary": "Download content",
+        "description": "Download content",
+        "operationId": "downloadcontent",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "ID of the content",
+            "required": true,
+            "style": "simple",
+            "explode": false,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "object-id",
+            "in": "query",
+            "description": "The ID of the object attached with the content",
+            "required": false,
+            "style": "form",
+            "explode": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "file-name",
+            "in": "query",
+            "description": "The name of the file in response",
+            "required": false,
+            "style": "form",
+            "explode": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "mime-type",
+            "in": "query",
+            "description": "The mime type of the content. This has higher priority than the Accept header",
+            "required": false,
+            "style": "form",
+            "explode": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "disposition-type",
+            "in": "query",
+            "description": "Content disposition of the downloaded content",
+            "required": false,
+            "style": "form",
+            "explode": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "avs-scan",
+            "in": "query",
+            "description": "Flag indicating whether or not to perform a virus scan. Reserved for trusted clients, set false to skip avs (default is true)",
+            "required": false,
+            "style": "form",
+            "explode": true,
+            "schema": {
+              "type": "boolean"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Content downloaded",
+            "content": {
+              "application/octet-stream": {
+                "schema": {
+                  "type": "string",
+                  "format": "binary",
+                  "description": "file bytes"
+                },
+                "example": "File bytes, plain text for text/plain mimetype"
+              }
+            }
+          },
+          "401": {
+            "$ref": "#/components/responses/Unauthorized"
+          },
+          "default": {
+            "description": "Request failed",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HttpProblem"
+                },
+                "examples": {
+                  "BadRequest": {
+                    "$ref": "#/components/examples/BadRequest"
+                  },
+                  "NotFound": {
+                    "$ref": "#/components/examples/NotFound"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/v2/content/{id}/publicShareUrl": {
+      "post": {
+        "tags": [
+          "Sharable Links"
+        ],
+        "summary": "Create a new sharable-link for download",
+        "description": "Create a new sharable-link for download",
+        "operationId": "createSharableLink",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "ID of upload",
+            "required": true,
+            "style": "simple",
+            "explode": false,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "object-id",
+            "in": "query",
+            "description": "The ID of the object attached with the content",
+            "required": false,
+            "style": "form",
+            "explode": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "description": "Password and expiry",
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/newLinkRequest"
+              },
+              "example": {
+                "password": "myPassword",
+                "expiry": "2022-12-07T21:29:38.160Z"
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "Download URL",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/newLinkResponse"
+                }
+              }
+            }
+          },
+          "401": {
+            "$ref": "#/components/responses/Unauthorized"
+          },
+          "default": {
+            "description": "Request failed",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HttpProblem"
+                },
+                "examples": {
+                  "BadRequest": {
+                    "$ref": "#/components/examples/BadRequest"
+                  },
+                  "NotFound": {
+                    "$ref": "#/components/examples/NotFound"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/v2/content/{id}/publicShareUrl/{urlId}": {
+      "put": {
+        "tags": [
+          "Sharable Links"
+        ],
+        "summary": "Update a sharable link",
+        "description": "Update a sharable link",
+        "operationId": "updateSharableLink",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "ID of upload",
+            "required": true,
+            "style": "simple",
+            "explode": false,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "urlId",
+            "in": "path",
+            "description": "ID of download url",
+            "required": true,
+            "style": "simple",
+            "explode": false,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "description": "Expiry",
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/updateLinkRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Update successfully",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/newLinkResponse"
+                }
+              }
+            }
+          },
+          "401": {
+            "$ref": "#/components/responses/Unauthorized"
+          },
+          "default": {
+            "description": "Request failed",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HttpProblem"
+                },
+                "examples": {
+                  "BadRequest": {
+                    "$ref": "#/components/examples/BadRequest"
+                  },
+                  "NotFound": {
+                    "$ref": "#/components/examples/NotFound"
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "get": {
+        "tags": [
+          "Sharable Links"
+        ],
+        "summary": "Retrieve sharable link object",
+        "description": "Retrieve sharable link object",
+        "operationId": "getSharableLink",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "ID of upload",
+            "required": true,
+            "style": "simple",
+            "explode": false,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "urlId",
+            "in": "path",
+            "description": "ID of download url",
+            "required": true,
+            "style": "simple",
+            "explode": false,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Updated successfully",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/newLinkResponse"
+                }
+              }
+            }
+          },
+          "401": {
+            "$ref": "#/components/responses/Unauthorized"
+          },
+          "default": {
+            "description": "Request failed",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HttpProblem"
+                },
+                "examples": {
+                  "BadRequest": {
+                    "$ref": "#/components/examples/BadRequest"
+                  },
+                  "NotFound": {
+                    "$ref": "#/components/examples/NotFound"
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "delete": {
+        "tags": [
+          "Sharable Links"
+        ],
+        "summary": "Delete a sharable link",
+        "description": "Delete a sharable link",
+        "operationId": "deleteSharableLink",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "ID of upload",
+            "required": true,
+            "style": "simple",
+            "explode": false,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "urlId",
+            "in": "path",
+            "description": "ID of download url",
+            "required": true,
+            "style": "simple",
+            "explode": false,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "204": {
+            "description": "Deletion successfully, No content"
+          },
+          "401": {
+            "$ref": "#/components/responses/Unauthorized"
+          },
+          "default": {
+            "description": "Request failed",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HttpProblem"
+                },
+                "examples": {
+                  "BadRequest": {
+                    "$ref": "#/components/examples/BadRequest"
+                  },
+                  "NotFound": {
+                    "$ref": "#/components/examples/NotFound"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/v2/tenant/{tenantId}/usage": {
+      "get": {
+        "tags": [
+          "Content Usage"
+        ],
+        "summary": "Get total storage used by a tenant",
+        "description": "Get total storage used by a tenant",
+        "operationId": "usageContentTenant",
+        "parameters": [
+          {
+            "name": "tenantId",
+            "in": "path",
+            "description": "ID of tenant",
+            "required": true,
+            "style": "simple",
+            "explode": false,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "units",
+            "in": "query",
+            "description": "Units to use for storage display (possible values are B, KB, MB, GB, TB, default is MB)",
+            "required": false,
+            "style": "form",
+            "explode": false,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Usage statistics retrieved successfully",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/tenantUsageResponse"
+                }
+              }
+            }
+          },
+          "401": {
+            "$ref": "#/components/responses/Unauthorized"
+          },
+          "default": {
+            "description": "Request failed",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HttpProblem"
+                },
+                "examples": {
+                  "BadRequest": {
+                    "$ref": "#/components/examples/BadRequest"
+                  },
+                  "NotFound": {
+                    "$ref": "#/components/examples/NotFound"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  "components": {
+    "securitySchemes": {
+      "tenant": {
+        "type": "openIdConnect",
+        "openIdConnectUrl": "https://na-1-dev.api.opentext.com/tenants/$tenantId/.well-known/openid-configuration/"
+      }
+    },
+    "responses": {
+      "Unauthorized": {
+        "description": "The endpoint cannot be reached because the request is not authorized",
+        "content": {
+          "application/json": {
+            "schema": {
+              "$ref": "#/components/schemas/Error"
+            },
+            "example": {
+              "value": {
+                "error": "unauthorized",
+                "error_description": "Full authentication is required to access this resource"
+              }
+            }
+          }
+        }
+      }
+    },
+    "requestBodies": {
+      "UploadContent": {
+        "description": "Pass binary data via multipart/form-data or in plain body",
+        "content": {
+          "multipart/form-data": {
+            "schema": {
+              "description": "request to facilitate browser upload, as browsers use multipart form data to post a resource",
+              "type": "object",
+              "properties": {
+                "name": {
+                  "description": "The property 'name' will be used for all files",
+                  "type": "array",
+                  "items": {
+                    "type": "string",
+                    "format": "binary"
+                  }
+                }
+              }
+            }
+          },
+          "application/octet-stream": {
+            "schema": {
+              "description": "Provide file bytes in the body",
+              "type": "string",
+              "format": "binary"
+            }
+          }
+        }
+      }
+    },
+    "schemas": {
+      "Error": {
+        "type": "object",
+        "properties": {
+          "error": {
+            "type": "string",
+            "description": "error group"
+          },
+          "error_description": {
+            "type": "string",
+            "description": "error message"
+          }
+        }
+      },
+      "HttpProblem": {
+        "type": "object",
+        "description": "Failed request details",
+        "properties": {
+          "type": {
+            "description": "type of problem refer to http-problem",
+            "type": "string"
+          },
+          "title": {
+            "description": "group of the problem",
+            "type": "string"
+          },
+          "status": {
+            "description": "REST status code",
+            "type": "integer"
+          },
+          "detail": {
+            "description": "detailed message for the problem",
+            "type": "string"
+          }
+        },
+        "example": {
+          "BadRequest": {
+            "type": "http://tools.ietf.org/html/draft-nottingham-http-problem-07",
+            "title": "Bad Request",
+            "status": 400,
+            "detail": "File not provided"
+          }
+        }
+      },
+      "contentLinks": {
+        "type": "object",
+        "properties": {
+          "self": {
+            "$ref": "#/components/schemas/Link"
+          },
+          "download": {
+            "$ref": "#/components/schemas/Link"
+          }
+        }
+      },
+      "content": {
+        "type": "object",
+        "properties": {
+          "title": {
+            "type": "string"
+          },
+          "entries": {
+            "type": "array",
+            "description": "Array of contents",
+            "items": {
+              "$ref": "#/components/schemas/entry"
+            }
+          }
+        }
+      },
+      "entry": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "description": "Content id in the system",
+            "type": "string"
+          },
+          "objectId": {
+            "description": "Id of the object in the metadata service that references content",
+            "type": "string"
+          },
+          "mimeType": {
+            "description": "mime-type of the content declared on upload",
+            "type": "string"
+          },
+          "fileName": {
+            "type": "string"
+          },
+          "size": {
+            "type": "integer",
+            "format": "int64"
+          },
+          "createDate": {
+            "type": "string",
+            "format": "date-time",
+            "readOnly": true
+          },
+          "lastUpdated": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "providerId": {
+            "description": "Id of the metadata service that governs this content",
+            "type": "string"
+          },
+          "tenantId": {
+            "type": "string"
+          },
+          "subscriptionId": {
+            "type": "string",
+            "nullable": true
+          },
+          "blobId": {
+            "type": "string"
+          },
+          "properties": {
+            "type": "object",
+            "nullable": true
+          },
+          "renditions": {
+            "description": "renditions associated with this content",
+            "type": "array",
+            "nullable": true,
+            "items": {
+              "$ref": "#/components/schemas/rendition"
+            }
+          },
+          "_links": {
+            "$ref": "#/components/schemas/contentLinks"
+          }
+        },
+        "example": {
+          "id": "cj0wMWRjNmYwNS01OGQ4LTQ5NmItYmM1OC04MzQ5NDRmMjk2NjMmaT05ZjRkOTM0NS1lZDM4LTRmYWQtYTJhYS0xN2FkYzZkMTBjMmI=",
+          "objectId": "",
+          "mimeType": "text/plain",
+          "fileName": "connection_error.txt",
+          "size": 16144,
+          "createDate": "2022-11-07T18:34:39.972+0000",
+          "lastUpdated": "2022-11-07T18:34:39.972+0000",
+          "providerId": "1a1825d1-c13d-4239-bbdd-11898938b633",
+          "tenantId": "00000000-0000-0000-0000-000000000009",
+          "subscriptionId": null,
+          "properties": {
+            "MD5": "49E3BB7A53ED76DF163A60003876B6A7"
+          },
+          "renditions": null,
+          "blobId": "9f4d9345-ed38-4fad-a2aa-17adc6d10c2b",
+          "_links": {
+            "self": {
+              "href": "https://css.eu-1.api.opentext.com/v2/content/cj0wMWRjNmYwNS01OGQ4LTQ5NmItYmM1OC04MzQ5NDRmMjk2NjMmaT05ZjRkOTM0NS1lZDM4LTRmYWQtYTJhYS0xN2FkYzZkMTBjMmI="
+            },
+            "download": {
+              "href": "https://css.eu-1.api.opentext.com/v2/content/cj0wMWRjNmYwNS01OGQ4LTQ5NmItYmM1OC04MzQ5NDRmMjk2NjMmaT05ZjRkOTM0NS1lZDM4LTRmYWQtYTJhYS0xN2FkYzZkMTBjMmI=/download"
+            }
+          }
+        }
+      },
+      "rendition": {
+        "type": "object",
+        "properties": {
+          "mimeType": {
+            "type": "string"
+          },
+          "fileName": {
+            "type": "string"
+          },
+          "size": {
+            "type": "integer",
+            "format": "int64"
+          },
+          "createDate": {
+            "type": "string",
+            "format": "date-time",
+            "readOnly": true
+          }
+        }
+      },
+      "newLinkRequest": {
+        "type": "object",
+        "properties": {
+          "password": {
+            "type": "string"
+          },
+          "expiry": {
+            "type": "string",
+            "format": "date-time"
+          }
+        }
+      },
+      "updateLinkRequest": {
+        "type": "object",
+        "properties": {
+          "expiry": {
+            "type": "string",
+            "format": "date-time"
+          }
+        }
+      },
+      "newLinkResponse": {
+        "type": "object",
+        "properties": {
+          "issuedToken": {
+            "type": "string"
+          },
+          "uri": {
+            "type": "string"
+          },
+          "objectId": {
+            "type": "string"
+          },
+          "serviceId": {
+            "type": "string"
+          },
+          "expiry": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "secured": {
+            "type": "boolean"
+          },
+          "id": {
+            "type": "string"
+          },
+          "_links": {
+            "$ref": "#/components/schemas/sharableLinks"
+          }
+        },
+        "example": {
+          "id": "791db1a2-edaf-46f6-84fc-4740a950d009",
+          "issuedToken": "",
+          "uri": "cj0wMWRjNmYwNS01OGQ4LTQ5NmItYmM1OC04MzQ5NDRmMjk2NjMmaT05ZjRkOTM0NS1lZDM4LTRmYWQtYTJhYS0xN2FkYzZkMTBjMmI=",
+          "objectId": "",
+          "serviceId": "css",
+          "expiry": "2022-12-07T21:29:38.160Z",
+          "secured": true,
+          "_links": {
+            "self": {
+              "href": "https://contentservice-dorins3.dev.bp-paas.otxlab.net/v2/content/cj0wMWRjNmYwNS01OGQ4LTQ5NmItYmM1OC04MzQ5NDRmMjk2NjMmaT05ZjRkOTM0NS1lZDM4LTRmYWQtYTJhYS0xN2FkYzZkMTBjMmI=/publicShareUrl/791db1a2-edaf-46f6-84fc-4740a950d009"
+            },
+            "token": {
+              "href": "https://contentservice-dorins3.dev.bp-paas.otxlab.net/v2/share/791db1a2-edaf-46f6-84fc-4740a950d009/token"
+            }
+          }
+        }
+      },
+      "tenantUsageResponse": {
+        "type": "object",
+        "properties": {
+          "tenantId": {
+            "type": "string"
+          },
+          "tenantUsageSize": {
+            "type": "number",
+            "format": "double"
+          },
+          "tenantUsageUnits": {
+            "type": "string"
+          },
+          "dateOfLastUpload": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "createdBy": {
+            "type": "string"
+          },
+          "createdDate": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "modifiedBy": {
+            "type": "string"
+          },
+          "modifiedDate": {
+            "type": "string",
+            "format": "date-time"
+          }
+        },
+        "example": {
+          "tenantId": "00000000-0000-0000-0000-000000000009",
+          "tenantUsageSize": 0.032562255859375,
+          "tenantUsageUnits": "MB",
+          "dateOfLastUpload": "2022-12-07T21:29:38.160Z",
+          "createdBy": "userA",
+          "createDate": "2021-11-07T21:29:38.160Z",
+          "modifiedBy": "userB",
+          "modifiedDate": "2022-12-07T21:29:38.160Z"
+        }
+      },
+      "sharableLinks": {
+        "type": "object",
+        "properties": {
+          "self": {
+            "$ref": "#/components/schemas/Link"
+          },
+          "token": {
+            "$ref": "#/components/schemas/Link"
+          }
+        }
+      },
+      "Link": {
+        "type": "object",
+        "properties": {
+          "href": {
+            "type": "string",
+            "format": "url",
+            "readOnly": true
+          }
+        },
+        "readOnly": true
+      }
+    },
+    "examples": {
+      "contentUploadedExample": {
+        "value": {
+          "title": "/contents",
+          "entries": [
+            {
+              "id": "cj0wMWRjNmYwNS01OGQ4LTQ5NmItYmM1OC04MzQ5NDRmMjk2NjMmaT05ZjRkOTM0NS1lZDM4LTRmYWQtYTJhYS0xN2FkYzZkMTBjMmI=",
+              "objectId": "",
+              "mimeType": "text/plain",
+              "fileName": "connection_error.txt",
+              "size": 16144,
+              "createDate": "2022-11-07T18:34:39.972+0000",
+              "lastUpdated": "2022-11-07T18:34:39.972+0000",
+              "providerId": "1a1825d1-c13d-4239-bbdd-11898938b633",
+              "tenantId": "00000000-0000-0000-0000-000000000009",
+              "subscriptionId": null,
+              "properties": {
+                "MD5": "49E3BB7A53ED76DF163A60003876B6A7"
+              },
+              "renditions": null,
+              "blobId": "9f4d9345-ed38-4fad-a2aa-17adc6d10c2b",
+              "_links": {
+                "self": {
+                  "href": "https://css.eu-1.api.opentext.com/v2/content/cj0wMWRjNmYwNS01OGQ4LTQ5NmItYmM1OC04MzQ5NDRmMjk2NjMmaT05ZjRkOTM0NS1lZDM4LTRmYWQtYTJhYS0xN2FkYzZkMTBjMmI="
+                },
+                "download": {
+                  "href": "https://css.eu-1.api.opentext.com/v2/content/cj0wMWRjNmYwNS01OGQ4LTQ5NmItYmM1OC04MzQ5NDRmMjk2NjMmaT05ZjRkOTM0NS1lZDM4LTRmYWQtYTJhYS0xN2FkYzZkMTBjMmI=/download"
+                }
+              }
+            }
+          ]
+        }
+      },
+      "NotFound": {
+        "value": {
+          "type": "http://tools.ietf.org/html/draft-nottingham-http-problem-07",
+          "title": "Not Found",
+          "status": 404,
+          "detail": "Requested resource not found"
+        }
+      },
+      "BadRequest": {
+        "value": {
+          "type": "http://tools.ietf.org/html/draft-nottingham-http-problem-07",
+          "title": "Bad Request",
+          "status": 400,
+          "detail": "File not provided"
+        }
+      }
+    }
+  }
+}
