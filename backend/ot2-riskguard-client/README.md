@@ -2,7 +2,7 @@
 
 Magellan Risk Guard
 - API version: 1.0
-  - Build date: 2023-10-09T00:42:13.883997+05:30[Asia/Calcutta]
+  - Build date: 2023-10-13T23:29:38.127491300+05:30[Asia/Calcutta]
 
 The Magellan Risk Guard REST service processes documents to help identify risks/threats. It is a completely stateless service that offers built-in accurate models. Leveraging the core components of Magellan Text Mining, the following information will be identified/extracted from documents  :
 - PII(Personally Identifiable Information)

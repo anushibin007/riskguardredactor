@@ -1,0 +1,954 @@
+openapi: 3.0.3
+info:
+  description: |-
+    Content Storage Service provides storage and indexing for content and documents, which includes encryption/decryption of the content, anti-virus and authorization checks on upload and download. It is used by Content Metadata Service (CMS) when storing document objects, CMS will provide authorization management.
+
+    # Authentication
+
+    <!-- ReDoc-Inject: <security-definitions> -->
+  title: Content Storage Service API
+  version: 1.0.0
+servers:
+- description: Build & Test
+  url: https://css.na-1-dev.api.opentext.com
+- description: North America region
+  url: https://css.na-1.api.opentext.com
+- description: European region
+  url: https://css.eu-1.api.opentext.com
+- description: CA Production
+  url: https://css.ca.api.opentext.com
+security:
+- tenant: []
+tags:
+- description: Content transfer APIs
+  name: Content
+- description: APIs to create and manage links that could be shared with non platform
+    users
+  name: Sharable Links
+- description: "Tenant usage metrics (Deprecated), use ETS for the information instead."
+  name: Content Usage
+paths:
+  /v2/content:
+    post:
+      description: Tenant user upload content
+      operationId: uploadContent
+      requestBody:
+        $ref: '#/components/requestBodies/UploadContent'
+      responses:
+        "201":
+          content:
+            application/json:
+              examples:
+                contentUploadedExample:
+                  $ref: '#/components/examples/contentUploadedExample'
+              schema:
+                $ref: '#/components/schemas/content'
+          description: Content uploaded successfully
+        "401":
+          content:
+            application/json:
+              example:
+                value:
+                  error: unauthorized
+                  error_description: Full authentication is required to access this
+                    resource
+              schema:
+                $ref: '#/components/schemas/Error'
+          description: The endpoint cannot be reached because the request is not authorized
+        default:
+          content:
+            application/json:
+              examples:
+                BadRequest:
+                  $ref: '#/components/examples/BadRequest'
+                NotFound:
+                  $ref: '#/components/examples/NotFound'
+              schema:
+                $ref: '#/components/schemas/HttpProblem'
+          description: Request failed
+      summary: Tenant user upload content
+      tags:
+      - Content
+      x-content-type: multipart/form-data
+      x-accepts: application/json
+  /v2/tenant/{tenantId}/content:
+    post:
+      description: Upload content for a tenant
+      operationId: uploadContentTenant
+      parameters:
+      - description: ID of tenant
+        explode: false
+        in: path
+        name: tenantId
+        required: true
+        schema:
+          type: string
+        style: simple
+      - description: "Flag indicating whether or not to perform a virus scan. Reserved\
+          \ for trusted clients, set false to skip avs (default is true)"
+        explode: true
+        in: query
+        name: avs-scan
+        required: false
+        schema:
+          type: boolean
+        style: form
+      requestBody:
+        $ref: '#/components/requestBodies/UploadContent'
+      responses:
+        "201":
+          content:
+            application/json:
+              examples:
+                contentUploadedExample:
+                  $ref: '#/components/examples/contentUploadedExample'
+              schema:
+                $ref: '#/components/schemas/content'
+          description: Content uploaded successfully
+        "401":
+          content:
+            application/json:
+              example:
+                value:
+                  error: unauthorized
+                  error_description: Full authentication is required to access this
+                    resource
+              schema:
+                $ref: '#/components/schemas/Error'
+          description: The endpoint cannot be reached because the request is not authorized
+        default:
+          content:
+            application/json:
+              examples:
+                BadRequest:
+                  $ref: '#/components/examples/BadRequest'
+                NotFound:
+                  $ref: '#/components/examples/NotFound'
+              schema:
+                $ref: '#/components/schemas/HttpProblem'
+          description: Request failed
+      summary: Upload content for a tenant
+      tags:
+      - Content
+      x-content-type: multipart/form-data
+      x-accepts: application/json
+  /v2/upload/{id}/content:
+    post:
+      description: Upload content with upload URL
+      operationId: uploadContentURL
+      parameters:
+      - description: ID of upload
+        explode: false
+        in: path
+        name: id
+        required: true
+        schema:
+          type: string
+        style: simple
+      - description: "Flag indicating whether or not to perform a virus scan. Reserved\
+          \ for trusted clients, set false to skip avs (default is true)"
+        explode: true
+        in: query
+        name: avs-scan
+        required: false
+        schema:
+          type: boolean
+        style: form
+      requestBody:
+        $ref: '#/components/requestBodies/UploadContent'
+      responses:
+        "201":
+          content:
+            application/json:
+              examples:
+                contentUploadedExample:
+                  $ref: '#/components/examples/contentUploadedExample'
+              schema:
+                $ref: '#/components/schemas/content'
+          description: Content uploaded successfully
+        "401":
+          content:
+            application/json:
+              example:
+                value:
+                  error: unauthorized
+                  error_description: Full authentication is required to access this
+                    resource
+              schema:
+                $ref: '#/components/schemas/Error'
+          description: The endpoint cannot be reached because the request is not authorized
+        default:
+          content:
+            application/json:
+              examples:
+                BadRequest:
+                  $ref: '#/components/examples/BadRequest'
+                NotFound:
+                  $ref: '#/components/examples/NotFound'
+              schema:
+                $ref: '#/components/schemas/HttpProblem'
+          description: Request failed
+      summary: Upload content with upload URL
+      tags:
+      - Content
+      x-content-type: multipart/form-data
+      x-accepts: application/json
+  /v2/content/{id}:
+    get:
+      description: Get details of a specific content
+      operationId: getContent
+      parameters:
+      - description: ID of the content
+        explode: false
+        in: path
+        name: id
+        required: true
+        schema:
+          type: string
+        style: simple
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/content'
+          description: Content downloaded
+        "401":
+          content:
+            application/json:
+              example:
+                value:
+                  error: unauthorized
+                  error_description: Full authentication is required to access this
+                    resource
+              schema:
+                $ref: '#/components/schemas/Error'
+          description: The endpoint cannot be reached because the request is not authorized
+        default:
+          content:
+            application/json:
+              examples:
+                BadRequest:
+                  $ref: '#/components/examples/BadRequest'
+                NotFound:
+                  $ref: '#/components/examples/NotFound'
+              schema:
+                $ref: '#/components/schemas/HttpProblem'
+          description: Request failed
+      summary: Get content metadata for the content
+      tags:
+      - Content
+      x-accepts: application/json
+  /v2/content/{id}/download:
+    get:
+      description: Download content
+      operationId: downloadcontent
+      parameters:
+      - description: ID of the content
+        explode: false
+        in: path
+        name: id
+        required: true
+        schema:
+          type: string
+        style: simple
+      - description: The ID of the object attached with the content
+        explode: true
+        in: query
+        name: object-id
+        required: false
+        schema:
+          type: string
+        style: form
+      - description: The name of the file in response
+        explode: true
+        in: query
+        name: file-name
+        required: false
+        schema:
+          type: string
+        style: form
+      - description: The mime type of the content. This has higher priority than the
+          Accept header
+        explode: true
+        in: query
+        name: mime-type
+        required: false
+        schema:
+          type: string
+        style: form
+      - description: Content disposition of the downloaded content
+        explode: true
+        in: query
+        name: disposition-type
+        required: false
+        schema:
+          type: string
+        style: form
+      - description: "Flag indicating whether or not to perform a virus scan. Reserved\
+          \ for trusted clients, set false to skip avs (default is true)"
+        explode: true
+        in: query
+        name: avs-scan
+        required: false
+        schema:
+          type: boolean
+        style: form
+      responses:
+        "200":
+          content:
+            application/octet-stream:
+              example: !!binary |-
+                RmlsZSBieXRlcywgcGxhaW4gdGV4dCBmb3IgdGV4dC9wbGFpbiBtaW1ldHlwZQ==
+              schema:
+                description: file bytes
+                format: binary
+                type: string
+          description: Content downloaded
+        "401":
+          content:
+            application/json:
+              example:
+                value:
+                  error: unauthorized
+                  error_description: Full authentication is required to access this
+                    resource
+              schema:
+                $ref: '#/components/schemas/Error'
+          description: The endpoint cannot be reached because the request is not authorized
+        default:
+          content:
+            application/json:
+              examples:
+                BadRequest:
+                  $ref: '#/components/examples/BadRequest'
+                NotFound:
+                  $ref: '#/components/examples/NotFound'
+              schema:
+                $ref: '#/components/schemas/HttpProblem'
+          description: Request failed
+      summary: Download content
+      tags:
+      - Content
+      x-accepts: application/json
+  /v2/content/{id}/publicShareUrl:
+    post:
+      description: Create a new sharable-link for download
+      operationId: createSharableLink
+      parameters:
+      - description: ID of upload
+        explode: false
+        in: path
+        name: id
+        required: true
+        schema:
+          type: string
+        style: simple
+      - description: The ID of the object attached with the content
+        explode: true
+        in: query
+        name: object-id
+        required: false
+        schema:
+          type: string
+        style: form
+      requestBody:
+        content:
+          application/json:
+            example:
+              password: myPassword
+              expiry: 2022-12-07T21:29:38.160Z
+            schema:
+              $ref: '#/components/schemas/newLinkRequest'
+        description: Password and expiry
+      responses:
+        "201":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/newLinkResponse'
+          description: Download URL
+        "401":
+          content:
+            application/json:
+              example:
+                value:
+                  error: unauthorized
+                  error_description: Full authentication is required to access this
+                    resource
+              schema:
+                $ref: '#/components/schemas/Error'
+          description: The endpoint cannot be reached because the request is not authorized
+        default:
+          content:
+            application/json:
+              examples:
+                BadRequest:
+                  $ref: '#/components/examples/BadRequest'
+                NotFound:
+                  $ref: '#/components/examples/NotFound'
+              schema:
+                $ref: '#/components/schemas/HttpProblem'
+          description: Request failed
+      summary: Create a new sharable-link for download
+      tags:
+      - Sharable Links
+      x-content-type: application/json
+      x-accepts: application/json
+  /v2/content/{id}/publicShareUrl/{urlId}:
+    delete:
+      description: Delete a sharable link
+      operationId: deleteSharableLink
+      parameters:
+      - description: ID of upload
+        explode: false
+        in: path
+        name: id
+        required: true
+        schema:
+          type: string
+        style: simple
+      - description: ID of download url
+        explode: false
+        in: path
+        name: urlId
+        required: true
+        schema:
+          type: string
+        style: simple
+      responses:
+        "204":
+          description: "Deletion successfully, No content"
+        "401":
+          content:
+            application/json:
+              example:
+                value:
+                  error: unauthorized
+                  error_description: Full authentication is required to access this
+                    resource
+              schema:
+                $ref: '#/components/schemas/Error'
+          description: The endpoint cannot be reached because the request is not authorized
+        default:
+          content:
+            application/json:
+              examples:
+                BadRequest:
+                  $ref: '#/components/examples/BadRequest'
+                NotFound:
+                  $ref: '#/components/examples/NotFound'
+              schema:
+                $ref: '#/components/schemas/HttpProblem'
+          description: Request failed
+      summary: Delete a sharable link
+      tags:
+      - Sharable Links
+      x-accepts: application/json
+    get:
+      description: Retrieve sharable link object
+      operationId: getSharableLink
+      parameters:
+      - description: ID of upload
+        explode: false
+        in: path
+        name: id
+        required: true
+        schema:
+          type: string
+        style: simple
+      - description: ID of download url
+        explode: false
+        in: path
+        name: urlId
+        required: true
+        schema:
+          type: string
+        style: simple
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/newLinkResponse'
+          description: Updated successfully
+        "401":
+          content:
+            application/json:
+              example:
+                value:
+                  error: unauthorized
+                  error_description: Full authentication is required to access this
+                    resource
+              schema:
+                $ref: '#/components/schemas/Error'
+          description: The endpoint cannot be reached because the request is not authorized
+        default:
+          content:
+            application/json:
+              examples:
+                BadRequest:
+                  $ref: '#/components/examples/BadRequest'
+                NotFound:
+                  $ref: '#/components/examples/NotFound'
+              schema:
+                $ref: '#/components/schemas/HttpProblem'
+          description: Request failed
+      summary: Retrieve sharable link object
+      tags:
+      - Sharable Links
+      x-accepts: application/json
+    put:
+      description: Update a sharable link
+      operationId: updateSharableLink
+      parameters:
+      - description: ID of upload
+        explode: false
+        in: path
+        name: id
+        required: true
+        schema:
+          type: string
+        style: simple
+      - description: ID of download url
+        explode: false
+        in: path
+        name: urlId
+        required: true
+        schema:
+          type: string
+        style: simple
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/updateLinkRequest'
+        description: Expiry
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/newLinkResponse'
+          description: Update successfully
+        "401":
+          content:
+            application/json:
+              example:
+                value:
+                  error: unauthorized
+                  error_description: Full authentication is required to access this
+                    resource
+              schema:
+                $ref: '#/components/schemas/Error'
+          description: The endpoint cannot be reached because the request is not authorized
+        default:
+          content:
+            application/json:
+              examples:
+                BadRequest:
+                  $ref: '#/components/examples/BadRequest'
+                NotFound:
+                  $ref: '#/components/examples/NotFound'
+              schema:
+                $ref: '#/components/schemas/HttpProblem'
+          description: Request failed
+      summary: Update a sharable link
+      tags:
+      - Sharable Links
+      x-content-type: application/json
+      x-accepts: application/json
+  /v2/tenant/{tenantId}/usage:
+    get:
+      description: Get total storage used by a tenant
+      operationId: usageContentTenant
+      parameters:
+      - description: ID of tenant
+        explode: false
+        in: path
+        name: tenantId
+        required: true
+        schema:
+          type: string
+        style: simple
+      - description: "Units to use for storage display (possible values are B, KB,\
+          \ MB, GB, TB, default is MB)"
+        explode: false
+        in: query
+        name: units
+        required: false
+        schema:
+          type: string
+        style: form
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/tenantUsageResponse'
+          description: Usage statistics retrieved successfully
+        "401":
+          content:
+            application/json:
+              example:
+                value:
+                  error: unauthorized
+                  error_description: Full authentication is required to access this
+                    resource
+              schema:
+                $ref: '#/components/schemas/Error'
+          description: The endpoint cannot be reached because the request is not authorized
+        default:
+          content:
+            application/json:
+              examples:
+                BadRequest:
+                  $ref: '#/components/examples/BadRequest'
+                NotFound:
+                  $ref: '#/components/examples/NotFound'
+              schema:
+                $ref: '#/components/schemas/HttpProblem'
+          description: Request failed
+      summary: Get total storage used by a tenant
+      tags:
+      - Content Usage
+      x-accepts: application/json
+components:
+  examples:
+    contentUploadedExample:
+      value:
+        title: /contents
+        entries:
+        - id: cj0wMWRjNmYwNS01OGQ4LTQ5NmItYmM1OC04MzQ5NDRmMjk2NjMmaT05ZjRkOTM0NS1lZDM4LTRmYWQtYTJhYS0xN2FkYzZkMTBjMmI=
+          objectId: ""
+          mimeType: text/plain
+          fileName: connection_error.txt
+          size: 16144
+          createDate: 2022-11-07T18:34:39.972+0000
+          lastUpdated: 2022-11-07T18:34:39.972+0000
+          providerId: 1a1825d1-c13d-4239-bbdd-11898938b633
+          tenantId: 00000000-0000-0000-0000-000000000009
+          subscriptionId: null
+          properties:
+            MD5: 49E3BB7A53ED76DF163A60003876B6A7
+          renditions: null
+          blobId: 9f4d9345-ed38-4fad-a2aa-17adc6d10c2b
+          _links:
+            self:
+              href: https://css.eu-1.api.opentext.com/v2/content/cj0wMWRjNmYwNS01OGQ4LTQ5NmItYmM1OC04MzQ5NDRmMjk2NjMmaT05ZjRkOTM0NS1lZDM4LTRmYWQtYTJhYS0xN2FkYzZkMTBjMmI=
+            download:
+              href: https://css.eu-1.api.opentext.com/v2/content/cj0wMWRjNmYwNS01OGQ4LTQ5NmItYmM1OC04MzQ5NDRmMjk2NjMmaT05ZjRkOTM0NS1lZDM4LTRmYWQtYTJhYS0xN2FkYzZkMTBjMmI=/download
+    NotFound:
+      value:
+        type: http://tools.ietf.org/html/draft-nottingham-http-problem-07
+        title: Not Found
+        status: 404
+        detail: Requested resource not found
+    BadRequest:
+      value:
+        type: http://tools.ietf.org/html/draft-nottingham-http-problem-07
+        title: Bad Request
+        status: 400
+        detail: File not provided
+  requestBodies:
+    UploadContent:
+      content:
+        multipart/form-data:
+          schema:
+            $ref: '#/components/schemas/uploadContent_request'
+        application/octet-stream:
+          schema:
+            description: Provide file bytes in the body
+            format: binary
+            type: string
+      description: Pass binary data via multipart/form-data or in plain body
+  responses:
+    Unauthorized:
+      content:
+        application/json:
+          example:
+            value:
+              error: unauthorized
+              error_description: Full authentication is required to access this resource
+          schema:
+            $ref: '#/components/schemas/Error'
+      description: The endpoint cannot be reached because the request is not authorized
+  schemas:
+    Error:
+      properties:
+        error:
+          description: error group
+          type: string
+        error_description:
+          description: error message
+          type: string
+      type: object
+    HttpProblem:
+      description: Failed request details
+      example:
+        BadRequest:
+          type: http://tools.ietf.org/html/draft-nottingham-http-problem-07
+          title: Bad Request
+          status: 400
+          detail: File not provided
+      properties:
+        type:
+          description: type of problem refer to http-problem
+          type: string
+        title:
+          description: group of the problem
+          type: string
+        status:
+          description: REST status code
+          type: integer
+        detail:
+          description: detailed message for the problem
+          type: string
+      type: object
+    contentLinks:
+      properties:
+        self:
+          $ref: '#/components/schemas/Link'
+        download:
+          $ref: '#/components/schemas/Link'
+      type: object
+    content:
+      example:
+        entries:
+        - id: cj0wMWRjNmYwNS01OGQ4LTQ5NmItYmM1OC04MzQ5NDRmMjk2NjMmaT05ZjRkOTM0NS1lZDM4LTRmYWQtYTJhYS0xN2FkYzZkMTBjMmI=
+          objectId: ""
+          mimeType: text/plain
+          fileName: connection_error.txt
+          size: 16144
+          createDate: 2022-11-07T18:34:39.972+0000
+          lastUpdated: 2022-11-07T18:34:39.972+0000
+          providerId: 1a1825d1-c13d-4239-bbdd-11898938b633
+          tenantId: 00000000-0000-0000-0000-000000000009
+          subscriptionId: null
+          properties:
+            MD5: 49E3BB7A53ED76DF163A60003876B6A7
+          renditions: null
+          blobId: 9f4d9345-ed38-4fad-a2aa-17adc6d10c2b
+          _links:
+            self:
+              href: https://css.eu-1.api.opentext.com/v2/content/cj0wMWRjNmYwNS01OGQ4LTQ5NmItYmM1OC04MzQ5NDRmMjk2NjMmaT05ZjRkOTM0NS1lZDM4LTRmYWQtYTJhYS0xN2FkYzZkMTBjMmI=
+            download:
+              href: https://css.eu-1.api.opentext.com/v2/content/cj0wMWRjNmYwNS01OGQ4LTQ5NmItYmM1OC04MzQ5NDRmMjk2NjMmaT05ZjRkOTM0NS1lZDM4LTRmYWQtYTJhYS0xN2FkYzZkMTBjMmI=/download
+        - id: cj0wMWRjNmYwNS01OGQ4LTQ5NmItYmM1OC04MzQ5NDRmMjk2NjMmaT05ZjRkOTM0NS1lZDM4LTRmYWQtYTJhYS0xN2FkYzZkMTBjMmI=
+          objectId: ""
+          mimeType: text/plain
+          fileName: connection_error.txt
+          size: 16144
+          createDate: 2022-11-07T18:34:39.972+0000
+          lastUpdated: 2022-11-07T18:34:39.972+0000
+          providerId: 1a1825d1-c13d-4239-bbdd-11898938b633
+          tenantId: 00000000-0000-0000-0000-000000000009
+          subscriptionId: null
+          properties:
+            MD5: 49E3BB7A53ED76DF163A60003876B6A7
+          renditions: null
+          blobId: 9f4d9345-ed38-4fad-a2aa-17adc6d10c2b
+          _links:
+            self:
+              href: https://css.eu-1.api.opentext.com/v2/content/cj0wMWRjNmYwNS01OGQ4LTQ5NmItYmM1OC04MzQ5NDRmMjk2NjMmaT05ZjRkOTM0NS1lZDM4LTRmYWQtYTJhYS0xN2FkYzZkMTBjMmI=
+            download:
+              href: https://css.eu-1.api.opentext.com/v2/content/cj0wMWRjNmYwNS01OGQ4LTQ5NmItYmM1OC04MzQ5NDRmMjk2NjMmaT05ZjRkOTM0NS1lZDM4LTRmYWQtYTJhYS0xN2FkYzZkMTBjMmI=/download
+        title: title
+      properties:
+        title:
+          type: string
+        entries:
+          description: Array of contents
+          items:
+            $ref: '#/components/schemas/entry'
+          type: array
+      type: object
+    entry:
+      example:
+        id: cj0wMWRjNmYwNS01OGQ4LTQ5NmItYmM1OC04MzQ5NDRmMjk2NjMmaT05ZjRkOTM0NS1lZDM4LTRmYWQtYTJhYS0xN2FkYzZkMTBjMmI=
+        objectId: ""
+        mimeType: text/plain
+        fileName: connection_error.txt
+        size: 16144
+        createDate: 2022-11-07T18:34:39.972+0000
+        lastUpdated: 2022-11-07T18:34:39.972+0000
+        providerId: 1a1825d1-c13d-4239-bbdd-11898938b633
+        tenantId: 00000000-0000-0000-0000-000000000009
+        subscriptionId: null
+        properties:
+          MD5: 49E3BB7A53ED76DF163A60003876B6A7
+        renditions: null
+        blobId: 9f4d9345-ed38-4fad-a2aa-17adc6d10c2b
+        _links:
+          self:
+            href: https://css.eu-1.api.opentext.com/v2/content/cj0wMWRjNmYwNS01OGQ4LTQ5NmItYmM1OC04MzQ5NDRmMjk2NjMmaT05ZjRkOTM0NS1lZDM4LTRmYWQtYTJhYS0xN2FkYzZkMTBjMmI=
+          download:
+            href: https://css.eu-1.api.opentext.com/v2/content/cj0wMWRjNmYwNS01OGQ4LTQ5NmItYmM1OC04MzQ5NDRmMjk2NjMmaT05ZjRkOTM0NS1lZDM4LTRmYWQtYTJhYS0xN2FkYzZkMTBjMmI=/download
+      properties:
+        id:
+          description: Content id in the system
+          type: string
+        objectId:
+          description: Id of the object in the metadata service that references content
+          type: string
+        mimeType:
+          description: mime-type of the content declared on upload
+          type: string
+        fileName:
+          type: string
+        size:
+          format: int64
+          type: integer
+        createDate:
+          format: date-time
+          readOnly: true
+          type: string
+        lastUpdated:
+          format: date-time
+          type: string
+        providerId:
+          description: Id of the metadata service that governs this content
+          type: string
+        tenantId:
+          type: string
+        subscriptionId:
+          nullable: true
+          type: string
+        blobId:
+          type: string
+        properties:
+          nullable: true
+          type: object
+        renditions:
+          description: renditions associated with this content
+          items:
+            $ref: '#/components/schemas/rendition'
+          nullable: true
+          type: array
+        _links:
+          $ref: '#/components/schemas/contentLinks'
+      type: object
+    rendition:
+      properties:
+        mimeType:
+          type: string
+        fileName:
+          type: string
+        size:
+          format: int64
+          type: integer
+        createDate:
+          format: date-time
+          readOnly: true
+          type: string
+      type: object
+    newLinkRequest:
+      properties:
+        password:
+          type: string
+        expiry:
+          format: date-time
+          type: string
+      type: object
+    updateLinkRequest:
+      properties:
+        expiry:
+          format: date-time
+          type: string
+      type: object
+    newLinkResponse:
+      example:
+        id: 791db1a2-edaf-46f6-84fc-4740a950d009
+        issuedToken: ""
+        uri: cj0wMWRjNmYwNS01OGQ4LTQ5NmItYmM1OC04MzQ5NDRmMjk2NjMmaT05ZjRkOTM0NS1lZDM4LTRmYWQtYTJhYS0xN2FkYzZkMTBjMmI=
+        objectId: ""
+        serviceId: css
+        expiry: 2022-12-07T21:29:38.160Z
+        secured: true
+        _links:
+          self:
+            href: https://contentservice-dorins3.dev.bp-paas.otxlab.net/v2/content/cj0wMWRjNmYwNS01OGQ4LTQ5NmItYmM1OC04MzQ5NDRmMjk2NjMmaT05ZjRkOTM0NS1lZDM4LTRmYWQtYTJhYS0xN2FkYzZkMTBjMmI=/publicShareUrl/791db1a2-edaf-46f6-84fc-4740a950d009
+          token:
+            href: https://contentservice-dorins3.dev.bp-paas.otxlab.net/v2/share/791db1a2-edaf-46f6-84fc-4740a950d009/token
+      properties:
+        issuedToken:
+          type: string
+        uri:
+          type: string
+        objectId:
+          type: string
+        serviceId:
+          type: string
+        expiry:
+          format: date-time
+          type: string
+        secured:
+          type: boolean
+        id:
+          type: string
+        _links:
+          $ref: '#/components/schemas/sharableLinks'
+      type: object
+    tenantUsageResponse:
+      example:
+        tenantId: 00000000-0000-0000-0000-000000000009
+        tenantUsageSize: 0.032562255859375
+        tenantUsageUnits: MB
+        dateOfLastUpload: 2022-12-07T21:29:38.160Z
+        createdBy: userA
+        createDate: 2021-11-07T21:29:38.160Z
+        modifiedBy: userB
+        modifiedDate: 2022-12-07T21:29:38.160Z
+      properties:
+        tenantId:
+          type: string
+        tenantUsageSize:
+          format: double
+          type: number
+        tenantUsageUnits:
+          type: string
+        dateOfLastUpload:
+          format: date-time
+          type: string
+        createdBy:
+          type: string
+        createdDate:
+          format: date-time
+          type: string
+        modifiedBy:
+          type: string
+        modifiedDate:
+          format: date-time
+          type: string
+      type: object
+    sharableLinks:
+      properties:
+        self:
+          $ref: '#/components/schemas/Link'
+        token:
+          $ref: '#/components/schemas/Link'
+      type: object
+    Link:
+      properties:
+        href:
+          format: url
+          readOnly: true
+          type: string
+      readOnly: true
+      type: object
+    uploadContent_request:
+      description: "request to facilitate browser upload, as browsers use multipart\
+        \ form data to post a resource"
+      properties:
+        name:
+          description: The property 'name' will be used for all files
+          items:
+            format: binary
+            type: string
+          type: array
+      type: object
+  securitySchemes:
+    tenant:
+      openIdConnectUrl: https://na-1-dev.api.opentext.com/tenants/$tenantId/.well-known/openid-configuration/
+      type: openIdConnect
+

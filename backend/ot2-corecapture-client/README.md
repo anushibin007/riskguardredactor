@@ -2,7 +2,7 @@
 
 Core Capture Services
 - API version: 23.3
-  - Build date: 2023-10-09T00:42:16.144688700+05:30[Asia/Calcutta]
+  - Build date: 2023-10-13T23:29:40.322735800+05:30[Asia/Calcutta]
 
 OpenText Core Capture Services are a set of RESTful web service interfaces that provides capture functionality. Being developed in a purely RESTful style, Core Capture Services are easier to consume for the purposes of writing custom clients.
 
