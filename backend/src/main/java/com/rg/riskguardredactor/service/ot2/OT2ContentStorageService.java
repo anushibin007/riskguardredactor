@@ -69,6 +69,30 @@ public class OT2ContentStorageService implements Constant {
 		return null;
 	}
 
+	public File downloadContent(String id) {
+
+		try {
+			ContentApi apiInstance = getContentApiInstance();
+			String objectId = null; // String | The ID of the object attached with the content
+			String fileName = null; // String | The name of the file in response
+			String mimeType = null; // String | The mime type of the content. This has higher priority
+									// than the Accept header
+			String dispositionType = null; // String | Content disposition of the downloaded
+											// content
+			Boolean avsScan = false; // Boolean | Flag indicating whether or not to perform a virus scan. Reserved
+										// for trusted clients,
+			File result = apiInstance.downloadcontent(id, objectId, fileName, mimeType, dispositionType, avsScan);
+			return result;
+		} catch (ApiException e) {
+			log.error("Exception when calling ContentApi#getContent");
+			log.error("Status code: {}", e.getCode());
+			log.error("Reason: {}", e.getResponseBody());
+			log.error("Response headers: {}", e.getResponseHeaders());
+			e.printStackTrace();
+		}
+		return null;
+	}
+
 	// TODO: This requires uploading the file to CMS also. I haven't figured out
 	// that yet. Need to complete this after figuring that out.
 	public NewLinkResponse createPublicUrl(String id, String objectId) {
