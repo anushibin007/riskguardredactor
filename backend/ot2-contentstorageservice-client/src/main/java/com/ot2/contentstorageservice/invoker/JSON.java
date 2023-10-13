@@ -105,7 +105,6 @@ public class JSON {
         gsonBuilder.registerTypeAdapterFactory(new com.ot2.contentstorageservice.model.SharableLinks.CustomTypeAdapterFactory());
         gsonBuilder.registerTypeAdapterFactory(new com.ot2.contentstorageservice.model.TenantUsageResponse.CustomTypeAdapterFactory());
         gsonBuilder.registerTypeAdapterFactory(new com.ot2.contentstorageservice.model.UpdateLinkRequest.CustomTypeAdapterFactory());
-        gsonBuilder.registerTypeAdapterFactory(new com.ot2.contentstorageservice.model.UploadContentRequest.CustomTypeAdapterFactory());
         gson = gsonBuilder.create();
     }
 

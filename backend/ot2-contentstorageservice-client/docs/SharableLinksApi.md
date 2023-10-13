@@ -33,6 +33,9 @@ public class Example {
     ApiClient defaultClient = Configuration.getDefaultApiClient();
     defaultClient.setBasePath("https://css.na-1-dev.api.opentext.com");
     
+    // Configure HTTP bearer authorization: css.na-1-dev.api.opentext.com
+    HttpBearerAuth css.na-1-dev.api.opentext.com = (HttpBearerAuth) defaultClient.getAuthentication("css.na-1-dev.api.opentext.com");
+    css.na-1-dev.api.opentext.com.setBearerToken("BEARER TOKEN");
 
     SharableLinksApi apiInstance = new SharableLinksApi(defaultClient);
     String id = "id_example"; // String | ID of upload
@@ -66,7 +69,7 @@ public class Example {
 
 ### Authorization
 
-[tenant](../README.md#tenant)
+[css.na-1-dev.api.opentext.com](../README.md#css.na-1-dev.api.opentext.com)
 
 ### HTTP request headers
 
@@ -103,6 +106,9 @@ public class Example {
     ApiClient defaultClient = Configuration.getDefaultApiClient();
     defaultClient.setBasePath("https://css.na-1-dev.api.opentext.com");
     
+    // Configure HTTP bearer authorization: css.na-1-dev.api.opentext.com
+    HttpBearerAuth css.na-1-dev.api.opentext.com = (HttpBearerAuth) defaultClient.getAuthentication("css.na-1-dev.api.opentext.com");
+    css.na-1-dev.api.opentext.com.setBearerToken("BEARER TOKEN");
 
     SharableLinksApi apiInstance = new SharableLinksApi(defaultClient);
     String id = "id_example"; // String | ID of upload
@@ -133,7 +139,7 @@ null (empty response body)
 
 ### Authorization
 
-[tenant](../README.md#tenant)
+[css.na-1-dev.api.opentext.com](../README.md#css.na-1-dev.api.opentext.com)
 
 ### HTTP request headers
 
@@ -170,6 +176,9 @@ public class Example {
     ApiClient defaultClient = Configuration.getDefaultApiClient();
     defaultClient.setBasePath("https://css.na-1-dev.api.opentext.com");
     
+    // Configure HTTP bearer authorization: css.na-1-dev.api.opentext.com
+    HttpBearerAuth css.na-1-dev.api.opentext.com = (HttpBearerAuth) defaultClient.getAuthentication("css.na-1-dev.api.opentext.com");
+    css.na-1-dev.api.opentext.com.setBearerToken("BEARER TOKEN");
 
     SharableLinksApi apiInstance = new SharableLinksApi(defaultClient);
     String id = "id_example"; // String | ID of upload
@@ -201,7 +210,7 @@ public class Example {
 
 ### Authorization
 
-[tenant](../README.md#tenant)
+[css.na-1-dev.api.opentext.com](../README.md#css.na-1-dev.api.opentext.com)
 
 ### HTTP request headers
 
@@ -238,6 +247,9 @@ public class Example {
     ApiClient defaultClient = Configuration.getDefaultApiClient();
     defaultClient.setBasePath("https://css.na-1-dev.api.opentext.com");
     
+    // Configure HTTP bearer authorization: css.na-1-dev.api.opentext.com
+    HttpBearerAuth css.na-1-dev.api.opentext.com = (HttpBearerAuth) defaultClient.getAuthentication("css.na-1-dev.api.opentext.com");
+    css.na-1-dev.api.opentext.com.setBearerToken("BEARER TOKEN");
 
     SharableLinksApi apiInstance = new SharableLinksApi(defaultClient);
     String id = "id_example"; // String | ID of upload
@@ -271,7 +283,7 @@ public class Example {
 
 ### Authorization
 
-[tenant](../README.md#tenant)
+[css.na-1-dev.api.opentext.com](../README.md#css.na-1-dev.api.opentext.com)
 
 ### HTTP request headers
 

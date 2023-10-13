@@ -52,7 +52,7 @@ import com.ot2.corecapture.invoker.JSON;
 /**
  * The UIM data information object is returned by some Real-Time Services. This object contains information about the Document Type associated with a set of one or more images along with the data for the fields. This object is defined as follows.
  */
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", date = "2023-10-13T23:29:40.322735800+05:30[Asia/Calcutta]")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", date = "2023-10-14T00:05:58.836985800+05:30[Asia/Calcutta]")
 public class UimData {
   public static final String SERIALIZED_NAME_DOC_TYPE = "docType";
   @SerializedName(SERIALIZED_NAME_DOC_TYPE)

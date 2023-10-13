@@ -13,7 +13,7 @@
 
 package com.ot2.riskguard.invoker;
 
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", date = "2023-10-13T23:29:38.127491300+05:30[Asia/Calcutta]")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", date = "2023-10-14T00:05:56.640873400+05:30[Asia/Calcutta]")
 public class Configuration {
     public static final String VERSION = "1.0";
 

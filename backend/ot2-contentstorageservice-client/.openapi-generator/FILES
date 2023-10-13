@@ -20,7 +20,6 @@ docs/SharableLinks.md
 docs/SharableLinksApi.md
 docs/TenantUsageResponse.md
 docs/UpdateLinkRequest.md
-docs/UploadContentRequest.md
 git_push.sh
 gradle.properties
 gradle/wrapper/gradle-wrapper.jar
@@ -63,4 +62,3 @@ src/main/java/com/ot2/contentstorageservice/model/Rendition.java
 src/main/java/com/ot2/contentstorageservice/model/SharableLinks.java
 src/main/java/com/ot2/contentstorageservice/model/TenantUsageResponse.java
 src/main/java/com/ot2/contentstorageservice/model/UpdateLinkRequest.java
-src/main/java/com/ot2/contentstorageservice/model/UploadContentRequest.java

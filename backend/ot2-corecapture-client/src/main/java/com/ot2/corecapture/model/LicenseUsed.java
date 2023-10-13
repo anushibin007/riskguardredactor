@@ -49,7 +49,7 @@ import com.ot2.corecapture.invoker.JSON;
 /**
  * LicenseUsed
  */
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", date = "2023-10-13T23:29:40.322735800+05:30[Asia/Calcutta]")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", date = "2023-10-14T00:05:58.836985800+05:30[Asia/Calcutta]")
 public class LicenseUsed {
   public static final String SERIALIZED_NAME_LICENSE_PAGES_USED = "licensePagesUsed";
   @SerializedName(SERIALIZED_NAME_LICENSE_PAGES_USED)

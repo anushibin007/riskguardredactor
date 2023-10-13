@@ -52,7 +52,7 @@ import com.ot2.contentstorageservice.invoker.JSON;
 /**
  * request to facilitate browser upload, as browsers use multipart form data to post a resource
  */
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", date = "2023-10-13T23:29:43.283869900+05:30[Asia/Calcutta]")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", date = "2023-10-14T00:06:01.895386400+05:30[Asia/Calcutta]")
 public class UploadContentRequest {
   public static final String SERIALIZED_NAME_NAME = "name";
   @SerializedName(SERIALIZED_NAME_NAME)

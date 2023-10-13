@@ -50,7 +50,7 @@ import com.ot2.corecapture.invoker.JSON;
 /**
  * Provides an href to the Document Types resource. This resource allows you access to the Document Types that are available in the system.
  */
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", date = "2023-10-13T23:29:40.322735800+05:30[Asia/Calcutta]")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", date = "2023-10-14T00:05:58.836985800+05:30[Asia/Calcutta]")
 public class Get200ResponseLinksUrnEimLinkrelDoctypes {
   public static final String SERIALIZED_NAME_HREF = "href";
   @SerializedName(SERIALIZED_NAME_HREF)

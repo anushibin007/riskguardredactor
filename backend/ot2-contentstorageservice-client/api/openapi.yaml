@@ -18,7 +18,7 @@ servers:
 - description: CA Production
   url: https://css.ca.api.opentext.com
 security:
-- tenant: []
+- css.na-1-dev.api.opentext.com: []
 tags:
 - description: Content transfer APIs
   name: Content
@@ -209,7 +209,7 @@ paths:
       responses:
         "200":
           content:
-            application/json:
+            '*/*':
               schema:
                 $ref: '#/components/schemas/content'
           description: Content downloaded
@@ -226,7 +226,7 @@ paths:
           description: The endpoint cannot be reached because the request is not authorized
         default:
           content:
-            application/json:
+            '*/*':
               examples:
                 BadRequest:
                   $ref: '#/components/examples/BadRequest'
@@ -951,4 +951,8 @@ components:
     tenant:
       openIdConnectUrl: https://na-1-dev.api.opentext.com/tenants/$tenantId/.well-known/openid-configuration/
       type: openIdConnect
+    css.na-1-dev.api.opentext.com:
+      bearerFormat: jwt
+      scheme: bearer
+      type: http
 

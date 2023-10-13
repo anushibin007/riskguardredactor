@@ -51,7 +51,7 @@ import com.google.gson.JsonParseException;
 
 import com.ot2.corecapture.invoker.JSON;
 
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", date = "2023-10-13T23:29:40.322735800+05:30[Asia/Calcutta]")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", date = "2023-10-14T00:05:58.836985800+05:30[Asia/Calcutta]")
 public class ServicesRequestBodyServicePropsInnerValue extends AbstractOpenApiSchema {
     private static final Logger log = Logger.getLogger(ServicesRequestBodyServicePropsInnerValue.class.getName());
 

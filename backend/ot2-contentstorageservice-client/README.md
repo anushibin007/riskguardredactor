@@ -2,7 +2,7 @@
 
 Content Storage Service API
 - API version: 1.0.0
-  - Build date: 2023-10-13T23:29:43.283869900+05:30[Asia/Calcutta]
+  - Build date: 2023-10-14T01:23:49.967737400+05:30[Asia/Calcutta]
 
 Content Storage Service provides storage and indexing for content and documents, which includes encryption/decryption of the content, anti-virus and authorization checks on upload and download. It is used by Content Metadata Service (CMS) when storing document objects, CMS will provide authorization management.
 
@@ -96,6 +96,9 @@ public class Example {
     ApiClient defaultClient = Configuration.getDefaultApiClient();
     defaultClient.setBasePath("https://css.na-1-dev.api.opentext.com");
     
+    // Configure HTTP bearer authorization: css.na-1-dev.api.opentext.com
+    HttpBearerAuth css.na-1-dev.api.opentext.com = (HttpBearerAuth) defaultClient.getAuthentication("css.na-1-dev.api.opentext.com");
+    css.na-1-dev.api.opentext.com.setBearerToken("BEARER TOKEN");
 
     ContentApi apiInstance = new ContentApi(defaultClient);
     String id = "id_example"; // String | ID of the content
@@ -151,7 +154,6 @@ Class | Method | HTTP request | Description
  - [SharableLinks](docs/SharableLinks.md)
  - [TenantUsageResponse](docs/TenantUsageResponse.md)
  - [UpdateLinkRequest](docs/UpdateLinkRequest.md)
- - [UploadContentRequest](docs/UploadContentRequest.md)
 
 
 <a id="documentation-for-authorization"></a>
@@ -162,6 +164,11 @@ Authentication schemes defined for the API:
 <a id="tenant"></a>
 ### tenant
 
+
+<a id="css.na-1-dev.api.opentext.com"></a>
+### css.na-1-dev.api.opentext.com
+
+- **Type**: HTTP Bearer Token authentication (jwt)
 
 
 ## Recommendation

@@ -39,7 +39,7 @@
   ],
   "security": [
     {
-      "tenant": []
+      "css.na-1-dev.api.opentext.com": []
     }
   ],
   "paths": {
@@ -269,7 +269,7 @@
           "200": {
             "description": "Content downloaded",
             "content": {
-              "application/json": {
+              "*/*": {
                 "schema": {
                   "$ref": "#/components/schemas/content"
                 }
@@ -282,7 +282,7 @@
           "default": {
             "description": "Request failed",
             "content": {
-              "application/json": {
+              "*/*": {
                 "schema": {
                   "$ref": "#/components/schemas/HttpProblem"
                 },
@@ -768,6 +768,11 @@
       "tenant": {
         "type": "openIdConnect",
         "openIdConnectUrl": "https://na-1-dev.api.opentext.com/tenants/$tenantId/.well-known/openid-configuration/"
+      },
+	    "css.na-1-dev.api.opentext.com": {
+        "type": "http",
+        "scheme": "bearer",
+        "bearerFormat": "jwt"
       }
     },
     "responses": {

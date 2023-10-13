@@ -30,6 +30,9 @@ public class Example {
     ApiClient defaultClient = Configuration.getDefaultApiClient();
     defaultClient.setBasePath("https://css.na-1-dev.api.opentext.com");
     
+    // Configure HTTP bearer authorization: css.na-1-dev.api.opentext.com
+    HttpBearerAuth css.na-1-dev.api.opentext.com = (HttpBearerAuth) defaultClient.getAuthentication("css.na-1-dev.api.opentext.com");
+    css.na-1-dev.api.opentext.com.setBearerToken("BEARER TOKEN");
 
     ContentUsageApi apiInstance = new ContentUsageApi(defaultClient);
     String tenantId = "tenantId_example"; // String | ID of tenant
@@ -61,7 +64,7 @@ public class Example {
 
 ### Authorization
 
-[tenant](../README.md#tenant)
+[css.na-1-dev.api.opentext.com](../README.md#css.na-1-dev.api.opentext.com)
 
 ### HTTP request headers
 
