@@ -48,7 +48,7 @@ public class OT2ContentStorageService implements Constant {
 
 	public Content uploadContent(File file) {
 		try {
-			String tenantId = null;
+			String tenantId = Constant.OT2_APP_ID;
 			boolean antivirusScan = false;
 			UploadContentRequest uploadReq = new UploadContentRequest();
 			List<File> files = Arrays.asList(file);
