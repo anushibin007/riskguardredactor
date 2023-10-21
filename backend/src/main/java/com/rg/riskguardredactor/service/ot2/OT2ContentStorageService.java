@@ -7,15 +7,16 @@ import java.util.List;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpEntity;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
+import org.springframework.util.LinkedMultiValueMap;
+import org.springframework.util.MultiValueMap;
+import org.springframework.web.client.RestTemplate;
 
 import com.ot2.contentstorageservice.api.ContentApi;
 import com.ot2.contentstorageservice.api.SharableLinksApi;
-import com.ot2.contentstorageservice.invoker.ApiClient;
-import com.ot2.contentstorageservice.invoker.ApiException;
-import com.ot2.contentstorageservice.invoker.Configuration;
-import com.ot2.contentstorageservice.invoker.auth.HttpBearerAuth;
-import com.ot2.contentstorageservice.model.Content;
 import com.ot2.contentstorageservice.model.NewLinkRequest;
 import com.ot2.contentstorageservice.model.NewLinkResponse;
 import com.ot2.contentstorageservice.model.UploadContentRequest;
@@ -67,6 +68,25 @@ public class OT2ContentStorageService implements Constant {
 			e.printStackTrace();
 		}
 		return null;
+	}
+
+	public String myUploadContentImplementation(File file) {
+		String tenantId = OT2_APP_ID;
+		boolean antivirusScan = false;
+		String url = "https://css.na-1-dev.api.opentext.com/v2/tenant/" + tenantId + "/content";
+
+		RestTemplate restTemplate = new RestTemplate();
+
+		HttpHeaders headers = new HttpHeaders();
+		headers.setBearerAuth(authService.getBearerToken());
+
+		MultiValueMap<String, Object> body = new LinkedMultiValueMap<>();
+		body.add("file", file);
+
+		HttpEntity<MultiValueMap<String, Object>> requestEntity = new HttpEntity<>(body, headers);
+		ResponseEntity<String> response = restTemplate.postForEntity(url, requestEntity, String.class);
+		return response.hasBody() ? response.getBody() : null;
+
 	}
 
 	public File downloadContent(String id) {

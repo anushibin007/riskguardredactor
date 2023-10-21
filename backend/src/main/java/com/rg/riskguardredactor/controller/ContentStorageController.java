@@ -36,10 +36,10 @@ public class ContentStorageController {
 	}
 
 	@PostMapping("/uploadContent")
-	public ResponseEntity<Content> uploadContent(@RequestParam("file") MultipartFile multipartFile)
+	public ResponseEntity<String> uploadContent(@RequestParam("file") MultipartFile multipartFile)
 			throws IllegalStateException, IOException {
 		File file = fileUrlService.multiPartToFile(multipartFile);
-		Content content = storage.uploadContent(file);
+		String content = storage.myUploadContentImplementation(file);
 		if (content == null) {
 			return ResponseEntity.internalServerError().body(null);
 		}
