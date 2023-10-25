@@ -1,7 +1,8 @@
-from flask import Flask, request, send_file
+from flask import Flask, request, send_file, jsonify
 from flask_cors import CORS
 import fitz
 import io
+import requests
 
 app = Flask(__name__)
 # Enable CORS. Without this, we may see CORS releated errors. 
@@ -14,12 +15,12 @@ CORS(app)
 def redact_keywords():
     # Check if we received the pdf in the request. Else we are not going to do anything.
     # Give it back that they didn't provide the PDF File.
-    if 'pdf' not in request.files:
+    if 'file' not in request.files:
         return "No PDF file provided", 400
 
     # Get the given PDF file and keywords from the request.
     # We need to give the binary as pdf and keywords as space seperated words
-    pdf_file = request.files['pdf']
+    pdf_file = request.files['file']
     keywords = request.form['keywords'].split(',')
 
     # Let's trim the leading and tailing whitespace from keywords and remove empty ones, if any.
@@ -47,10 +48,21 @@ def redact_keywords():
                 # Set redaction color to black (yeah black love), if we don't give fill, it will be white by default.
                 rc = fitz.Rect(rect)
                 page.add_redact_annot(rc, fill=(0, 0, 0))
-                page.apply_redactions()
+    page.apply_redactions()
 
     # Save the work. Redacted PDF will be saved as bytes
     pdf_bytes = pdf_document.write()
+    
+    pdf_data = io.BytesIO(pdf_bytes)
+    
+    body = {'file': ('document.pdf', pdf_data)}
+
+    response = requests.post('http://localhost:8080/contentstorage/uploadContent', files = body)
+    
+    response_data = response.json()
+    id_value = response_data["entries"][0]["id"]
+    
+    return jsonify({'id': id_value})
 
     # No need of the pdf_document object, so let's close it.
     pdf_document.close()
