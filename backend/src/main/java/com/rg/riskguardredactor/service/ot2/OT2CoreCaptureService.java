@@ -29,7 +29,7 @@ import com.ot2.corecapture.model.SessionServicesFullpageocrPost200Response;
 import com.rg.riskguardredactor.util.Constant;
 
 @Service
-public class OT2CoreCaptureService implements Constant {
+public class OT2CoreCaptureService extends Constant {
 
 	private static Logger log = LoggerFactory.getLogger(OT2CoreCaptureService.class);
 

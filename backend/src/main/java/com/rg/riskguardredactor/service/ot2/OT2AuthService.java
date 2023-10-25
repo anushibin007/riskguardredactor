@@ -2,6 +2,7 @@ package com.rg.riskguardredactor.service.ot2;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.MediaType;
@@ -15,7 +16,7 @@ import com.rg.riskguardredactor.util.Constant;
 import com.rg.riskguardredactor.util.JSONTools;
 
 @Service
-public class OT2AuthService implements Constant {
+public class OT2AuthService extends Constant {
 
 	private static Logger log = LoggerFactory.getLogger(OT2AuthService.class);
 
