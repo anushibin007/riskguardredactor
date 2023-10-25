@@ -1,7 +1,6 @@
 package com.rg.riskguardredactor.service.ot2.util;
 
 import java.io.File;
-import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.URL;
@@ -24,6 +23,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.rg.riskguardredactor.controller.model.PythonRedactResponseModel;
 import com.rg.riskguardredactor.service.ot2.OT2AuthService;
 
 @Service
@@ -89,7 +90,8 @@ public class FIleUrlHelperService {
 		return Base64.getEncoder().encodeToString(fileContent);
 	}
 
-	public File postRequestWithFileInBody(String url, Map<String, String> formData, File fileToUpload) {
+	public PythonRedactResponseModel postRequestWithFileInBody(String url, Map<String, String> formData,
+			File fileToUpload) {
 		// TODO: This was copied from ChatGPT. Check all stuff like error handling, etc
 		// and make it work better
 		CloseableHttpClient httpClient = HttpClients.createDefault();
@@ -117,22 +119,20 @@ public class FIleUrlHelperService {
 			// Check the response status code
 			int statusCode = response.getStatusLine().getStatusCode();
 			if (statusCode == 200) {
-				// Successfully received the file
+				// Successfully received the content
 				InputStream content = responseEntity.getContent();
-				File outputFile = getRandomTempFile(fileToUpload.getName());
+				String jsonResponse = EntityUtils.toString(responseEntity, "UTF-8");
 
-				try (FileOutputStream fileOutputStream = new FileOutputStream(outputFile)) {
-					byte[] buffer = new byte[1024];
-					int bytesRead;
-					while ((bytesRead = content.read(buffer)) != -1) {
-						fileOutputStream.write(buffer, 0, bytesRead);
-					}
-				}
+				// Parse the JSON response
+				ObjectMapper objectMapper = new ObjectMapper();
+				PythonRedactResponseModel responseObj = objectMapper.readValue(jsonResponse,
+						PythonRedactResponseModel.class);
 
-				System.out.println("File downloaded to: " + outputFile.getAbsolutePath());
-				return outputFile;
+				// Now you can work with the parsed JSON data in responseObj
+				System.out.println("Parsed JSON Response: " + responseObj);
+				return responseObj;
 			} else {
-				System.err.println("File download failed with status code: " + statusCode);
+				System.err.println("Request failed with status code: " + statusCode);
 			}
 
 			// Ensure the response entity is fully consumed to release resources

@@ -7,7 +7,6 @@ import java.util.List;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -18,6 +17,9 @@ import org.springframework.web.multipart.MultipartFile;
 
 import com.ot2.corecapture.model.SessionFilesPost201Response;
 import com.ot2.corecapture.model.SessionServicesFullpageocrPost200Response;
+import com.rg.riskguardredactor.controller.model.MainRedactionResponseModel;
+import com.rg.riskguardredactor.controller.model.PythonRedactResponseModel;
+import com.rg.riskguardredactor.service.ot2.OT2ContentStorageService;
 import com.rg.riskguardredactor.service.ot2.OT2CoreCaptureService;
 import com.rg.riskguardredactor.service.ot2.OT2RiskGuardService;
 import com.rg.riskguardredactor.service.ot2.util.FIleUrlHelperService;
@@ -25,7 +27,7 @@ import com.rg.riskguardredactor.util.Constant;
 
 @RestController
 @RequestMapping("/riskguardredactor")
-public class MainRedactorController extends Constant{
+public class MainRedactorController extends Constant {
 
 	@Autowired
 	OT2CoreCaptureService capture;
@@ -34,11 +36,14 @@ public class MainRedactorController extends Constant{
 	OT2RiskGuardService riskGuard;
 
 	@Autowired
+	OT2ContentStorageService contentStorage;
+
+	@Autowired
 	FIleUrlHelperService fileUrlService;
 
 	@PostMapping("/redact")
 	@ResponseBody
-	public ResponseEntity<byte[]> redact(@RequestParam("file") MultipartFile multipartFile)
+	public ResponseEntity<MainRedactionResponseModel> redact(@RequestParam("file") MultipartFile multipartFile)
 			throws IllegalStateException, IOException {
 		File file = fileUrlService.multiPartToFile(multipartFile);
 		// 1. Send the file for OCR
@@ -65,13 +70,12 @@ public class MainRedactorController extends Constant{
 			if (ocrFile != null) {
 				Map<String, String> formData = new HashMap<>();
 				formData.put("keywords", riskyData);
-				File redactedFile = fileUrlService.postRequestWithFileInBody(redactServerUrl, formData, ocrFile);
+				PythonRedactResponseModel pythonRedactResponseModel = fileUrlService
+						.postRequestWithFileInBody(redactServerUrl, formData, ocrFile);
 
-				// 4. Send redacted file to user
-				if (redactedFile != null) {
-					return ResponseEntity.ok().contentType(MediaType.APPLICATION_PDF)
-							.body(fileUrlService.fileToByteArray(redactedFile));
-				}
+				MainRedactionResponseModel response = new MainRedactionResponseModel();
+				response.setRedactedDocUrl(contentStorage.constructDownloadURL(pythonRedactResponseModel.getId()));
+				return ResponseEntity.ok(response);
 			}
 		}
 		return ResponseEntity.internalServerError().build();

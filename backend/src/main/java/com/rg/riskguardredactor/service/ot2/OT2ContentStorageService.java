@@ -160,4 +160,9 @@ public class OT2ContentStorageService extends Constant {
 		return defaultClient;
 	}
 
+	public String constructDownloadURL(String blobId) {
+		// TODO: Remove hardcoded stuff
+		return "https://css.na-1-dev.api.opentext.com/v2/content/" + blobId + "/download";
+	}
+
 }
