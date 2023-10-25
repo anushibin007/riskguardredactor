@@ -57,7 +57,7 @@ def redact_keywords():
     
     body = {'file': ('document.pdf', pdf_data)}
 
-    response = requests.post('http://localhost:8080/contentstorage/uploadContent', files = body)
+    response = requests.post('https://riskguardredactor-backend-springboot-adxywvifka-el.a.run.app/contentstorage/uploadContent', files = body)
     
     response_data = response.json()
     id_value = response_data["entries"][0]["id"]
