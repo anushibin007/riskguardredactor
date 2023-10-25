@@ -23,7 +23,7 @@ import com.ot2.contentstorageservice.model.UploadContentRequest;
 import com.rg.riskguardredactor.util.Constant;
 
 @Service
-public class OT2ContentStorageService implements Constant {
+public class OT2ContentStorageService extends Constant {
 
 	private static Logger log = LoggerFactory.getLogger(OT2ContentStorageService.class);
 

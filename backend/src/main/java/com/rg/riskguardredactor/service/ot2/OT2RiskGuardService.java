@@ -22,7 +22,7 @@ import com.rg.riskguardredactor.util.Constant;
 import com.rg.riskguardredactor.util.JSONTools;
 
 @Service
-public class OT2RiskGuardService implements Constant {
+public class OT2RiskGuardService extends Constant {
 
 	private static Logger log = LoggerFactory.getLogger(OT2RiskGuardService.class);
 
