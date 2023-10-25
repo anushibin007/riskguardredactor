@@ -23,9 +23,12 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.rg.riskguardredactor.controller.model.PythonRedactResponseModel;
 import com.rg.riskguardredactor.service.ot2.OT2AuthService;
+import com.rg.riskguardredactor.util.JSONTools;
 
 @Service
 public class FIleUrlHelperService {
@@ -90,8 +93,7 @@ public class FIleUrlHelperService {
 		return Base64.getEncoder().encodeToString(fileContent);
 	}
 
-	public PythonRedactResponseModel postRequestWithFileInBody(String url, Map<String, String> formData,
-			File fileToUpload) {
+	public String postRequestWithFileInBody(String url, Map<String, String> formData, File fileToUpload) {
 		// TODO: This was copied from ChatGPT. Check all stuff like error handling, etc
 		// and make it work better
 		CloseableHttpClient httpClient = HttpClients.createDefault();
@@ -100,17 +102,20 @@ public class FIleUrlHelperService {
 		// Create a MultipartEntityBuilder to build the multipart/form-data request
 		MultipartEntityBuilder builder = MultipartEntityBuilder.create();
 
-		// Add text fields
-		for (Entry<String, String> entry : formData.entrySet()) {
-			builder.addTextBody(entry.getKey(), entry.getValue(), ContentType.TEXT_PLAIN);
+		if (formData != null) {
+			// Add text fields
+			for (Entry<String, String> entry : formData.entrySet()) {
+				builder.addTextBody(entry.getKey(), entry.getValue(), ContentType.TEXT_PLAIN);
+			}
 		}
 
 		// Add file
-		builder.addBinaryBody("pdf", fileToUpload, ContentType.APPLICATION_OCTET_STREAM, fileToUpload.getName());
+		builder.addBinaryBody("file", fileToUpload, ContentType.APPLICATION_OCTET_STREAM, fileToUpload.getName());
 
 		// Set the multipart entity as the request entity
 		HttpEntity multipartEntity = builder.build();
 		httpPost.setEntity(multipartEntity);
+		httpPost.addHeader("Authorization", "Bearer " + authService.getBearerToken());
 
 		try {
 			HttpResponse response = httpClient.execute(httpPost);
@@ -118,19 +123,12 @@ public class FIleUrlHelperService {
 
 			// Check the response status code
 			int statusCode = response.getStatusLine().getStatusCode();
-			if (statusCode == 200) {
+			if (statusCode >= 200 && statusCode <= 299) {
 				// Successfully received the content
 				InputStream content = responseEntity.getContent();
 				String jsonResponse = EntityUtils.toString(responseEntity, "UTF-8");
 
-				// Parse the JSON response
-				ObjectMapper objectMapper = new ObjectMapper();
-				PythonRedactResponseModel responseObj = objectMapper.readValue(jsonResponse,
-						PythonRedactResponseModel.class);
-
-				// Now you can work with the parsed JSON data in responseObj
-				System.out.println("Parsed JSON Response: " + responseObj);
-				return responseObj;
+				return jsonResponse;
 			} else {
 				System.err.println("Request failed with status code: " + statusCode);
 			}
@@ -142,6 +140,14 @@ public class FIleUrlHelperService {
 			e.printStackTrace();
 		}
 		return null;
+	}
+
+	public PythonRedactResponseModel parseJsonToPythonRedactResponseModel(String jsonResponse)
+			throws JsonMappingException, JsonProcessingException {
+		// Parse the JSON response
+		ObjectMapper objectMapper = JSONTools.getObjectMapper();
+		PythonRedactResponseModel responseObj = objectMapper.readValue(jsonResponse, PythonRedactResponseModel.class);
+		return responseObj;
 	}
 
 	private long getRandomNumber() {

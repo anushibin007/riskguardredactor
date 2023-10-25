@@ -7,14 +7,11 @@ import java.util.List;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpEntity;
-import org.springframework.http.HttpHeaders;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
-import org.springframework.util.LinkedMultiValueMap;
-import org.springframework.util.MultiValueMap;
-import org.springframework.web.client.RestTemplate;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.JsonMappingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.ot2.contentstorageservice.api.ContentApi;
 import com.ot2.contentstorageservice.api.SharableLinksApi;
 import com.ot2.contentstorageservice.invoker.ApiClient;
@@ -25,7 +22,9 @@ import com.ot2.contentstorageservice.model.Content;
 import com.ot2.contentstorageservice.model.NewLinkRequest;
 import com.ot2.contentstorageservice.model.NewLinkResponse;
 import com.ot2.contentstorageservice.model.UploadContentRequest;
+import com.rg.riskguardredactor.service.ot2.util.FIleUrlHelperService;
 import com.rg.riskguardredactor.util.Constant;
+import com.rg.riskguardredactor.util.JSONTools;
 
 @Service
 public class OT2ContentStorageService extends Constant {
@@ -34,6 +33,9 @@ public class OT2ContentStorageService extends Constant {
 
 	@Autowired
 	OT2AuthService authService;
+
+	@Autowired
+	FIleUrlHelperService fileUrlService;
 
 	public Content getContent(String id) {
 
@@ -80,23 +82,15 @@ public class OT2ContentStorageService extends Constant {
 		return null;
 	}
 
-	public Content myUploadContentImplementation(File file) {
+	public Content myUploadContentImplementation(File file) throws JsonMappingException, JsonProcessingException {
 		// TODO: Remove this hardcoded stuff
 		String tenantId = OT2_APP_ID;
 		String url = "https://css.na-1-dev.api.opentext.com/v2/tenant/" + tenantId + "/content";
 
-		RestTemplate restTemplate = new RestTemplate();
-
-		HttpHeaders headers = new HttpHeaders();
-		headers.setBearerAuth(authService.getBearerToken());
-
-		MultiValueMap<String, Object> body = new LinkedMultiValueMap<>();
-		body.add("file", file);
-
-		HttpEntity<MultiValueMap<String, Object>> requestEntity = new HttpEntity<>(body, headers);
-		ResponseEntity<Content> response = restTemplate.postForEntity(url, requestEntity, Content.class);
-		return response.hasBody() ? response.getBody() : null;
-
+		String jsonResponseFromCSS = fileUrlService.postRequestWithFileInBody(url, null, file);
+		ObjectMapper objectMapper = JSONTools.getObjectMapper();
+		Content responseObj = objectMapper.readValue(jsonResponseFromCSS, Content.class);
+		return responseObj;
 	}
 
 	public File downloadContent(String id) {

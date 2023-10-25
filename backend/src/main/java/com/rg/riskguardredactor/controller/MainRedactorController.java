@@ -70,8 +70,10 @@ public class MainRedactorController extends Constant {
 			if (ocrFile != null) {
 				Map<String, String> formData = new HashMap<>();
 				formData.put("keywords", riskyData);
+				String jsonResponseFromPython = fileUrlService.postRequestWithFileInBody(redactServerUrl, formData,
+						ocrFile);
 				PythonRedactResponseModel pythonRedactResponseModel = fileUrlService
-						.postRequestWithFileInBody(redactServerUrl, formData, ocrFile);
+						.parseJsonToPythonRedactResponseModel(jsonResponseFromPython);
 
 				MainRedactionResponseModel response = new MainRedactionResponseModel();
 				response.setRedactedDocUrl(contentStorage.constructDownloadURL(pythonRedactResponseModel.getId()));
