@@ -21,10 +21,10 @@ public class FileUrlHelperController {
 	@Autowired
 	FIleUrlHelperService fileUrlService;
 
-	@GetMapping(value = "/urlToTempFile")
+	@GetMapping(value = "/fileyify")
 	@ResponseBody
 	public ResponseEntity<byte[]> urlToTempFile(@RequestParam("url") String urlAsString,
-			@RequestParam("fileName") String fileName) throws IOException {
+			@RequestParam(value = "fileName", required = false) String fileName) throws IOException {
 		File file = fileUrlService.urlToTempFile(urlAsString, fileName);
 		// TODO: Dynamically find contentType
 		return ResponseEntity.ok().contentType(MediaType.APPLICATION_PDF).body(fileUrlService.fileToByteArray(file));
