@@ -17,7 +17,7 @@ FROM eclipse-temurin:17-jre-alpine as runner
 
 RUN apk add curl
 
-COPY --from=builder /tmp/staging-area/riskguard-redactor/target/riskguardredactor-0.0.1-SNAPSHOT.jar riskguard-redactor.jar
+COPY --from=builder /tmp/staging-area/target/riskguardredactor-0.0.1-SNAPSHOT.jar riskguard-redactor.jar
 HEALTHCHECK --interval=10s --timeout=3s --start-period=10s --retries=10 \
     CMD curl http://localhost:8080/actuator/alive || exit 1
 
