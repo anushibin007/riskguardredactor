@@ -17,6 +17,11 @@ import org.springframework.web.client.RestTemplate;
 
 import com.ot2.contentstorageservice.api.ContentApi;
 import com.ot2.contentstorageservice.api.SharableLinksApi;
+import com.ot2.contentstorageservice.invoker.ApiClient;
+import com.ot2.contentstorageservice.invoker.ApiException;
+import com.ot2.contentstorageservice.invoker.Configuration;
+import com.ot2.contentstorageservice.invoker.auth.HttpBearerAuth;
+import com.ot2.contentstorageservice.model.Content;
 import com.ot2.contentstorageservice.model.NewLinkRequest;
 import com.ot2.contentstorageservice.model.NewLinkResponse;
 import com.ot2.contentstorageservice.model.UploadContentRequest;
@@ -47,9 +52,14 @@ public class OT2ContentStorageService extends Constant {
 		return null;
 	}
 
+	/**
+	 * @deprecated use {@link #myUploadContentImplementation(File)} instead
+	 * @param file
+	 * @return
+	 */
 	public Content uploadContent(File file) {
 		try {
-			String tenantId = Constant.OT2_APP_ID;
+			String tenantId = OT2_APP_ID;
 			boolean antivirusScan = false;
 			UploadContentRequest uploadReq = new UploadContentRequest();
 			List<File> files = Arrays.asList(file);
@@ -70,9 +80,9 @@ public class OT2ContentStorageService extends Constant {
 		return null;
 	}
 
-	public String myUploadContentImplementation(File file) {
+	public Content myUploadContentImplementation(File file) {
+		// TODO: Remove this hardcoded stuff
 		String tenantId = OT2_APP_ID;
-		boolean antivirusScan = false;
 		String url = "https://css.na-1-dev.api.opentext.com/v2/tenant/" + tenantId + "/content";
 
 		RestTemplate restTemplate = new RestTemplate();
@@ -84,7 +94,7 @@ public class OT2ContentStorageService extends Constant {
 		body.add("file", file);
 
 		HttpEntity<MultiValueMap<String, Object>> requestEntity = new HttpEntity<>(body, headers);
-		ResponseEntity<String> response = restTemplate.postForEntity(url, requestEntity, String.class);
+		ResponseEntity<Content> response = restTemplate.postForEntity(url, requestEntity, Content.class);
 		return response.hasBody() ? response.getBody() : null;
 
 	}
