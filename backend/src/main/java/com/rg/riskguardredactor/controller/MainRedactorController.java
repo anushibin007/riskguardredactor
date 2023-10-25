@@ -21,10 +21,11 @@ import com.ot2.corecapture.model.SessionServicesFullpageocrPost200Response;
 import com.rg.riskguardredactor.service.ot2.OT2CoreCaptureService;
 import com.rg.riskguardredactor.service.ot2.OT2RiskGuardService;
 import com.rg.riskguardredactor.service.ot2.util.FIleUrlHelperService;
+import com.rg.riskguardredactor.util.Constant;
 
 @RestController
 @RequestMapping("/riskguardredactor")
-public class MainRedactorController {
+public class MainRedactorController extends Constant{
 
 	@Autowired
 	OT2CoreCaptureService capture;
@@ -62,7 +63,6 @@ public class MainRedactorController {
 
 			// 3. Send the OCR-d file with RiskGuard data to Python Redactor
 			if (ocrFile != null) {
-				String redactServerUrl = "http://localhost:5000/redact";
 				Map<String, String> formData = new HashMap<>();
 				formData.put("keywords", riskyData);
 				File redactedFile = fileUrlService.postRequestWithFileInBody(redactServerUrl, formData, ocrFile);
