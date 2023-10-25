@@ -1,5 +1,5 @@
 ### 1. Build Stage ###
-FROM maven:3.8.6-openjdk-8-slim as builder
+FROM maven:3.9.5-eclipse-temurin-17 as builder
 WORKDIR /tmp/staging-area
 
 COPY . .
@@ -13,7 +13,7 @@ RUN cd ot2-contentstorageservice-client && mvn clean install && cd ..
 RUN mvn clean test package
 
 ### 2. Package Stage ###
-FROM eclipse-temurin:8-jre-alpine as runner
+FROM eclipse-temurin:17-jre-alpine as runner
 
 RUN apk add curl
 
