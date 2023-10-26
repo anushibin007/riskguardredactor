@@ -2,7 +2,6 @@ package com.rg.riskguardredactor.service.ot2;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.MediaType;
@@ -10,8 +9,10 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
-import com.fasterxml.jackson.databind.JsonNode;
+import com.fasterxml.jackson.databind.JsonMappingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.google.gson.JsonObject;
+import com.rg.riskguardredactor.controller.model.OT2AuthResponseModel;
 import com.rg.riskguardredactor.util.Constant;
 import com.rg.riskguardredactor.util.JSONTools;
 
@@ -20,10 +21,26 @@ public class OT2AuthService extends Constant {
 
 	private static Logger log = LoggerFactory.getLogger(OT2AuthService.class);
 
+	private OT2AuthResponseModel authResponse = null;
+
 	// TODO: Don't create a new token every time. Create one only if the current
 	// token expires
 	public String getBearerToken() {
+		if (authResponse == null || hasTokenExpired()) {
+			log.debug("Fetching new token");
+			try {
+				authResponse = forceRefreshToken();
+			} catch (JsonProcessingException e) {
+				log.error("Couldn't parse token response", e);
+				throw new IllegalStateException("Couldn't parse token response. Error: " + e.getMessage());
+			}
+		} else {
+			log.debug("Using old token");
+		}
+		return authResponse.getAccess_token();
+	}
 
+	private OT2AuthResponseModel forceRefreshToken() throws JsonMappingException, JsonProcessingException {
 		RestTemplate restTemplate = new RestTemplate();
 
 		HttpHeaders headers = new HttpHeaders();
@@ -39,30 +56,21 @@ public class OT2AuthService extends Constant {
 		HttpEntity<String> request = new HttpEntity<>(requestBody.toString(), headers);
 
 		String responseAsString = restTemplate.postForObject(OT2_AUTH_URL, request, String.class);
+		ObjectMapper objectMapper = JSONTools.getObjectMapper();
+		OT2AuthResponseModel responseObj = objectMapper.readValue(responseAsString, OT2AuthResponseModel.class);
 
-//		MultiValueMap<String, String> params = new LinkedMultiValueMap<String, String>();
-//		params.set("object", objectMapper.writeValueAsString(new MyObject()));
+		return responseObj;
+	}
 
-//		UriComponentsBuilder builder = UriComponentsBuilder.fromHttpUrl(OT2_AUTH_URL)
-//				.queryParam("client_id", OT2_CLIENT_ID).queryParam("client_secret", OT2_CLIENT_SECRET)
-//				.queryParam("grant_type", OT2_GRANT_TYPE).queryParam("username", OT2_USERNAME)
-//				.queryParam("password", OT2_PASSWORD);
-
-//		HttpEntity<String> response = restTemplate.exchange(builder.toUriString(), HttpMethod.POST, request,
-//				String.class);
-
-//		return response.getBody();
-
-		try {
-			JsonNode root = JSONTools.getObjectMapper().readTree(responseAsString);
-			String authToken = root.path("access_token").asText();
-			log.debug("authToken = {}", authToken);
-			return authToken;
-		} catch (JsonProcessingException e) {
-			e.printStackTrace();
+	private boolean hasTokenExpired() {
+		if (authResponse == null) {
+			return true;
 		}
-
-		return null;
+		long issuedAtMillis = Long.parseLong(authResponse.getIssued_at());
+		log.debug("issuedAtMillis = {}", issuedAtMillis);
+		long expiresInMillis = issuedAtMillis + Long.parseLong(authResponse.getExpires_in()) * 1000;
+		log.debug("expiresInMillis = {}", expiresInMillis);
+		return System.currentTimeMillis() > expiresInMillis;
 	}
 
 }
