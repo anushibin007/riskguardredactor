@@ -19,6 +19,8 @@ import org.apache.http.entity.mime.MultipartEntityBuilder;
 import org.apache.http.impl.client.CloseableHttpClient;
 import org.apache.http.impl.client.HttpClients;
 import org.apache.http.util.EntityUtils;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
@@ -32,6 +34,8 @@ import com.rg.riskguardredactor.util.JSONTools;
 
 @Service
 public class FIleUrlHelperService {
+
+	private static Logger log = LoggerFactory.getLogger(FIleUrlHelperService.class);
 
 	@Autowired
 	OT2AuthService authService;
@@ -117,27 +121,34 @@ public class FIleUrlHelperService {
 		httpPost.setEntity(multipartEntity);
 		httpPost.addHeader("Authorization", "Bearer " + authService.getBearerToken());
 
+		HttpEntity responseEntity = null;
 		try {
 			HttpResponse response = httpClient.execute(httpPost);
-			HttpEntity responseEntity = response.getEntity();
+			responseEntity = response.getEntity();
 
 			// Check the response status code
 			int statusCode = response.getStatusLine().getStatusCode();
+			InputStream content = responseEntity.getContent();
+			String jsonResponse = EntityUtils.toString(responseEntity, "UTF-8");
+			log.debug("jsonResponse for URL [{}] = {}", url, jsonResponse);
 			if (statusCode >= 200 && statusCode <= 299) {
 				// Successfully received the content
-				InputStream content = responseEntity.getContent();
-				String jsonResponse = EntityUtils.toString(responseEntity, "UTF-8");
-
 				return jsonResponse;
 			} else {
-				System.err.println("Request failed with status code: " + statusCode);
+				log.error("Request to [{}] failed with status code: {}", url, statusCode);
+				return null;
 			}
-
-			// Ensure the response entity is fully consumed to release resources
-			EntityUtils.consume(responseEntity);
-
 		} catch (IOException e) {
 			e.printStackTrace();
+		} finally {
+			try {
+				// Ensure the response entity is fully consumed to release resources
+				if (responseEntity != null) {
+					EntityUtils.consume(responseEntity);
+				}
+			} catch (IOException e) {
+				// ignore cleanup exceptions
+			}
 		}
 		return null;
 	}
