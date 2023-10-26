@@ -3,17 +3,20 @@ from flask_cors import CORS
 import fitz
 import io
 import requests
+import time
 
 app = Flask(__name__)
 # Enable CORS. Without this, we may see CORS releated errors. 
 # No taime to figure out why
 CORS(app)
 
+ot2_css_spring_boot_end_point = 'https://riskguardredactor-backend-springboot-adxywvifka-el.a.run.app/contentstorage/uploadContent'
+
 
 # Strictly POST request
 @app.route('/redact', methods=['POST'])
 def redact_keywords():
-    # Check if we received the pdf in the request. Else we are not going to do anything.
+    # Check if we received the file in the request. Else we are not going to do anything.
     # Give it back that they didn't provide the PDF File.
     if 'file' not in request.files:
         return "No PDF file provided", 400
@@ -48,27 +51,43 @@ def redact_keywords():
                 # Set redaction color to black (yeah black love), if we don't give fill, it will be white by default.
                 rc = fitz.Rect(rect)
                 page.add_redact_annot(rc, fill=(0, 0, 0))
-    page.apply_redactions()
+        page.apply_redactions()
 
     # Save the work. Redacted PDF will be saved as bytes
     pdf_bytes = pdf_document.write()
-    
-    pdf_data = io.BytesIO(pdf_bytes)
-    
-    body = {'file': ('document.pdf', pdf_data)}
 
-    response = requests.post('https://riskguardredactor-backend-springboot-adxywvifka-el.a.run.app/contentstorage/uploadContent', files = body)
-    
-    response_data = response.json()
-    id_value = response_data["entries"][0]["id"]
-    
-    return jsonify({'id': id_value})
-
-    # No need of the pdf_document object, so let's close it.
+    # No need of the pdf_document object anymore, so let's close it.
     pdf_document.close()
 
-    # Return the new PDF in the response response
-    return send_file(io.BytesIO(pdf_bytes), as_attachment=True, download_name='redacted.pdf', mimetype='application/pdf')
+    # Prepare the body by adding the file to sending the POST request to Spring Boot backend.
+    body = {'file': ('document.pdf', pdf_bytes)}
+
+    start_time = int(round(time.time()) * 1000)
+    print("CSS Upload started at : ", start_time)
+
+    # Let's call the SpringBoot POST end point to upload file to CSS
+    response = requests.post(ot2_css_spring_boot_end_point, files = body)
+
+    end_time = int(round(time.time()) * 1000)
+
+    print("CSS Upload ends at : ", end_time)
+    
+    print("Total time for CSS request: ", end_time - start_time) 
+
+    # Return the response only if we get 200 from the End-point
+    if response.status_code == 200:
+        # Parsing the response toe JSON
+        response_data = response.json()
+        
+        # Extract the id from the response
+        id_value = response_data["entries"][0]["id"]
+        
+        # Just pass the ID in response.
+        return jsonify({'id': id_value})
+    
+    else:
+        print("CSS Endpoint didn't return 200. Expecting that the request failed, returning 500")
+        return "Failed to upload the redacted PDF to the content storage API", 500
 
 if __name__ == '__main__':
     app.run(host="0.0.0.0", debug=True)
