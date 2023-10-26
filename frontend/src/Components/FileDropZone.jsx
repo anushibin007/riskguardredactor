@@ -40,8 +40,9 @@ const FileDropZone = () => {
 		const formData = new FormData();
 		formData.append("file", file);
 
-		await axios.post("http://localhost:5173/redact", formData);
-
+		const response = await axios.post("https://riskguardredactor-backend-springboot-adxywvifka-el.a.run.app/riskguardredactor/redact", formData);
+		const responseBody = response.data;
+		console.log(responseBody);
         
 	};
 
