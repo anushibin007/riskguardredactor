@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import Box from "@mui/material/Box";
 import Typography from "@mui/material/Typography";
 import Button from "@mui/material/Button";
@@ -8,11 +8,20 @@ import OpenInNewIcon from "@mui/icons-material/OpenInNew";
 import ClearIcon from "@mui/icons-material/Clear";
 import NoteAddIcon from "@mui/icons-material/NoteAdd";
 import axios from "axios";
+import { LinearProgress } from "@mui/material";
 
 const FileDropZone = () => {
 	const [file, setFile] = useState(null);
 	const [redactButtonEnabled, setRedactButtonEnabled] = useState(false);
 	const [redactedDocUrl, setRedactedDocUrl] = useState(undefined);
+	const [axiosInProgress, setAxiosInProgress] = useState(false);
+
+	useEffect(() => {
+		console.log({ axiosInProgress });
+		if (axiosInProgress) {
+			makeRedactionCallToBackend();
+		}
+	}, [axiosInProgress]);
 
 	const handleFileChange = (e) => {
 		const selectedFile = e.target.files[0];
@@ -41,21 +50,36 @@ const FileDropZone = () => {
 		e.preventDefault();
 	};
 
-	const handleRedactButtonClick = async () => {
+	const handleRedactButtonClick = () => {
 		setRedactedDocUrl(undefined);
+		setAxiosInProgress(true);
+	};
+
+	const makeRedactionCallToBackend = () => {
 		const formData = new FormData();
 		formData.append("file", file);
-
-		const response = await axios.post(
-			"https://riskguardredactor-backend-springboot-adxywvifka-el.a.run.app/riskguardredactor/redact",
-			formData
-		);
-		const responseBody = response.data;
-		console.log(responseBody);
-		const aRedactedDocUrl = responseBody.redactedDocUrl;
-		if (aRedactedDocUrl) {
-			setRedactedDocUrl(aRedactedDocUrl);
-		}
+		axios
+			.post(
+				"https://riskguardredactor-backend-springboot-adxywvifka-el.a.run.app/riskguardredactor/redact",
+				formData
+			)
+			.then((response) => {
+				const responseBody = response.data;
+				console.log(responseBody);
+				const aRedactedDocUrl = responseBody.redactedDocUrl;
+				if (aRedactedDocUrl) {
+					setRedactedDocUrl(aRedactedDocUrl);
+				}
+				setAxiosInProgress(false);
+			})
+			.catch((err) => {
+				console.error("An error occured", err);
+				const errorFromServer = err?.response?.data?.errorMessage;
+				if (errorFromServer) {
+					console.error({ errorFromServer });
+				}
+				setAxiosInProgress(false);
+			});
 	};
 
 	const handleClearSelectionButtonClick = async () => {
@@ -113,8 +137,9 @@ const FileDropZone = () => {
 				)
 			}
 			{
-				// Show the picked file's name, redact and clear button only if a file is picked
-				file && !redactedDocUrl && (
+				// Show the picked file's name, redact and clear button
+				// only if a file is picked
+				file && !redactedDocUrl && !axiosInProgress && (
 					<>
 						<Typography variant="body1" color="textPrimary">
 							Selected File: {file.name}
@@ -139,6 +164,18 @@ const FileDropZone = () => {
 						>
 							Clear
 						</Button>
+					</>
+				)
+			}
+			{
+				// Show the progress bar only
+				// if the axios request is in progress
+				axiosInProgress && (
+					<>
+						<Typography variant="body1" color="textPrimary">
+							Please wait while your document is getting redacted
+						</Typography>
+						<LinearProgress sx={{ mt: 2 }} />
 					</>
 				)
 			}
