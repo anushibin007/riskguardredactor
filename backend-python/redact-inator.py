@@ -35,9 +35,14 @@ def redact_keywords():
 
     # Read the PDF content from the file, not saving anymore
     pdf_content = pdf_file.read()
+    
+    print("Length of incoming file = ", len(pdf_content))
 
     # Create a PDF document object, we'll be working directly on this object
     pdf_document = fitz.open('pdf', pdf_content)
+
+    redaction_start_time = int(round(time.time()) * 1000)
+    print("Redaction started at : ", redaction_start_time)
 
     # Iterate through pages and redact keywords
     for page_num in range(pdf_document.page_count):
@@ -51,10 +56,18 @@ def redact_keywords():
                 # Set redaction color to black (yeah black love), if we don't give fill, it will be white by default.
                 rc = fitz.Rect(rect)
                 page.add_redact_annot(rc, fill=(0, 0, 0))
-        page.apply_redactions()
+        page.apply_redactions(images = fitz.PDF_REDACT_IMAGE_NONE)
+        page.clean_contents()
+
+    redaction_end_time = int(round(time.time()) * 1000)
+    print("Redaction ends at : ", redaction_end_time)
+
+    print("Total time for Redactiont: ", redaction_end_time - redaction_start_time) 
 
     # Save the work. Redacted PDF will be saved as bytes
     pdf_bytes = pdf_document.write()
+    
+    print("Redacted PDF size = ", len(pdf_bytes))
 
     # No need of the pdf_document object anymore, so let's close it.
     pdf_document.close()
@@ -62,17 +75,17 @@ def redact_keywords():
     # Prepare the body by adding the file to sending the POST request to Spring Boot backend.
     body = {'file': ('document.pdf', pdf_bytes)}
 
-    start_time = int(round(time.time()) * 1000)
-    print("CSS Upload started at : ", start_time)
+    css_upload_start_time = int(round(time.time()) * 1000)
+    print("CSS Upload started at : ", css_upload_start_time)
 
     # Let's call the SpringBoot POST end point to upload file to CSS
     response = requests.post(ot2_css_spring_boot_end_point, files = body)
 
-    end_time = int(round(time.time()) * 1000)
+    css_upload_end_time = int(round(time.time()) * 1000)
 
-    print("CSS Upload ends at : ", end_time)
+    print("CSS Upload ends at : ", css_upload_end_time)
     
-    print("Total time for CSS request: ", end_time - start_time) 
+    print("Total time for CSS request: ", css_upload_end_time - css_upload_start_time) 
 
     # Return the response only if we get 200 from the End-point
     if response.status_code == 200:
