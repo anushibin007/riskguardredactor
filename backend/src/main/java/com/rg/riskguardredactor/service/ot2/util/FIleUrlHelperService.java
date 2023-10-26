@@ -115,6 +115,7 @@ public class FIleUrlHelperService {
 
 		// Add file
 		builder.addBinaryBody("file", fileToUpload, ContentType.APPLICATION_OCTET_STREAM, fileToUpload.getName());
+		log.debug("Attached file with size {}", fileToUpload.length());
 
 		// Set the multipart entity as the request entity
 		HttpEntity multipartEntity = builder.build();
