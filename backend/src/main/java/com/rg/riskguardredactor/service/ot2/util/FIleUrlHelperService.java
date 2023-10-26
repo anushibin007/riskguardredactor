@@ -144,6 +144,9 @@ public class FIleUrlHelperService {
 
 	public PythonRedactResponseModel parseJsonToPythonRedactResponseModel(String jsonResponse)
 			throws JsonMappingException, JsonProcessingException {
+		if (jsonResponse == null) {
+			throw new NullPointerException("jsonResponse was null");
+		}
 		// Parse the JSON response
 		ObjectMapper objectMapper = JSONTools.getObjectMapper();
 		PythonRedactResponseModel responseObj = objectMapper.readValue(jsonResponse, PythonRedactResponseModel.class);
