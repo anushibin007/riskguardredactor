@@ -80,7 +80,7 @@ public class MainRedactorController extends Constant {
 						ocrFile);
 				long endTime = System.currentTimeMillis();
 				log.debug("Redaction call ended at: {}", endTime);
-				log.debug("Redaction took: {}ms", endTime - startTime);
+				log.debug("Redaction took: {}ms", ((endTime - startTime) / 1000));
 				PythonRedactResponseModel pythonRedactResponseModel = fileUrlService
 						.parseJsonToPythonRedactResponseModel(jsonResponseFromPython);
 
