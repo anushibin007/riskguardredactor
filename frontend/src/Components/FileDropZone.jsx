@@ -9,6 +9,7 @@ import ClearIcon from "@mui/icons-material/Clear";
 import NoteAddIcon from "@mui/icons-material/NoteAdd";
 import axios from "axios";
 import { LinearProgress } from "@mui/material";
+import { toast } from "react-toastify";
 
 const FileDropZone = () => {
 	const [file, setFile] = useState(null);
@@ -17,7 +18,6 @@ const FileDropZone = () => {
 	const [axiosInProgress, setAxiosInProgress] = useState(false);
 
 	useEffect(() => {
-		console.log({ axiosInProgress });
 		if (axiosInProgress) {
 			makeRedactionCallToBackend();
 		}
@@ -30,7 +30,7 @@ const FileDropZone = () => {
 			setFile(selectedFile);
 			setRedactButtonEnabled(true);
 		} else {
-			alert("Please select a valid PDF file.");
+			toast.error("Please select a valid PDF file.");
 		}
 	};
 
@@ -42,7 +42,7 @@ const FileDropZone = () => {
 			setFile(droppedFile);
 			setRedactButtonEnabled(true);
 		} else {
-			alert("Please drop a valid PDF file.");
+			toast.error("Please drop a valid PDF file.");
 		}
 	};
 
@@ -73,10 +73,10 @@ const FileDropZone = () => {
 				setAxiosInProgress(false);
 			})
 			.catch((err) => {
-				console.error("An error occured", err);
+				toast.error(`An error occured: ${err}`);
 				const errorFromServer = err?.response?.data?.errorMessage;
 				if (errorFromServer) {
-					console.error({ errorFromServer });
+					toast.error(`Error from Server: ${errorFromServer}`);
 				}
 				setAxiosInProgress(false);
 			});
