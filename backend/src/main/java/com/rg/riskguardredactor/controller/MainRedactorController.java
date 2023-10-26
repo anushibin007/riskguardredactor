@@ -6,6 +6,8 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -28,6 +30,8 @@ import com.rg.riskguardredactor.util.Constant;
 @RestController
 @RequestMapping("/riskguardredactor")
 public class MainRedactorController extends Constant {
+
+	private static Logger log = LoggerFactory.getLogger(MainRedactorController.class);
 
 	@Autowired
 	OT2CoreCaptureService capture;
@@ -70,8 +74,13 @@ public class MainRedactorController extends Constant {
 			if (ocrFile != null) {
 				Map<String, String> formData = new HashMap<>();
 				formData.put("keywords", riskyData);
+				long startTime = System.currentTimeMillis();
+				log.debug("Redaction call started at: {}", startTime);
 				String jsonResponseFromPython = fileUrlService.postRequestWithFileInBody(redactServerUrl, formData,
 						ocrFile);
+				long endTime = System.currentTimeMillis();
+				log.debug("Redaction call ended at: {}", endTime);
+				log.debug("Redaction took: {}ms", endTime - startTime);
 				PythonRedactResponseModel pythonRedactResponseModel = fileUrlService
 						.parseJsonToPythonRedactResponseModel(jsonResponseFromPython);
 
