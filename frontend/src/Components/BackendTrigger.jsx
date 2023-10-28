@@ -17,10 +17,15 @@ const BackendTrigger = () => {
 		// Call alive endpoints of the backend
 		// when the current component renders
 		triggerSpringBootBackend();
+		triggerPythonBackend();
 	}, []);
 
 	const triggerSpringBootBackend = () => {
 		triggerAliveEndpoint(`${Constants.VITE_BACKEND_SPRING_BOOT_BASE_URL}/actuator/alive`);
+	};
+
+	const triggerPythonBackend = () => {
+		triggerAliveEndpoint(`${Constants.VITE_BACKEND_PYTHON_BASE_URL}/alive`);
 	};
 
 	const triggerAliveEndpoint = (endpointURL) => {
