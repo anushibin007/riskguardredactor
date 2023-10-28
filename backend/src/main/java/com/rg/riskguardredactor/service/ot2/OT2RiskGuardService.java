@@ -62,11 +62,11 @@ public class OT2RiskGuardService extends Constant {
 			log.error("Could not retrieve processResults. Hence, could not process the data further.");
 			return null;
 		}
-		// TODO: Check processResults.getResults().getTme().getStatus() first before
-		// obtaining the results
-		String tmeString = processResults.getResults().getTme().toJson();
 
 		try {
+			// TODO: Check processResults.getResults().getTme().getStatus() first before
+			// obtaining the results
+			String tmeString = processResults.getResults().getTme().toJson();
 			JsonNode tmeRoot = JSONTools.getObjectMapper().readTree(tmeString);
 			JsonNode extractedTermRoot = tmeRoot.findValue("ExtractedTerm");
 			if (extractedTermRoot.isArray()) {

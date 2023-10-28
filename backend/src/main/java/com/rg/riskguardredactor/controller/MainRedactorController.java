@@ -116,12 +116,13 @@ public class MainRedactorController extends Constant {
 		endTime = System.currentTimeMillis();
 		log.debug("RiskGuard processing took: {}s", ((endTime - startTime) / 1000));
 
-		if (riskyDataAsList == null) {
-			return buildErrorResponse("Sorry, OT2 RiskGuard processing failed");
-		}
-
 		// 3. Send the OCR-d file with RiskGuard data to Python Redactor
-		String riskyData = String.join(",", riskyDataAsList);
+		String riskyData = null;
+		if (riskyDataAsList == null) {
+			log.warn("The processed riskyDataAsList was null");
+		} else {
+			riskyData = String.join(",", riskyDataAsList);
+		}
 		Map<String, String> formData = new HashMap<>();
 		formData.put("keywords", riskyData);
 
