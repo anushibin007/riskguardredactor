@@ -68,7 +68,9 @@ public class CoreCaptureController {
 		SessionFilesPost201Response postResponse = capture.sessionFilesPost(requestModel.getContentType(),
 				requestModel.getBase64EncodedFileContent());
 		if (postResponse != null) {
-			// TODO: Remove this hardcoded value
+			// todo: Remove this hardcoded value.
+			// Note: this API is not used for the main redaction service. It is only for
+			// testing the APIs. So, anushibin007 is leaving this as is for now.
 			String name = "randomFile.pdf";
 			String value = postResponse.getId();
 			String contentType = postResponse.getContentType();
