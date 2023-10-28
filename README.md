@@ -1,6 +1,6 @@
 # Riskguard Redactor
 
-## Backend URLs
+## Public endpoints
 
 React JS Frontend: https://riskguard-redactor.web.app
 

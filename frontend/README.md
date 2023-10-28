@@ -1,8 +1,15 @@
-# React + Vite
+# React JS Frontend
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+## Description
 
-Currently, two official plugins are available:
+This folder has the React JS source code for the RiskGuard Redeactor frontend. The frontend acts as a window to the invocation of the Spring Boot backend which in turns makes calls to the OT2 Cloud Services and the in-house Python redaction services.
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+## Public endpoint
+
+https://riskguard-redactor.web.app/
+
+## Local setup instructions
+
+1. Install Node Package Manager (NPM)
+2. Open a terminal and run `npm install`
+3. To start the development server, run `npm run dev`

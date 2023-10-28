@@ -1,22 +1,25 @@
-## Generate and install clients (not required)
+# Spring Boot Backend
 
-```
-npm install @openapitools/openapi-generator-cli -g
+## Description
 
-openapi-generator-cli generate --input-spec ./ot2-apispecs/riskguard.json --generator-name java --package-name com.ot2.riskguard --invoker-package com.ot2.riskguard.invoker --api-package com.ot2.riskguard.api --model-package com.ot2.riskguard.model --group-id com.ot2.riskguard --artifact-id ot2-riskguard-client --output ./ot2-riskguard-client
+The Spring Boot Backend has all the logic related to making calls to the OT2 Cloud APIs as well as the Python Redaction backend. The frontend will make calls to the Spring Boot Backend only.
 
-openapi-generator-cli generate --input-spec ./ot2-apispecs/corecapture.json --generator-name java --package-name com.ot2.corecapture --invoker-package com.ot2.corecapture.invoker --api-package com.ot2.corecapture.api --model-package com.ot2.corecapture.model --group-id com.ot2.corecapture --artifact-id ot2-corecapture-client --output ./ot2-corecapture-client
-```
+## Public endpoint
 
-## Install ot-clients and compile root project
+https://riskguardredactor-backend-springboot-adxywvifka-el.a.run.app
 
-```
-cd ot2-riskguard-client
-mvn clean install
-cd ..
-cd ot2-corecapture-client
-mvn clean install
-cd ..
-mvn clean package
-mvn spring-boot:run
-```
+## Developer Environment setup
+
+1. Install the Java Development Kit (JDK) 17.
+2. Install the Apache Maven CLI.
+3. Run [generateandinstallclient.cmd](./generateandinstallclient.cmd).
+4. Edit [application.properties](./src/main/resources/application.properties) and update it with values specific to your environment.
+5. Import the project linked with the [main pom.xml file](./pom.xml) to your IDE to setup the development environment.
+
+## Run locally
+
+If you want to simply run the project locally, perform the following steps:
+
+1. Follow steps 1-4 from the previous section
+2. Open a terminal and run `mvn spring-boot:run`
+3. You should be able to access the backend at the base endpoint `http://localhost:8080`
