@@ -117,15 +117,23 @@ public class OT2ContentStorageService extends Constant {
 		return null;
 	}
 
-	// TODO: This requires uploading the file to CMS also. I haven't figured out
-	// that yet. Need to complete this after figuring that out.
+	/**
+	 * @deprecated this didn't work out for us. So, we are skipping it totally until
+	 *             we figure out a proper way to do it. Here is my previous todo
+	 *             comment for reference: This requires uploading the file to CMS
+	 *             also. I haven't figured out that yet. Need to complete this after
+	 *             figuring that out.
+	 * @param id
+	 * @param objectId
+	 * @return
+	 */
 	public NewLinkResponse createPublicUrl(String id, String objectId) {
 		try {
 			SharableLinksApi apiInstance = getSharableLinksApiInstance();
-			// TODO: Figure out infinite expiry date and no password
+			// todo: Figure out infinite expiry date and no password
 			NewLinkRequest newLinkRequest = new NewLinkRequest(); // NewLinkRequest | Password and expiry set to none
 
-			NewLinkResponse result = apiInstance.createSharableLink(id, objectId, null);
+			NewLinkResponse result = apiInstance.createSharableLink(id, objectId, newLinkRequest);
 			log.debug("{}", result);
 			return result;
 		} catch (ApiException e) {

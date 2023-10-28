@@ -82,7 +82,6 @@ public class OT2RiskGuardService extends Constant {
 				log.warn("extractedTermRoot was not an array");
 			}
 		} catch (JsonProcessingException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 

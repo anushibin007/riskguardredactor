@@ -9,6 +9,7 @@ import java.util.Map;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -51,8 +52,8 @@ public class MainRedactorController extends Constant {
 			throws IllegalStateException, IOException {
 		File file = fileUrlService.multiPartToFile(multipartFile);
 		// 1.1 Send the file to Capture Service
-		// TODO: Remove hard-coded application type
-		String contentType = "application/pdf";
+		// TODO: Dynamically find contentType
+		String contentType = MediaType.APPLICATION_PDF_VALUE;
 		String base64EncodedFile = fileUrlService.encodeFileToBase64(file);
 		SessionFilesPost201Response postResponse = capture.sessionFilesPost(contentType, base64EncodedFile);
 		if (postResponse != null) {

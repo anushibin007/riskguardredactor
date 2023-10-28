@@ -23,8 +23,6 @@ public class OT2AuthService extends Constant {
 
 	private OT2AuthResponseModel authResponse = null;
 
-	// TODO: Don't create a new token every time. Create one only if the current
-	// token expires
 	public String getBearerToken() {
 		if (authResponse == null || hasTokenExpired()) {
 			log.debug("Fetching new token");
