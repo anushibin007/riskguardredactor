@@ -104,8 +104,8 @@ public class OT2CoreCaptureService extends Constant {
 	public SessionFilesPost201Response sessionFilesPostFormData(String contentType, File file)
 			throws JsonMappingException, JsonProcessingException {
 
-		String jsonResponse = fileUrlService.postRequestWithFileInBody(
-				"https://na-1-dev.api.opentext.com/capture/cp-rest/v2/session/files", null, file);
+		String jsonResponse = fileUrlService.postRequestWithFileInBody(OT2_CORECAPTURE_BASE_URL + "/session/files",
+				null, file);
 		ObjectMapper objectMapper = JSONTools.getObjectMapper();
 		SessionFilesPost201Response responseObj = objectMapper.readValue(jsonResponse,
 				SessionFilesPost201Response.class);

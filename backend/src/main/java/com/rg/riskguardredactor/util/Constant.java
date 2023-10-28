@@ -31,6 +31,9 @@ public class Constant {
 	@Value("${OT2_CORECAPTURE_BASE_URL}")
 	public String OT2_CORECAPTURE_BASE_URL;
 
+	@Value("${OT2_CONTENTSTORAGE_BASE_URL}")
+	public String OT2_CONTENTSTORAGE_BASE_URL;
+
 	@Value("${redactServerUrl}")
 	public String redactServerUrl;
 

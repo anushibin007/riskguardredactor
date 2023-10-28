@@ -83,9 +83,8 @@ public class OT2ContentStorageService extends Constant {
 	}
 
 	public Content myUploadContentImplementation(File file) throws JsonMappingException, JsonProcessingException {
-		// TODO: Remove this hardcoded stuff
-		String tenantId = OT2_APP_ID;
-		String url = "https://css.na-1-dev.api.opentext.com/v2/tenant/" + tenantId + "/content";
+
+		String url = OT2_CONTENTSTORAGE_BASE_URL + "/v2/tenant/" + OT2_APP_ID + "/content";
 
 		String jsonResponseFromCSS = fileUrlService.postRequestWithFileInBody(url, null, file);
 		ObjectMapper objectMapper = JSONTools.getObjectMapper();
@@ -156,15 +155,14 @@ public class OT2ContentStorageService extends Constant {
 
 	private ApiClient getClient() {
 		ApiClient defaultClient = Configuration.getDefaultApiClient();
-		defaultClient.setBasePath("https://css.na-1-dev.api.opentext.com");
+		defaultClient.setBasePath(OT2_CONTENTSTORAGE_BASE_URL);
 		HttpBearerAuth bearerAuth = (HttpBearerAuth) defaultClient.getAuthentication("css.na-1-dev.api.opentext.com");
 		bearerAuth.setBearerToken(authService.getBearerToken());
 		return defaultClient;
 	}
 
 	public String constructDownloadURL(String blobId) {
-		// TODO: Remove hardcoded stuff
-		return "https://css.na-1-dev.api.opentext.com/v2/content/" + blobId + "/download";
+		return OT2_CONTENTSTORAGE_BASE_URL + "/v2/content/" + blobId + "/download";
 	}
 
 }
