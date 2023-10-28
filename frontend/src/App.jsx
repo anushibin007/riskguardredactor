@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import { ThemeProvider, createTheme } from "@mui/material/styles";
 import { CssBaseline } from "@mui/material";
@@ -9,12 +9,18 @@ import "react-toastify/dist/ReactToastify.css";
 import BackendTrigger from "./Components/BackendTrigger";
 
 function App() {
-	const [darkMode, setDarkMode] = useState(false);
+	const [darkMode, setDarkMode] = useState(localStorage.getItem("darkMode") === "true");
+	useEffect(() => {
+		// Persist darkMode's value
+		localStorage.setItem("darkMode", darkMode);
+	}, [darkMode]);
+
 	const theme = createTheme({
 		palette: {
 			mode: darkMode ? "dark" : "light",
 		},
 	});
+
 	const router = createBrowserRouter([
 		{
 			path: "/",
