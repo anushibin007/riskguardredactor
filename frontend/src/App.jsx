@@ -3,6 +3,7 @@ import CustomMain from "./Components/CustomMain";
 import Admin from "./Components/Admin";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import BackendTrigger from "./Components/BackendTrigger";
 
 const router = createBrowserRouter([
 	{
@@ -18,6 +19,7 @@ function App() {
 	return (
 		<>
 			<RouterProvider router={router} />
+			<BackendTrigger />
 			<ToastContainer
 				position="bottom-right"
 				autoClose={5000}
