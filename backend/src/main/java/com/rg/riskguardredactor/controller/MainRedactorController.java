@@ -57,11 +57,11 @@ public class MainRedactorController extends Constant {
 
 		File file = fileUrlService.multiPartToFile(multipartFile);
 		if (file == null) {
-			return buildErrorResponse("Sorry, I did not receive a file");
+			return buildErrorResponse("Sorry, we did not receive a file");
 		}
 
 		if (fileUrlService.isFileTooLarge(file)) {
-			return buildErrorResponse("Sorry, file should not be larger than " + MAX_INPUT_FILE_SIZE_MB + "MB");
+			return buildErrorResponse("Sorry, the file should not be larger than " + MAX_INPUT_FILE_SIZE_MB + "MB");
 		}
 
 		// 1.1 Send the file to Capture Service
@@ -92,7 +92,7 @@ public class MainRedactorController extends Constant {
 		log.debug("OCR processing took: {}s", ((endTime - startTime) / 1000));
 
 		if (versionData == null) {
-			return buildErrorResponse("Sorry, OT2 OCR processing failed");
+			return buildErrorResponse("Sorry, the OT2 OCR processing failed");
 		}
 		String urlAsString = null;
 		try {
@@ -103,11 +103,11 @@ public class MainRedactorController extends Constant {
 			log.error("NPE when trying to get url from OCR service : {}", npe.getMessage());
 		}
 		if (urlAsString == null) {
-			return buildErrorResponse("Sorry, we couldn't obtain an URL for the OCR file");
+			return buildErrorResponse("Sorry, we couldn't obtain an URL for the processed OCR file");
 		}
 		File ocrFile = fileUrlService.urlToTempFile(urlAsString);
 		if (ocrFile == null) {
-			return buildErrorResponse("Sorry, we couldn't work with the generated OCR file");
+			return buildErrorResponse("Sorry, we couldn't access the generated OCR file");
 		}
 
 		// 2. Send the file to RiskGuard
