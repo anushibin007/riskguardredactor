@@ -1,5 +1,6 @@
 import axios from "axios";
-import React, { useEffect, useState } from "react";
+import { useEffect } from "react";
+import Constants from "../util/Constants";
 
 /**
  * This component is used simply
@@ -10,6 +11,7 @@ import React, { useEffect, useState } from "react";
  * running on the cloud as a
  * Container-as-a-Service) model.
  */
+
 const BackendTrigger = () => {
 	useEffect(() => {
 		// Call alive endpoints of the backend
@@ -18,9 +20,7 @@ const BackendTrigger = () => {
 	}, []);
 
 	const triggerSpringBootBackend = () => {
-		triggerAliveEndpoint(
-			"https://riskguardredactor-backend-springboot-adxywvifka-el.a.run.app/actuator/alive"
-		);
+		triggerAliveEndpoint(`${Constants.VITE_BACKEND_SPRING_BOOT_BASE_URL}/actuator/alive`);
 	};
 
 	const triggerAliveEndpoint = (endpointURL) => {

@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import Constants from "../util/Constants";
 import Box from "@mui/material/Box";
 import Typography from "@mui/material/Typography";
 import Button from "@mui/material/Button";
@@ -60,7 +61,7 @@ const FileDropZone = () => {
 		formData.append("file", file);
 		axios
 			.post(
-				"https://riskguardredactor-backend-springboot-adxywvifka-el.a.run.app/riskguardredactor/redact",
+				`${Constants.VITE_BACKEND_SPRING_BOOT_BASE_URL}/riskguardredactor/redact`,
 				formData
 			)
 			.then((response) => {
@@ -187,7 +188,7 @@ const FileDropZone = () => {
 							Redaction complete!
 						</Typography>
 						<a
-							href={`https://riskguardredactor-backend-springboot-adxywvifka-el.a.run.app/fileurlhelper/fileyify?url=${redactedDocUrl}`}
+							href={`${Constants.VITE_BACKEND_SPRING_BOOT_BASE_URL}/fileurlhelper/fileyify?url=${redactedDocUrl}`}
 							download={file?.name}
 							target="_blank"
 						>
