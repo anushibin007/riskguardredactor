@@ -188,7 +188,7 @@ const FileDropZone = () => {
 							Redaction complete!
 						</Typography>
 						<a
-							href={`${Constants.VITE_BACKEND_SPRING_BOOT_BASE_URL}/fileurlhelper/fileyify?url=${redactedDocUrl}`}
+							href={`${Constants.VITE_BACKEND_SPRING_BOOT_BASE_URL}/fileurlhelper/riskguard-redactor-output?fileName=redacted-${file?.name}&url=${redactedDocUrl}`}
 							download={file?.name}
 							target="_blank"
 						>
