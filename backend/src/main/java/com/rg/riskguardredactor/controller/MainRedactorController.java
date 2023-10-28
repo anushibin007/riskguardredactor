@@ -54,60 +54,73 @@ public class MainRedactorController extends Constant {
 		if (file == null) {
 			return buildErrorResponse("Sorry, I did not receive a file");
 		}
+
 		if (fileUrlService.isFileTooLarge(file)) {
 			return buildErrorResponse("Sorry, file should not be larger than " + MAX_INPUT_FILE_SIZE_MB + "MB");
 		}
+
 		// 1.1 Send the file to Capture Service
 		// TODO: Dynamically find contentType
 		String contentType = MediaType.APPLICATION_PDF_VALUE;
 		String base64EncodedFile = fileUrlService.encodeFileToBase64(file);
 		SessionFilesPost201Response postResponse = capture.sessionFilesPost(contentType, base64EncodedFile);
-		if (postResponse != null) {
-			String name = file.getName();
-			String value = postResponse.getId();
-			// 1.2 Invoke OCR processing
-			SessionServicesFullpageocrPost200Response versionData = capture.sessionServicesFullpageocrPost(name, value,
-					contentType);
-			File ocrFile = null;
-			if (versionData != null) {
-				String urlAsString = versionData.getResultItems().get(0).getFiles().get(0).getSrc();
-				ocrFile = fileUrlService.urlToTempFile(urlAsString);
-			} else {
-				return buildErrorResponse("OT2 OCR Failed");
-			}
-			// 2. Send the file to RiskGuard
-			List<String> processedContentResponse = riskGuard.processAndGetResults(file);
-			if (processedContentResponse == null) {
-				return buildErrorResponse("OT2 RiskGuard processing failed");
-			}
-			String riskyData = String.join(",", processedContentResponse);
-
-			// 3. Send the OCR-d file with RiskGuard data to Python Redactor
-			if (ocrFile != null) {
-				Map<String, String> formData = new HashMap<>();
-				formData.put("keywords", riskyData);
-				long startTime = System.currentTimeMillis();
-				log.debug("Redaction call started at: {}", startTime);
-				String jsonResponseFromPython = fileUrlService.postRequestWithFileInBody(redactServerUrl, formData,
-						ocrFile);
-				long endTime = System.currentTimeMillis();
-				log.debug("Redaction call ended at: {}", endTime);
-				log.debug("Redaction took: {}ms", ((endTime - startTime) / 1000));
-				if (jsonResponseFromPython == null) {
-					return buildErrorResponse("Python redactor gave null response");
-				}
-				PythonRedactResponseModel pythonRedactResponseModel = fileUrlService
-						.parseJsonToPythonRedactResponseModel(jsonResponseFromPython);
-
-				MainRedactionResponseModel response = new MainRedactionResponseModel();
-				response.setRedactedDocUrl(contentStorage.constructDownloadURL(pythonRedactResponseModel.getId()));
-				return ResponseEntity.ok(response);
-			} else {
-				return buildErrorResponse("Couldn't work with the OCR file");
-			}
-		} else {
-			return buildErrorResponse("Couldn't push file to OT2 Capture Service");
+		if (postResponse == null) {
+			return buildErrorResponse("Sorry, we couldn't push the file to the OT2 Capture Service");
 		}
+
+		// 1.2 Invoke OCR processing
+		String name = file.getName();
+		String id = postResponse.getId();
+		if (id == null) {
+			return buildErrorResponse("Sorry, the response from the OT2 Capture Service did not have an ID");
+		}
+		SessionServicesFullpageocrPost200Response versionData = capture.sessionServicesFullpageocrPost(name, id,
+				contentType);
+		if (versionData == null) {
+			return buildErrorResponse("Sorry, OT2 OCR processing failed");
+		}
+		String urlAsString = null;
+		try {
+			urlAsString = versionData.getResultItems().get(0).getFiles().get(0).getSrc();
+		} catch (NullPointerException npe) {
+			// ignore them here. If something goes wrong, we will take care in the next
+			// lines
+			log.error("NPE when trying to get url from OCR service : {}", npe.getMessage());
+		}
+		if (urlAsString == null) {
+			return buildErrorResponse("Sorry, we couldn't obtain an URL for the OCR file");
+		}
+		File ocrFile = fileUrlService.urlToTempFile(urlAsString);
+		if (ocrFile == null) {
+			return buildErrorResponse("Sorry, we couldn't work with the generated OCR file");
+		}
+
+		// 2. Send the file to RiskGuard
+		List<String> riskyDataAsStringArray = riskGuard.processAndGetResults(ocrFile);
+		if (riskyDataAsStringArray == null) {
+			return buildErrorResponse("Sorry, OT2 RiskGuard processing failed");
+		}
+
+		// 3. Send the OCR-d file with RiskGuard data to Python Redactor
+		String riskyData = String.join(",", riskyDataAsStringArray);
+		Map<String, String> formData = new HashMap<>();
+		formData.put("keywords", riskyData);
+		long startTime = System.currentTimeMillis();
+		log.debug("Redaction call started at: {}", startTime);
+		String jsonResponseFromPython = fileUrlService.postRequestWithFileInBody(redactServerUrl, formData, ocrFile);
+		long endTime = System.currentTimeMillis();
+		log.debug("Redaction call ended at: {}", endTime);
+		log.debug("Redaction took: {}s", ((endTime - startTime) / 1000));
+		if (jsonResponseFromPython == null) {
+			return buildErrorResponse("Sorry, the Python redactor gave a null response");
+		}
+		PythonRedactResponseModel pythonRedactResponseModel = fileUrlService
+				.parseJsonToPythonRedactResponseModel(jsonResponseFromPython);
+
+		MainRedactionResponseModel response = new MainRedactionResponseModel();
+		response.setRedactedDocUrl(contentStorage.constructDownloadURL(pythonRedactResponseModel.getId()));
+		return ResponseEntity.ok(response);
+
 	}
 
 	private ResponseEntity<MainRedactionResponseModel> buildErrorResponse(String errorMessage) {
