@@ -50,6 +50,11 @@ public class MainRedactorController extends Constant {
 	@ResponseBody
 	public ResponseEntity<MainRedactionResponseModel> redact(@RequestParam("file") MultipartFile multipartFile)
 			throws IllegalStateException, IOException {
+
+		// Record performance
+		long startTime = 0;
+		long endTime = 0;
+
 		File file = fileUrlService.multiPartToFile(multipartFile);
 		if (file == null) {
 			return buildErrorResponse("Sorry, I did not receive a file");
@@ -63,7 +68,12 @@ public class MainRedactorController extends Constant {
 		// TODO: Dynamically find contentType
 		String contentType = MediaType.APPLICATION_PDF_VALUE;
 		String base64EncodedFile = fileUrlService.encodeFileToBase64(file);
+
+		startTime = System.currentTimeMillis();
 		SessionFilesPost201Response postResponse = capture.sessionFilesPost(contentType, base64EncodedFile);
+		endTime = System.currentTimeMillis();
+		log.debug("Core Capture upload took: {}s", ((endTime - startTime) / 1000));
+
 		if (postResponse == null) {
 			return buildErrorResponse("Sorry, we couldn't push the file to the OT2 Capture Service");
 		}
@@ -74,8 +84,13 @@ public class MainRedactorController extends Constant {
 		if (id == null) {
 			return buildErrorResponse("Sorry, the response from the OT2 Capture Service did not have an ID");
 		}
+
+		startTime = System.currentTimeMillis();
 		SessionServicesFullpageocrPost200Response versionData = capture.sessionServicesFullpageocrPost(name, id,
 				contentType);
+		endTime = System.currentTimeMillis();
+		log.debug("OCR processing took: {}s", ((endTime - startTime) / 1000));
+
 		if (versionData == null) {
 			return buildErrorResponse("Sorry, OT2 OCR processing failed");
 		}
@@ -96,7 +111,11 @@ public class MainRedactorController extends Constant {
 		}
 
 		// 2. Send the file to RiskGuard
+		startTime = System.currentTimeMillis();
 		List<String> riskyDataAsStringArray = riskGuard.processAndGetResults(ocrFile);
+		endTime = System.currentTimeMillis();
+		log.debug("RiskGuard processing took: {}s", ((endTime - startTime) / 1000));
+
 		if (riskyDataAsStringArray == null) {
 			return buildErrorResponse("Sorry, OT2 RiskGuard processing failed");
 		}
@@ -105,12 +124,12 @@ public class MainRedactorController extends Constant {
 		String riskyData = String.join(",", riskyDataAsStringArray);
 		Map<String, String> formData = new HashMap<>();
 		formData.put("keywords", riskyData);
-		long startTime = System.currentTimeMillis();
-		log.debug("Redaction call started at: {}", startTime);
+
+		startTime = System.currentTimeMillis();
 		String jsonResponseFromPython = fileUrlService.postRequestWithFileInBody(redactServerUrl, formData, ocrFile);
-		long endTime = System.currentTimeMillis();
-		log.debug("Redaction call ended at: {}", endTime);
+		endTime = System.currentTimeMillis();
 		log.debug("Redaction took: {}s", ((endTime - startTime) / 1000));
+
 		if (jsonResponseFromPython == null) {
 			return buildErrorResponse("Sorry, the Python redactor gave a null response");
 		}
