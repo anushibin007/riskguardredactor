@@ -246,6 +246,8 @@ public class OT2CoreCaptureService extends Constant {
 
 		ApiClient defaultClient = Configuration.getDefaultApiClient();
 		defaultClient.setBasePath(OT2_CORECAPTURE_BASE_URL);
+		// wait for infinite time for the processing to complete
+		defaultClient.setReadTimeout(0);
 
 		HttpBearerAuth bearer = (HttpBearerAuth) defaultClient.getAuthentication("na-1-dev.api.opentext.com");
 		bearer.setBearerToken(bearerToken);

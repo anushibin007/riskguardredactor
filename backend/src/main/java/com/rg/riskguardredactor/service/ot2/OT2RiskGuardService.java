@@ -123,6 +123,8 @@ public class OT2RiskGuardService extends Constant {
 
 		ApiClient defaultClient = Configuration.getDefaultApiClient();
 		defaultClient.setBasePath(OT2_RISKGUARD_BASE_URL);
+		// wait for infinite time for the processing to complete
+		defaultClient.setReadTimeout(0);
 
 		HttpBearerAuth bearer = (HttpBearerAuth) defaultClient.getAuthentication("Bearer");
 		bearer.setBearerToken(bearerToken);

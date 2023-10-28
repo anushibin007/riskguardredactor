@@ -156,6 +156,8 @@ public class OT2ContentStorageService extends Constant {
 	private ApiClient getClient() {
 		ApiClient defaultClient = Configuration.getDefaultApiClient();
 		defaultClient.setBasePath(OT2_CONTENTSTORAGE_BASE_URL);
+		// wait for infinite time for the processing to complete
+		defaultClient.setReadTimeout(0);
 		HttpBearerAuth bearerAuth = (HttpBearerAuth) defaultClient.getAuthentication("css.na-1-dev.api.opentext.com");
 		bearerAuth.setBearerToken(authService.getBearerToken());
 		return defaultClient;
