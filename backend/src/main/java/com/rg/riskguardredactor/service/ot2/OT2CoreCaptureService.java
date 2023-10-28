@@ -119,20 +119,20 @@ public class OT2CoreCaptureService extends Constant {
 	 * 
 	 * @param name        name of the file. This could be anything. Like
 	 *                    "lab-report.pdf"
-	 * @param value       The ID of the file that looks like
+	 * @param id          The ID of the file that looks like
 	 *                    "F_a9c80d03fb62455b84b774cb2e991cfcPDF"
 	 * @param contentType the mime type of the file that looks like
 	 *                    "application/pdf"
 	 * @return
 	 */
-	public SessionServicesFullpageocrPost200Response sessionServicesFullpageocrPost(String name, String value,
+	public SessionServicesFullpageocrPost200Response sessionServicesFullpageocrPost(String name, String id,
 			String contentType) {
 
 		ApiClient defaultClient = getApiClient();
 		RealTimeServicesApi apiInstance = new RealTimeServicesApi(defaultClient);
 
 		try {
-			ServicesRequestBody servicesRequestBody = getServiceRequestBodyForOCRRequest(name, value, contentType);
+			ServicesRequestBody servicesRequestBody = getServiceRequestBodyForOCRRequest(name, id, contentType);
 
 			SessionServicesFullpageocrPost200Response result = apiInstance
 					.sessionServicesFullpageocrPost(servicesRequestBody);
