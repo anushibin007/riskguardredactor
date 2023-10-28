@@ -1,8 +1,10 @@
 import { useState } from "react";
 import { ThemeProvider } from "@mui/material/styles";
-import { AppBar, Button, CssBaseline, Typography, Toolbar, Container } from "@mui/material";
+import { AppBar, IconButton, CssBaseline, Typography, Toolbar, Container } from "@mui/material";
 import { createTheme } from "@mui/material/styles";
 import FileDropZone from "./FileDropZone";
+import DarkModeIcon from "@mui/icons-material/DarkMode";
+import LightModeIcon from "@mui/icons-material/LightMode";
 
 const CustomMain = () => {
 	const [darkMode, setDarkMode] = useState(false);
@@ -26,9 +28,10 @@ const CustomMain = () => {
 						<Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
 							RiskGuard Redactor
 						</Typography>
-						<Button color="inherit" onClick={toggleDarkMode}>
-							{darkMode ? "Light Mode" : "Dark Mode"}
-						</Button>
+						<IconButton color="inherit" onClick={toggleDarkMode}>
+							{darkMode && <LightModeIcon />}
+							{!darkMode && <DarkModeIcon />}
+						</IconButton>
 					</Toolbar>
 				</AppBar>
 				<Container
