@@ -74,10 +74,11 @@ const FileDropZone = () => {
 				setAxiosInProgress(false);
 			})
 			.catch((err) => {
-				toast.error(`An error occured: ${err}`);
 				const errorFromServer = err?.response?.data?.errorMessage;
 				if (errorFromServer) {
-					toast.error(`Error from Server: ${errorFromServer}`);
+					toast.error(`${errorFromServer}`);
+				} else {
+					toast.error(`An error occured: ${err}`);
 				}
 				setAxiosInProgress(false);
 			});
