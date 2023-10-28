@@ -1,5 +1,6 @@
 package com.rg.riskguardredactor.service.ot2;
 
+import java.io.File;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -9,6 +10,9 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.JsonMappingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.ot2.corecapture.api.FilesApi;
 import com.ot2.corecapture.api.HomeApi;
 import com.ot2.corecapture.api.RealTimeServicesApi;
@@ -26,7 +30,9 @@ import com.ot2.corecapture.model.ServicesRequestBodyServicePropsInner;
 import com.ot2.corecapture.model.ServicesRequestBodyServicePropsInnerValue;
 import com.ot2.corecapture.model.SessionFilesPost201Response;
 import com.ot2.corecapture.model.SessionServicesFullpageocrPost200Response;
+import com.rg.riskguardredactor.service.ot2.util.FIleUrlHelperService;
 import com.rg.riskguardredactor.util.Constant;
+import com.rg.riskguardredactor.util.JSONTools;
 
 @Service
 public class OT2CoreCaptureService extends Constant {
@@ -35,6 +41,9 @@ public class OT2CoreCaptureService extends Constant {
 
 	@Autowired
 	OT2AuthService authService;
+
+	@Autowired
+	FIleUrlHelperService fileUrlService;
 
 	public Get200Response rootGet() {
 		ApiClient defaultClient = getApiClient();
@@ -79,6 +88,30 @@ public class OT2CoreCaptureService extends Constant {
 		}
 
 		return null;
+	}
+
+	/**
+	 * @param contentType
+	 * @param file
+	 * @deprecated don't use this method because it doesn't return an ID in the
+	 *             response. Check
+	 *             https://forums.opentext.com/forums/developer/discussion/311910/upload-large-files-to-the-ot2-core-capture/
+	 *             for more details.
+	 * @return
+	 * @throws JsonMappingException
+	 * @throws JsonProcessingException
+	 */
+	public SessionFilesPost201Response sessionFilesPostFormData(String contentType, File file)
+			throws JsonMappingException, JsonProcessingException {
+
+		String jsonResponse = fileUrlService.postRequestWithFileInBody(
+				"https://na-1-dev.api.opentext.com/capture/cp-rest/v2/session/files", null, file);
+		ObjectMapper objectMapper = JSONTools.getObjectMapper();
+		SessionFilesPost201Response responseObj = objectMapper.readValue(jsonResponse,
+				SessionFilesPost201Response.class);
+		System.out.println("SessionFilesPost201Response jsonResponse = " + jsonResponse);
+		return responseObj;
+
 	}
 
 	/**
