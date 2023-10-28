@@ -112,16 +112,16 @@ public class MainRedactorController extends Constant {
 
 		// 2. Send the file to RiskGuard
 		startTime = System.currentTimeMillis();
-		List<String> riskyDataAsStringArray = riskGuard.processAndGetResults(ocrFile);
+		List<String> riskyDataAsList = riskGuard.processAndGetResults(ocrFile);
 		endTime = System.currentTimeMillis();
 		log.debug("RiskGuard processing took: {}s", ((endTime - startTime) / 1000));
 
-		if (riskyDataAsStringArray == null) {
+		if (riskyDataAsList == null) {
 			return buildErrorResponse("Sorry, OT2 RiskGuard processing failed");
 		}
 
 		// 3. Send the OCR-d file with RiskGuard data to Python Redactor
-		String riskyData = String.join(",", riskyDataAsStringArray);
+		String riskyData = String.join(",", riskyDataAsList);
 		Map<String, String> formData = new HashMap<>();
 		formData.put("keywords", riskyData);
 
@@ -138,6 +138,7 @@ public class MainRedactorController extends Constant {
 
 		MainRedactionResponseModel response = new MainRedactionResponseModel();
 		response.setRedactedDocUrl(contentStorage.constructDownloadURL(pythonRedactResponseModel.getId()));
+		response.setRiskyDataAsList(riskyDataAsList);
 		return ResponseEntity.ok(response);
 
 	}
