@@ -51,6 +51,12 @@ public class MainRedactorController extends Constant {
 	public ResponseEntity<MainRedactionResponseModel> redact(@RequestParam("file") MultipartFile multipartFile)
 			throws IllegalStateException, IOException {
 		File file = fileUrlService.multiPartToFile(multipartFile);
+		if (file == null) {
+			return buildErrorResponse("Sorry, I did not receive a file");
+		}
+		if (fileUrlService.isFileTooLarge(file)) {
+			return buildErrorResponse("Sorry, file should not be larger than " + MAX_INPUT_FILE_SIZE_MB + "MB");
+		}
 		// 1.1 Send the file to Capture Service
 		// TODO: Dynamically find contentType
 		String contentType = MediaType.APPLICATION_PDF_VALUE;

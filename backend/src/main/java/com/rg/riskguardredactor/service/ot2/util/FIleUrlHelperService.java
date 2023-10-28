@@ -30,10 +30,11 @@ import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.rg.riskguardredactor.controller.model.PythonRedactResponseModel;
 import com.rg.riskguardredactor.service.ot2.OT2AuthService;
+import com.rg.riskguardredactor.util.Constant;
 import com.rg.riskguardredactor.util.JSONTools;
 
 @Service
-public class FIleUrlHelperService {
+public class FIleUrlHelperService extends Constant {
 
 	private static Logger log = LoggerFactory.getLogger(FIleUrlHelperService.class);
 
@@ -95,6 +96,14 @@ public class FIleUrlHelperService {
 	public String encodeFileToBase64(File file) throws IOException {
 		byte[] fileContent = Files.readAllBytes(file.toPath());
 		return Base64.getEncoder().encodeToString(fileContent);
+	}
+
+	public boolean isFileTooLarge(File file) {
+		if (file == null) {
+			return false;
+		}
+		long maxInputFileSizeInMb = Long.parseLong(MAX_INPUT_FILE_SIZE_MB);
+		return file.length() > maxInputFileSizeInMb * 1024L /* KB */ * 1024L /* bytes */;
 	}
 
 	public String postRequestWithFileInBody(String url, Map<String, String> formData, File fileToUpload) {

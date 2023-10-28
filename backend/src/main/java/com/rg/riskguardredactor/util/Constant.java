@@ -37,4 +37,7 @@ public class Constant {
 	@Value("${redactServerUrl}")
 	public String redactServerUrl;
 
+	@Value("${MAX_INPUT_FILE_SIZE_MB}")
+	public String MAX_INPUT_FILE_SIZE_MB;
+
 }
