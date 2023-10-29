@@ -22,11 +22,14 @@ import com.ot2.corecapture.model.SessionFilesPost201Response;
 import com.ot2.corecapture.model.SessionServicesFullpageocrPost200Response;
 import com.rg.riskguardredactor.controller.model.MainRedactionResponseModel;
 import com.rg.riskguardredactor.controller.model.PythonRedactResponseModel;
+import com.rg.riskguardredactor.db.model.ProcessStatusModel;
+import com.rg.riskguardredactor.service.db.DocumentStateService;
 import com.rg.riskguardredactor.service.ot2.OT2ContentStorageService;
 import com.rg.riskguardredactor.service.ot2.OT2CoreCaptureService;
 import com.rg.riskguardredactor.service.ot2.OT2RiskGuardService;
 import com.rg.riskguardredactor.service.ot2.util.FIleUrlHelperService;
 import com.rg.riskguardredactor.util.Constant;
+import com.rg.riskguardredactor.util.Sha256Helper;
 
 @RestController
 @RequestMapping("/riskguardredactor")
@@ -45,6 +48,12 @@ public class MainRedactorController extends Constant {
 
 	@Autowired
 	FIleUrlHelperService fileUrlService;
+
+	@Autowired
+	Sha256Helper sha256Service;
+
+	@Autowired
+	DocumentStateService docStateService;
 
 	@PostMapping("/redact")
 	@ResponseBody
@@ -69,12 +78,18 @@ public class MainRedactorController extends Constant {
 		String contentType = MediaType.APPLICATION_PDF_VALUE;
 		String base64EncodedFile = fileUrlService.encodeFileToBase64(file);
 
+		String sha256 = sha256Service.toSha256(base64EncodedFile);
+
 		startTime = System.currentTimeMillis();
 		SessionFilesPost201Response postResponse = capture.sessionFilesPost(contentType, base64EncodedFile);
 		endTime = System.currentTimeMillis();
 		log.debug("Core Capture upload took: {}s", ((endTime - startTime) / 1000));
-
+		ProcessStatusModel coreCaptureStatus = new ProcessStatusModel();
+		coreCaptureStatus.setStatus("COMPLETE");
+		coreCaptureStatus.setTimeTaken(endTime - startTime);
 		if (postResponse == null) {
+			coreCaptureStatus.setStatus("ERROR");
+			coreCaptureStatus.setErrorMessage("Couldn't push the file to the OT2 Capture Service");
 			return buildErrorResponse("Sorry, we couldn't push the file to the OT2 Capture Service");
 		}
 
@@ -82,8 +97,13 @@ public class MainRedactorController extends Constant {
 		String name = file.getName();
 		String id = postResponse.getId();
 		if (id == null) {
+			coreCaptureStatus.setStatus("ERROR");
+			coreCaptureStatus.setErrorMessage("The response from the OT2 Capture Service did not have an ID");
 			return buildErrorResponse("Sorry, the response from the OT2 Capture Service did not have an ID");
+		} else {
+			coreCaptureStatus.setResult(id);
 		}
+		docStateService.setCoreCaptureStatus(sha256, coreCaptureStatus);
 
 		startTime = System.currentTimeMillis();
 		SessionServicesFullpageocrPost200Response versionData = capture.sessionServicesFullpageocrPost(name, id,
@@ -137,8 +157,12 @@ public class MainRedactorController extends Constant {
 		PythonRedactResponseModel pythonRedactResponseModel = fileUrlService
 				.parseJsonToPythonRedactResponseModel(jsonResponseFromPython);
 
+		String redactedDocUrl = contentStorage.constructDownloadURL(pythonRedactResponseModel.getId());
+
+		docStateService.setRedactedUrl(sha256, redactedDocUrl);
+
 		MainRedactionResponseModel response = new MainRedactionResponseModel();
-		response.setRedactedDocUrl(contentStorage.constructDownloadURL(pythonRedactResponseModel.getId()));
+		response.setRedactedDocUrl(redactedDocUrl);
 		response.setRiskyDataAsList(riskyDataAsList);
 		return ResponseEntity.ok(response);
 
