@@ -102,5 +102,17 @@ def redact_keywords():
         print("CSS Endpoint didn't return 200. Expecting that the request failed, returning 500")
         return "Failed to upload the redacted PDF to the content storage API", 500
 
+@app.route('/alive', methods=['GET'])
+def alive_endpoint():
+    return {
+            "action": "alive",
+            "result": {
+                "state": "done",
+                "message": "alive"
+            },
+            "timestamp": time.time()
+        }
+
+
 if __name__ == '__main__':
     app.run(host="0.0.0.0", debug=True)
