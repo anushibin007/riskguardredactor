@@ -17,6 +17,7 @@ const FileDropZone = () => {
 	const [redactButtonEnabled, setRedactButtonEnabled] = useState(false);
 	const [redactedDocUrl, setRedactedDocUrl] = useState(undefined);
 	const [axiosInProgress, setAxiosInProgress] = useState(false);
+	const [dragging, setDragging] = useState(false);
 
 	useEffect(() => {
 		if (axiosInProgress) {
@@ -35,8 +36,19 @@ const FileDropZone = () => {
 		}
 	};
 
+	const handleDragEnter = (e) => {
+		e.preventDefault();
+		setDragging(true);
+	};
+
+	const handleDragLeave = (e) => {
+		e.preventDefault();
+		setDragging(false);
+	};
+
 	const handleDrop = (e) => {
 		e.preventDefault();
+		setDragging(false);
 		const droppedFile = e.dataTransfer.files[0];
 
 		if (droppedFile && droppedFile.type === "application/pdf") {
@@ -49,6 +61,10 @@ const FileDropZone = () => {
 
 	const handleDragOver = (e) => {
 		e.preventDefault();
+	};
+
+	const handleDropZoneClick = () => {
+		document.getElementById("fileInput").click();
 	};
 
 	const handleRedactButtonClick = () => {
@@ -98,15 +114,19 @@ const FileDropZone = () => {
 						<Box
 							border={2}
 							borderRadius="borderRadius"
-							borderColor="primary.main"
+							borderColor={dragging ? "success.main" : "primary.main"}
 							padding={2}
 							onDrop={handleDrop}
 							onDragOver={handleDragOver}
+							onDragEnter = {handleDragEnter}
+							onDragLeave={handleDragLeave}
+							onClick={handleDropZoneClick}
 							style={{
 								cursor: "pointer",
 								width: "auto",
-								height: "200px",
-								border: "1px dashed",
+								height: dragging ? "300px" : "200px",
+								border: dragging ? "2px solid green" : "1px dashed",
+								transition: "all 0.3 ease",
 							}}
 						>
 							<div style={{ padding: "40px" }}>
