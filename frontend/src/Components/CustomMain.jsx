@@ -1,6 +1,7 @@
 import { Container } from "@mui/material";
 import FileDropZone from "./FileDropZone";
 import NavBar from "./NavBar";
+import CustomFooter from "./CustomFooter";
 
 const CustomMain = (props) => {
 	const { darkMode, setDarkMode } = props;
@@ -17,6 +18,7 @@ const CustomMain = (props) => {
 				}}
 			>
 				<FileDropZone />
+				<CustomFooter darkMode={darkMode} setDarkMode={setDarkMode}/>
 			</Container>
 		</div>
 	);
