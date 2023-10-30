@@ -51,22 +51,13 @@ function CustomFooter(props) {
 					width: "100%",
 					backgroundColor: darkMode ? "black" : "#f5f5f5",
 					padding: "10px",
-					textAlign: "center",
+					textAlign: "right",
 				}}
 			>
 				<Typography variant="body2" color="textSecondary">
-					Powered by OT2
+					Powered by OpenText Cloud
 				</Typography>
-				<Button variant="text" onClick={handleOpenModal} style={{ margin: "0 10px" }}>
-					About Us
-				</Button>
-				<Button
-					variant="text"
-					href="https://github.com/anushibin007/riskguardredactor"
-					target="_blank"
-				>
-					GitHub Fork
-				</Button>
+			
 			</footer>
 			<div>
 				<Modal
