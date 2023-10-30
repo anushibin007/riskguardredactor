@@ -18,6 +18,7 @@ const FileDropZone = () => {
 	const [redactedDocUrl, setRedactedDocUrl] = useState(undefined);
 	const [axiosInProgress, setAxiosInProgress] = useState(false);
 	const [dragging, setDragging] = useState(false);
+	const [currentStatementIndex, setCurrentStatementIndex] = useState(0);
 
 	useEffect(() => {
 		if (axiosInProgress) {
@@ -72,6 +73,18 @@ const FileDropZone = () => {
 		setAxiosInProgress(true);
 	};
 
+	const statements = [
+		"Your file is checked for sensitive information",
+		"Your file is being redacted",
+		"Your file is being pushed to Content Server",
+	];
+	useEffect(() => {
+		const interval = setInterval(() => {
+			setCurrentStatementIndex((prevIndex) => (prevIndex + 1) % statements.length);
+		}, 3000);
+		return () => clearInterval(interval);
+	}, []);
+
 	const makeRedactionCallToBackend = () => {
 		const formData = new FormData();
 		formData.append("file", file);
@@ -118,7 +131,7 @@ const FileDropZone = () => {
 							padding={2}
 							onDrop={handleDrop}
 							onDragOver={handleDragOver}
-							onDragEnter = {handleDragEnter}
+							onDragEnter={handleDragEnter}
 							onDragLeave={handleDragLeave}
 							onClick={handleDropZoneClick}
 							style={{
@@ -166,23 +179,25 @@ const FileDropZone = () => {
 						<Typography variant="body1" color="textPrimary">
 							Selected File: {file.name}
 						</Typography>
-						<Button
-							variant="contained"
-							disabled={!redactButtonEnabled}
-							color="primary"
-							onClick={handleRedactButtonClick}
-							sx={{ mt: 4, mx: 4 }}
-							endIcon={<KeyIcon />}
-						>
-							Redact
-						</Button>
+						<div style={{ marginTop: "20px" }}>
+							<Button
+								variant="contained"
+								disabled={!redactButtonEnabled}
+								color="primary"
+								onClick={handleRedactButtonClick}
+								endIcon={<KeyIcon />}
+								style={{ marginBottom: "10px", width: "150px" }}
+							>
+								Redact
+							</Button>
+						</div>
 						<Button
 							variant="contained"
 							disabled={!redactButtonEnabled}
 							color="secondary"
 							onClick={handleClearSelectionButtonClick}
 							endIcon={<ClearIcon />}
-							sx={{ mt: 4, mx: 4 }}
+							style={{ width: "150px" }}
 						>
 							Clear
 						</Button>
@@ -195,7 +210,7 @@ const FileDropZone = () => {
 				axiosInProgress && (
 					<>
 						<Typography variant="body1" color="textPrimary">
-							Please wait while your document is getting redacted
+							{statements[currentStatementIndex]}
 						</Typography>
 						<LinearProgress sx={{ mt: 2 }} />
 					</>
