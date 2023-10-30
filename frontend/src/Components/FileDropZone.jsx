@@ -39,16 +39,19 @@ const FileDropZone = () => {
 
 	const handleDragEnter = (e) => {
 		e.preventDefault();
+		e.stopPropagation();
 		setDragging(true);
 	};
 
 	const handleDragLeave = (e) => {
 		e.preventDefault();
+		e.stopPropagation();
 		setDragging(false);
 	};
 
 	const handleDrop = (e) => {
 		e.preventDefault();
+		e.stopPropagation();
 		setDragging(false);
 		const droppedFile = e.dataTransfer.files[0];
 
@@ -137,18 +140,18 @@ const FileDropZone = () => {
 							style={{
 								cursor: "pointer",
 								width: "auto",
-								height: dragging ? "300px" : "200px",
+								height: dragging ? "400px" : "250px",
 								border: dragging ? "2px solid green" : "1px dashed",
-								transition: "all 0.3 ease",
+								transition: "all 0.3s",
 							}}
 						>
 							<div style={{ padding: "40px" }}>
-								<Typography variant="h6" color="primary" gutterBottom>
-									Drag and Drop a PDF File Here
-								</Typography>
-								<Typography variant="body2" color="textSecondary">
-									or
-								</Typography>
+										<Typography variant="h6" color={dragging ?  "green" : "primary"} gutterBottom>
+											Drag and Drop a PDF File Below
+										</Typography>
+										<Typography variant="body2" color="textSecondary" style={{ display: dragging ? "none" : "" }}>
+											or
+										</Typography>
 								<input
 									type="file"
 									accept=".pdf"
@@ -162,6 +165,7 @@ const FileDropZone = () => {
 										component="span"
 										endIcon={<CloudUploadIcon />}
 										color="primary"
+										style={{ display: dragging ? "none" : "" }}
 									>
 										Browse
 									</Button>
