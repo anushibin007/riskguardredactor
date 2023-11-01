@@ -159,7 +159,7 @@ const FileDropZone = () => {
 									style={{ display: "none" }}
 									id="fileInput"
 								/>
-								<label htmlFor="fileInput">
+								<label >
 									<Button
 										variant="contained"
 										component="span"
@@ -196,7 +196,7 @@ const FileDropZone = () => {
 							</Button>
 						</div>
 						<Button
-							variant="contained"
+							variant="outlined"
 							disabled={!redactButtonEnabled}
 							color="secondary"
 							onClick={handleClearSelectionButtonClick}
@@ -243,7 +243,7 @@ const FileDropZone = () => {
 							</Button>
 						</a>
 						<Button
-							variant="contained"
+							variant="outlined"
 							disabled={!redactButtonEnabled}
 							color="secondary"
 							onClick={handleClearSelectionButtonClick}

@@ -7,10 +7,20 @@ const NavBar = (props) => {
 		<AppBar position="static" color="primary">
 			<Toolbar>
 				<Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
-					RiskGuard Redactor
-					<Typography variant="body2" sx={{ flexGrow: 1 }}>
-					AI powered document redactor
-				</Typography>
+					<a
+						href="https://riskguard-redactor.web.app/"
+						style={{ color: "inherit", textDecoration: "none" }}
+					>
+						RiskGuard Redactor
+					</a>
+					<Typography variant="body2" sx={{ flexGrow: 1, fontSize: "10px"}}>
+						<a
+							href="https://riskguard-redactor.web.app/"
+							style={{ color: "inherit", textDecoration: "none" }}
+						>
+							AI powered document redactor
+						</a>
+					</Typography>
 				</Typography>
 				<DarkModeButton darkMode={darkMode} setDarkMode={setDarkMode} />
 			</Toolbar>
