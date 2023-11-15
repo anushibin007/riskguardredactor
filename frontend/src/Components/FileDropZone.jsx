@@ -77,14 +77,14 @@ const FileDropZone = () => {
 	};
 
 	const statements = [
-		"Your file is checked for sensitive information",
+		"Your file is being checked for sensitive information",
 		"Your file is being redacted",
 		"Your file is being pushed to Content Server",
 	];
 	useEffect(() => {
 		const interval = setInterval(() => {
 			setCurrentStatementIndex((prevIndex) => (prevIndex + 1) % statements.length);
-		}, 3000);
+		}, 8000);
 		return () => clearInterval(interval);
 	}, []);
 
