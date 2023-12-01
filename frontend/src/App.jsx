@@ -7,6 +7,7 @@ import Admin from "./Components/Admin";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import BackendTrigger from "./Components/BackendTrigger";
+import FirebaseAnalytics from "./Components/FirebaseAnalytics";
 
 function App() {
 	const [darkMode, setDarkMode] = useState(localStorage.getItem("darkMode") === "true");
@@ -37,6 +38,7 @@ function App() {
 			<ThemeProvider theme={theme}>
 				<CssBaseline />
 				<RouterProvider router={router} />
+				<FirebaseAnalytics />
 				<BackendTrigger />
 				<ToastContainer
 					position="bottom-right"
